@@ -5,7 +5,7 @@ import {
 	BoxGeometry,
 	MeshBasicMaterial,
 	Mesh,
-} from '../deps/three/src/Three.js';
+} from 'three';
 
 export default function createHelloScene() {
 	const scene = new Scene();
@@ -21,7 +21,7 @@ export default function createHelloScene() {
 	document.body.appendChild(renderer.domElement);
 
 	const geometry = new BoxGeometry(1, 1, 1);
-	const material = new MeshBasicMaterial({ color: 0xff0000 });
+	const material = new MeshBasicMaterial({ color: 0x0000ff });
 	const cube = new Mesh(geometry, material);
 	scene.add(cube);
 

@@ -14,9 +14,7 @@
 		"dist": "electron-builder --win portable",
 		"prepush": "npm run lint",
 		"precommit": "lint-staged",
-		"lint": "node node_modules/eslint/bin/eslint.js",
-		"//": "poniżej kupiuję three do katalogu ze zródłami, bo inaczej nie trafia do builda",
-		"copyThree": "move node_modules/three src/deps/"
+		"lint": "node node_modules/eslint/bin/eslint.js"
 	},
 	"lint-staged": {
 		"*.js": [
@@ -25,6 +23,9 @@
 	},
 	"license": "",
 	"homepage": "",
+	"dependencies": {
+		"three": "^0.163.0"
+	},
 	"devDependencies": {
 		"electron": "^29.1.6",
 		"electron-builder": "^24.13.3",
@@ -34,7 +35,6 @@
 		"eslint-plugin-jsx-control-statements": "2.2.1",
 		"eslint-plugin-local-rules": "1.1.0",
 		"eslint-plugin-react": "7.25.1",
-		"eslint-plugin-react-perf": "3.3.0",
-		"three": "^0.163.0"
+		"eslint-plugin-react-perf": "3.3.0"
 	}
 }
