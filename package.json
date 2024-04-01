@@ -1,0 +1,40 @@
+{
+	"name": "tornadot",
+	"version": "1.0.0",
+	"description": "small engine: electron+three",
+	"main": "main.js",
+	"author": "kraju",
+	"engines": {
+		"node": ">=18.4.0",
+		"npm": ">=8.12.1"
+	},
+	"scripts": {
+		"//": "start odpala w elektronie, ale można to odpalić bezpośrednio w przeglądarce",
+		"start": "electron .",
+		"dist": "electron-builder --win portable",
+		"prepush": "npm run lint",
+		"precommit": "lint-staged",
+		"lint": "node node_modules/eslint/bin/eslint.js",
+		"//": "poniżej kupiuję three do katalogu ze zródłami, bo inaczej nie trafia do builda",
+		"copyThree": "move node_modules/three src/deps/"
+	},
+	"lint-staged": {
+		"*.js": [
+			"eslint"
+		]
+	},
+	"license": "",
+	"homepage": "",
+	"devDependencies": {
+		"electron": "^29.1.6",
+		"electron-builder": "^24.13.3",
+		"eslint": "7.32.0",
+		"eslint-config-airbnb": "18.2.1",
+		"eslint-config-standard-preact": "1.1.6",
+		"eslint-plugin-jsx-control-statements": "2.2.1",
+		"eslint-plugin-local-rules": "1.1.0",
+		"eslint-plugin-react": "7.25.1",
+		"eslint-plugin-react-perf": "3.3.0",
+		"three": "^0.163.0"
+	}
+}

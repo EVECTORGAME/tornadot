@@ -1,0 +1,121 @@
+{
+    "plugins": [
+        "jsx-control-statements",
+        "react-perf"
+    ],
+    "globals": {
+        "window": "readonly",
+        "document": "readonly"
+    },
+    "extends": [
+        "airbnb/base",
+        "standard-preact",
+        "plugin:jsx-control-statements/recommended",
+        "plugin:react-perf/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "modules": true
+        }
+    },
+    "rules": {
+        "no-undef": "error",
+        "no-undef-init": "error",
+        "no-underscore-dangle": "off",
+        "class-methods-use-this": "off",
+        "guard-for-in": "off",
+        "consistent-return": "off",
+        "prefer-spread": "off",
+        "global-require": "off",
+        "object-property-newline": ["error", {
+            'allowAllPropertiesOnSameLine': true,
+            'allowMultiplePropertiesPerLine': false
+        }],
+        "import/no-named-as-default": "off",
+        "arrow-body-style": "off",
+        "no-plusplus": "off",
+        "no-prototype-builtins": "off",
+        "import/prefer-default-export": "off",
+        "linebreak-style": ["error", "windows"],
+        "no-restricted-syntax": "off",
+        "indent": ["error", 'tab', {
+            "SwitchCase": 1,
+            "flatTernaryExpressions": true
+        }],
+        "import/no-extraneous-dependencies": "off",
+        "no-var": 2,
+        "newline-before-return": "warn",
+        "operator-linebreak": ["warn", "before"],
+        "no-multiple-empty-lines": ["error", { "max": 1 }],
+        "import/order": ["warn", {
+            "newlines-between": "never",
+            "groups": [
+                "builtin",
+                "external",
+                "internal",
+                "parent",
+                "sibling",
+                "index"
+            ]
+        }],
+        "comma-dangle": ["warn", {
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "always-multiline",
+            "exports": "always-multiline",
+            "functions": "always-multiline"
+        }],
+        "max-len": ["warn", {
+            "code": 140,
+            "ignoreTrailingComments": true,
+            "ignoreUrls": true
+        }],
+        "no-tabs": "off",
+        "no-continue": "off",
+        "react/jsx-indent": ["warn", 4],
+        "react/jsx-indent-props": ["warn", 4],
+        "react/jsx-tag-spacing": "off",
+        "jsx-control-statements/jsx-jcs-no-undef": "off",
+        "jsx-quotes": ["warn", "prefer-double"],
+        "complexity": ["warn", { "max": 20 }],
+        "max-depth": ["warn", { "max": 5 }],
+        "react-perf/jsx-no-new-function-as-prop": "off",
+        "react-perf/jsx-no-new-array-as-prop": "warn",
+        "react-perf/jsx-no-new-object-as-prop": "off",
+        "react/jsx-no-bind": "off",
+        "react/jsx-no-undef": ["error", { "allowGlobals": true }],
+        "eol-last": ["warn", "always"],
+        "newline-per-chained-call": "off",
+        "function-paren-newline": "off",
+        "arrow-parens": ["error", "as-needed", {
+            "requireForBlockBody": true
+        }],
+        "no-nested-ternary": "off",
+        "prefer-destructuring": ["warn", {
+            "object": true,
+            "array": false
+        }],
+        "space-unary-ops": ["warn", {
+            "words": true,
+            "nonwords": false
+        }],
+        "object-curly-newline": "off",
+        "no-else-return": ["error", {
+            "allowElseIf": true
+        }],
+        "prefer-promise-reject-errors": "off",
+        "import/no-named-as-default-member": "off",
+        "lines-between-class-members": ["error", "always", {
+            "exceptAfterSingleLine": true
+        }],
+        "no-param-reassign": [
+            "error",
+            {
+                "ignorePropertyModificationsFor": ["stack"]
+            }
+        ],
+        "no-await-in-loop": "off"
+    }
+}
