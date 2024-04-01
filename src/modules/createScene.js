@@ -2,28 +2,20 @@ import {
 	Scene,
 	PerspectiveCamera,
 	WebGLRenderer,
-	BoxGeometry,
-	MeshBasicMaterial,
-	Mesh,
 } from 'three';
 
-export default function createHelloScene() {
+export default function createScene() {
 	const scene = new Scene();
 	const camera = new PerspectiveCamera(
-		75,
-		window.innerWidth / window.innerHeight,
-		0.1,
-		1000,
+		75, // fov
+		window.innerWidth / window.innerHeight, // aspectRatio
+		0.1, // camera frustum near plane.
+		1000, // camera frustum near plane.
 	);
 
 	const renderer = new WebGLRenderer();
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
-
-	const geometry = new BoxGeometry(1, 1, 1);
-	const material = new MeshBasicMaterial({ color: 0x0000ff });
-	const cube = new Mesh(geometry, material);
-	scene.add(cube);
 
 	camera.position.z = 5;
 
@@ -34,4 +26,6 @@ export default function createHelloScene() {
 	}
 
 	animate();
+
+	return [scene, {}];
 }

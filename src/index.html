@@ -21,10 +21,14 @@
 			}
 		</script>
 		<script type="module">
-			import createHelloScene from "./modules/createHelloScene.js";
+			import createScene from "./modules/createScene.js";
+			import createPlayer from "./modules/createPlayer.js";
 
 			document.addEventListener("DOMContentLoaded", async (event) => {
-				createHelloScene();
+				const [scene] = createScene();
+				const [player] = createPlayer();
+
+				scene.add(player);
 			});
 		</script>
 	</head>
