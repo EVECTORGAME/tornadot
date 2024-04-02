@@ -43,7 +43,6 @@ export default function createScene() {
 		add(entity) {
 			entities.push(entity);
 			scene.add(entity.model);
-			// chronos.add(entity);
 		},
 		render() {
 			renderer.render(scene, camera);
