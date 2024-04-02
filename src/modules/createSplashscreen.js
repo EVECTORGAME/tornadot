@@ -3,7 +3,7 @@ import utilCreateDefer from '../utils/utilCreateDefer.js';
 import utilAddMarginToFactor from '../utils/utilAddMarginToFactor.js';
 import createChronos from './createChronos.js';
 
-export default function createSplashscreen({ keyboardIntegrator }) {
+export default function createSplashscreen({ keyboardIntegrator, shouldSkipIntro = false }) {
 	const splashscreenElement = document.getElementById('splashscreen');
 	const continueElement = splashscreenElement.querySelector('.continue');
 
@@ -20,6 +20,10 @@ export default function createSplashscreen({ keyboardIntegrator }) {
 			pressAnyKeyResolve();
 		}
 	}, { initialDelayMilliseconds: 1000 });
+
+	if (shouldSkipIntro) {
+		pressAnyKeyResolve();
+	}
 
 	return {
 		waitUntilUserPressedAnyKey() {

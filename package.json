@@ -2,7 +2,7 @@
 	"name": "tornadot",
 	"version": "1.0.0",
 	"description": "small engine: electron+three",
-	"main": "main.js",
+	"main": "main.cjs",
 	"author": "kraju",
 	"type": "module",
 	"engines": {
@@ -15,7 +15,8 @@
 		"dist": "electron-builder --win portable",
 		"prepush": "npm run lint",
 		"precommit": "lint-staged",
-		"lint": "node node_modules/eslint/bin/eslint.js"
+		"lint": "node node_modules/eslint/bin/eslint.js",
+		"tests": "node --experimental-vm-modules node_modules/jest/bin/jest.js src"
 	},
 	"lint-staged": {
 		"*.js": [

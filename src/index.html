@@ -1,5 +1,8 @@
 <html>
 	<head>
+		<!--
+			x, y, z === forward, up, right
+		-->
 		<link rel="stylesheet" href="styles/reset.css" />
 		<style type="text/css">
 			body {
@@ -29,11 +32,50 @@
 			import createLevelEnd from "./modules/createLevelEnd.js";
 			import createKeyboardIntegrator from "./modules/createKeyboardIntegrator.js";
 			import createChronos from './modules/createChronos.js';
+			import { CAMERA_POSITION_Z } from './config.js';
 
-			const COLOR_DARK = '#0C2233';
-			const COLOR_DARK_BLUE = '#065471';
-			const COLOR_LIGHT_BLUE = '#0A91AB';
-			const COLOR_ACCENT = '#FFC045';
+			function createLevel(levelNumber, { keyboardIntegrator }) {
+				const scene = createScene();
+				const player = createPlayer({});
+				const levelEnd = createLevelEnd({ x: 0, y: 0, z: 30 });
+				scene.add(player);
+				scene.add(levelEnd);
+
+				const chronos = createChronos((deltaTimeMilliseconds, timeMilliseconds) => {
+					scene.entities.forEach((entity) => {
+						if (entity === player) {
+							const { isLeftHolded, isRightHolded, isForwardHolded, isBackwardHolded } = keyboardIntegrator.current;
+							const isRotationPressed = isLeftHolded || isRightHolded;
+							if (isLeftHolded && isRightHolded) {
+								//
+							} else if (isLeftHolded) {
+								entity.model.rotation.y = entity.model.rotation.y + (deltaTimeMilliseconds * +0.005);
+							} else if (isRightHolded) {
+								entity.model.rotation.y = entity.model.rotation.y + (deltaTimeMilliseconds * -0.005);
+							}
+
+							if (isForwardHolded) {
+								scene.addPosionToObjectAtIndex(entity, deltaTimeMilliseconds * 0.01);
+							} else if (isBackwardHolded) {
+								scene.addPosionToObjectAtIndex(entity, deltaTimeMilliseconds * -0.005);
+							}
+						} else {
+							// move others
+						}
+					});
+
+					scene.camera.position.set(
+						player.model.position.x,
+						scene.camera.position.y,
+						player.model.position.z + CAMERA_POSITION_Z,
+					);
+
+					scene.render();
+				}, {
+					doInitialSyncCall: true,
+					initialDelayMilliseconds: 0,
+				});
+			}
 
 			document.addEventListener("DOMContentLoaded", async (event) => {
 				const favicon = createFavicon({ width: 16, height: 16 });
@@ -41,44 +83,14 @@
 
 				const splashscreen = createSplashscreen({
 					keyboardIntegrator,
+					shouldSkipIntro: true,
 				});
 
 				await splashscreen.waitUntilUserPressedAnyKey();
 
 				splashscreen.destroy();
 
-				const scene = createScene();
-				const player = createPlayer({});
-				const levelEnd = createLevelEnd({});
-				scene.add(player);
-				scene.add(levelEnd);
-
-				const chronos = createChronos((deltaTimeMilliseconds, timeMilliseconds) => {
-					scene.entities.forEach((entity) => {
-						if (entity === player) {
-							const { isLeftHolded, isRightHolded, isForwardHolded } = keyboardIntegrator.current;
-							const isRotationPressed = isLeftHolded || isRightHolded;
-							if (isLeftHolded && isRightHolded) {
-								//
-							} else if (isLeftHolded) {
-								entity.model.rotateY(deltaTimeMilliseconds * +0.005);
-							} else if (isRightHolded) {
-								entity.model.rotateY(deltaTimeMilliseconds * -0.005);
-							}
-
-							if (isForwardHolded) {
-								entity.model.translateZ(deltaTimeMilliseconds * 0.01);
-							}
-						} else {
-							// move others
-						}
-					});
-
-					scene.render();
-				}, {
-					doInitialSyncCall: true,
-					initialDelayMilliseconds: 0,
-				});
+				createLevel(1, { keyboardIntegrator });
 			});
 		</script>
 	</head>

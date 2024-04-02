@@ -29,7 +29,7 @@ export default function createKeyboardIntegrator() {
 		isLeft: 'isLeftHolded',
 		isRight: 'isRightHolded',
 		isForward: 'isForwardHolded',
-		// isBackward: 'isBackwardHolded',
+		isBackward: 'isBackwardHolded',
 		// isAction: 'isActionHolded',
 		// isCancel: 'isCancelHolded',
 	};
@@ -38,6 +38,7 @@ export default function createKeyboardIntegrator() {
 		isForwardHolded: false,
 		isLeftHolded: false,
 		isRightHolded: false,
+		isBackwardHolded: false,
 	};
 
 	let anyKeyResolvers;
