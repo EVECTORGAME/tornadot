@@ -1,7 +1,7 @@
 {
     "plugins": [
-        "jsx-control-statements",
-        "react-perf"
+        // "jsx-control-statements",
+        // "react-perf"
     ],
     "globals": {
         "window": "readonly",
@@ -9,9 +9,9 @@
     },
     "extends": [
         "airbnb/base",
-        "standard-preact",
-        "plugin:jsx-control-statements/recommended",
-        "plugin:react-perf/recommended"
+        // "standard-preact",
+        // "plugin:jsx-control-statements/recommended",
+        // "plugin:react-perf/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": 2020,
@@ -74,18 +74,18 @@
         }],
         "no-tabs": "off",
         "no-continue": "off",
-        "react/jsx-indent": ["warn", 4],
-        "react/jsx-indent-props": ["warn", 4],
+        // "react/jsx-indent": ["warn", 4],
+        // "react/jsx-indent-props": ["warn", 4],
         "react/jsx-tag-spacing": "off",
         "jsx-control-statements/jsx-jcs-no-undef": "off",
         "jsx-quotes": ["warn", "prefer-double"],
         "complexity": ["warn", { "max": 20 }],
         "max-depth": ["warn", { "max": 5 }],
-        "react-perf/jsx-no-new-function-as-prop": "off",
-        "react-perf/jsx-no-new-array-as-prop": "warn",
-        "react-perf/jsx-no-new-object-as-prop": "off",
+        // "react-perf/jsx-no-new-function-as-prop": "off",
+        // "react-perf/jsx-no-new-array-as-prop": "warn",
+        // "react-perf/jsx-no-new-object-as-prop": "off",
         "react/jsx-no-bind": "off",
-        "react/jsx-no-undef": ["error", { "allowGlobals": true }],
+        // "react/jsx-no-undef": ["error", { "allowGlobals": true }],
         "eol-last": ["warn", "always"],
         "newline-per-chained-call": "off",
         "function-paren-newline": "off",
@@ -107,6 +107,7 @@
         }],
         "prefer-promise-reject-errors": "off",
         "import/no-named-as-default-member": "off",
+        "import/extensions": ["error", "always"],
         "lines-between-class-members": ["error", "always", {
             "exceptAfterSingleLine": true
         }],
