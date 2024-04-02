@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<link rel="stylesheet" href="styles/reset.css" />
 		<style type="text/css">
 			body {
 				color: white;
@@ -16,21 +17,91 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"three": "../node_modules/three/src/Three.js"
+					"three": "../node_modules/three/src/Three.js",
+					"cubicjs": "../node_modules/cubicjs/src/Cubic.js"
 			 	}
 			}
 		</script>
 		<script type="module">
+			import createFavicon from "./modules/createFavicon.js";
+			import createSplashscreen from "./modules/createSplashscreen.js";
 			import createScene from "./modules/createScene.js";
 			import createPlayer from "./modules/createPlayer.js";
+			import createLevelEnd from "./modules/createLevelEnd.js";
+			import createKeyboardIntegrator from "./modules/createKeyboardIntegrator.js";
+			import createChronos from './modules/createChronos.js';
+
+			const COLOR_DARK = '#0C2233';
+			const COLOR_DARK_BLUE = '#065471';
+			const COLOR_LIGHT_BLUE = '#0A91AB';
+			const COLOR_ACCENT = '#FFC045';
 
 			document.addEventListener("DOMContentLoaded", async (event) => {
-				const [scene] = createScene();
-				const [player] = createPlayer();
+				const favicon = createFavicon({ width: 16, height: 16 });
+				const keyboardIntegrator = createKeyboardIntegrator({});
 
+				const splashscreen = createSplashscreen({
+					keyboardIntegrator,
+				});
+
+				await splashscreen.waitUntilUserPressedAnyKey();
+
+				splashscreen.destroy();
+
+				const scene = createScene();
+				const player = createPlayer({});
+				const levelEnd = createLevelEnd({});
 				scene.add(player);
+				scene.add(levelEnd);
+
+				const chronos = createChronos((deltaTimeMilliseconds, timeMilliseconds) => {
+					scene.entities.forEach((entity) => {
+						if (entity === player) {
+							const { isLeftHolded, isRightHolded, isForwardHolded } = keyboardIntegrator.current;
+							const isRotationPressed = isLeftHolded || isRightHolded;
+							if (isLeftHolded && isRightHolded) {
+								//
+							} else if (isLeftHolded) {
+								entity.model.rotateY(deltaTimeMilliseconds * +0.005);
+							} else if (isRightHolded) {
+								entity.model.rotateY(deltaTimeMilliseconds * -0.005);
+							}
+
+							if (isForwardHolded) {
+								entity.model.translateZ(deltaTimeMilliseconds * 0.01);
+							}
+						} else {
+							// move others
+						}
+					});
+
+					scene.render();
+				}, {
+					doInitialSyncCall: true,
+					initialDelayMilliseconds: 0,
+				});
 			});
 		</script>
 	</head>
-	<body></body>
+	<body>
+		<div
+			id="splashscreen"
+			style="
+				position: fixed;
+				inset: 0;
+				background-color: red;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			"
+		>
+			<div style="font-size: 3rem">
+				LONESHIP
+			</div>
+			<div class="continue" style="opacity: 0;">
+				press eny key to continue
+			</div>
+		</div>
+	</body>
 </html>

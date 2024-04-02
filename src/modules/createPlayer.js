@@ -9,5 +9,7 @@ export default function createPlayer() {
 	const material = new MeshBasicMaterial({ color: 0x0000ff });
 	const cube = new Mesh(geometry, material);
 
-	return [cube, {}];
+	return {
+		model: cube,
+	};
 }

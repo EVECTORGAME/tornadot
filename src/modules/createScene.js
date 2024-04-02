@@ -4,28 +4,41 @@ import {
 	WebGLRenderer,
 } from 'three';
 
+const FOV = 75;
+const CAMERA_FRUSTRUM_NEAR_PLANE = 0.1;
+const CAMERA_FRUSTRUM_FAR_PLANE = 1000;
+
 export default function createScene() {
+	const { innerWidth, innerHeight } = window;
+	const aspectRatio = innerWidth / innerHeight;
 	const scene = new Scene();
 	const camera = new PerspectiveCamera(
-		75, // fov
-		window.innerWidth / window.innerHeight, // aspectRatio
-		0.1, // camera frustum near plane.
-		1000, // camera frustum near plane.
+		FOV,
+		aspectRatio,
+		CAMERA_FRUSTRUM_NEAR_PLANE,
+		CAMERA_FRUSTRUM_FAR_PLANE,
 	);
 
 	const renderer = new WebGLRenderer();
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
 
-	camera.position.z = 5;
+	camera.position.y = 2;
+	camera.position.z = -5;
 
-	function animate() {
-		window.requestAnimationFrame(animate);
+	camera.rotation.set(0, Math.PI, 0);
 
-		renderer.render(scene, camera);
-	}
+	const entities = [];
 
-	animate();
-
-	return [scene, {}];
+	return {
+		entities,
+		add(entity) {
+			entities.push(entity);
+			scene.add(entity.model);
+			// chronos.add(entity);
+		},
+		render() {
+			renderer.render(scene, camera);
+		},
+	};
 }
