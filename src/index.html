@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<style type="text/css">
+			body {
+				color: white;
+				font-size: 20px;
+				pointer-events: none;
+				overflow: hidden;
+				background-image: linear-gradient(
+					0deg,
+					black 0%,
+					blue 100%
+				);
+			}
+		</style>
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "../node_modules/three/src/Three.js"
+			 	}
+			}
+		</script>
+		<script type="module">
+			import createScene from "./modules/createScene.js";
+			import createPlayer from "./modules/createPlayer.js";
+
+			document.addEventListener("DOMContentLoaded", async (event) => {
+				const [scene] = createScene();
+				const [player] = createPlayer();
+
+				scene.add(player);
+			});
+		</script>
+	</head>
+	<body></body>
+</html>

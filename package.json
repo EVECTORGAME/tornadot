@@ -1,0 +1,35 @@
+{
+	"name": "tornadot",
+	"version": "1.0.0",
+	"description": "small engine: electron+three",
+	"main": "main.js",
+	"author": "kraju",
+	"engines": {
+		"node": ">=18.4.0",
+		"npm": ">=8.12.1"
+	},
+	"scripts": {
+		"//": "start odpala w elektronie, ale można to odpalić bezpośrednio w przeglądarce",
+		"start": "electron .",
+		"dist": "electron-builder --win portable",
+		"prepush": "npm run lint",
+		"precommit": "lint-staged",
+		"lint": "node node_modules/eslint/bin/eslint.js"
+	},
+	"lint-staged": {
+		"*.js": [
+			"eslint"
+		]
+	},
+	"license": "",
+	"homepage": "",
+	"dependencies": {
+		"three": "^0.163.0"
+	},
+	"devDependencies": {
+		"electron": "^29.1.6",
+		"electron-builder": "^24.13.3",
+		"eslint": "8.57.0",
+		"eslint-config-airbnb": "19.0.4"
+	}
+}
