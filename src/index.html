@@ -1,5 +1,9 @@
 <html>
 	<head>
+		<!--
+			x, y, z === forward, up, right
+		-->
+		<link rel="stylesheet" href="styles/reset.css" />
 		<style type="text/css">
 			body {
 				color: white;
@@ -21,16 +25,94 @@
 			}
 		</script>
 		<script type="module">
+			import createFavicon from "./modules/createFavicon.js";
+			import createSplashscreen from "./modules/createSplashscreen.js";
 			import createScene from "./modules/createScene.js";
 			import createPlayer from "./modules/createPlayer.js";
+			import createLevelEnd from "./modules/createLevelEnd.js";
+			import createKeyboardIntegrator from "./modules/createKeyboardIntegrator.js";
+			import createChronos from './modules/createChronos.js';
+			import { CAMERA_POSITION_Z } from './config.js';
+
+			function createLevel(levelNumber, { keyboardIntegrator }) {
+				const scene = createScene();
+				const player = createPlayer({});
+				const levelEnd = createLevelEnd({ x: 0, y: 0, z: 30 });
+				scene.add(player);
+				scene.add(levelEnd);
+
+				const chronos = createChronos((deltaTimeMilliseconds, timeMilliseconds) => {
+					scene.entities.forEach((entity) => {
+						if (entity === player) {
+							const { isLeftHolded, isRightHolded, isForwardHolded, isBackwardHolded } = keyboardIntegrator.current;
+							const isRotationPressed = isLeftHolded || isRightHolded;
+							if (isLeftHolded && isRightHolded) {
+								//
+							} else if (isLeftHolded) {
+								entity.model.rotation.y = entity.model.rotation.y + (deltaTimeMilliseconds * +0.005);
+							} else if (isRightHolded) {
+								entity.model.rotation.y = entity.model.rotation.y + (deltaTimeMilliseconds * -0.005);
+							}
+
+							if (isForwardHolded) {
+								scene.addPosionToObjectAtIndex(entity, deltaTimeMilliseconds * 0.01);
+							} else if (isBackwardHolded) {
+								scene.addPosionToObjectAtIndex(entity, deltaTimeMilliseconds * -0.005);
+							}
+						} else {
+							// move others
+						}
+					});
+
+					scene.camera.position.set(
+						player.model.position.x,
+						scene.camera.position.y,
+						player.model.position.z + CAMERA_POSITION_Z,
+					);
+
+					scene.render();
+				}, {
+					doInitialSyncCall: true,
+					initialDelayMilliseconds: 0,
+				});
+			}
 
 			document.addEventListener("DOMContentLoaded", async (event) => {
-				const [scene] = createScene();
-				const [player] = createPlayer();
+				const favicon = createFavicon({ width: 16, height: 16 });
+				const keyboardIntegrator = createKeyboardIntegrator({});
 
-				scene.add(player);
+				const splashscreen = createSplashscreen({
+					keyboardIntegrator,
+					shouldSkipIntro: true,
+				});
+
+				await splashscreen.waitUntilUserPressedAnyKey();
+
+				splashscreen.destroy();
+
+				createLevel(1, { keyboardIntegrator });
 			});
 		</script>
 	</head>
-	<body></body>
+	<body>
+		<div
+			id="splashscreen"
+			style="
+				position: fixed;
+				inset: 0;
+				background-color: red;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			"
+		>
+			<div style="font-size: 3rem">
+				LONESHIP
+			</div>
+			<div class="continue" style="opacity: 0;">
+				press eny key to continue
+			</div>
+		</div>
+	</body>
 </html>
