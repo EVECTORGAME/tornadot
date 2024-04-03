@@ -117,6 +117,7 @@
                 "ignorePropertyModificationsFor": ["stack"]
             }
         ],
-        "no-await-in-loop": "off"
+        "no-await-in-loop": "off",
+        "quote-props": ["error", "consistent-as-needed"],
     }
 }
