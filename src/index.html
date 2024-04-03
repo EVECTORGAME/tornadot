@@ -53,9 +53,6 @@
 					const [maxAccessibleLevel, setMaxAccessibleLevel] = useLocalStorageValue('max-accessible-level', 1);
 					const [levelToLoad, setLevelToload] = useState(maxAccessibleLevel);
 					const [activeItem, setActiveItem] = useState(MAIN_MENU_SCREEN);
-					const handleSelectedItemId = useCallback((itemId) => {
-						console.log('>> selected', itemId);
-					}, []);
 
 					const handleNewGame = useCallback(() => {
 						setLevelToload(1);
@@ -88,7 +85,6 @@
 					return h(SplashScreen, { elementId: 'splashscreen' }, [
 						activeItem === MAIN_MENU_SCREEN && h(MainMenuScreen,
 							{
-								onSelectedItemId: handleSelectedItemId,
 								items: [
 									{ label: `continue game ${maxAccessibleLevel}`, onSelected: handleContinueGame },
 									{ label: 'new game', onSelected: handleNewGame },

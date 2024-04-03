@@ -19,7 +19,7 @@ const theme = createStylesheet('MainMenu', {
 	},
 });
 
-export default function MainMenu({ items, onSelectedItemId }) {
+export default function MainMenu({ items }) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	const addOffsetToValue = useCallback((offset) => {
