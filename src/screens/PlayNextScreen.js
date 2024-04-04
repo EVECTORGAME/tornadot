@@ -1,8 +1,7 @@
 import { h } from 'preact';
-// import classNames from 'clsx';
-import { useState, useEffect, useCallback } from 'preact-hooks';
-// import utilClamp from '../utils/utilClamp.js';
+import { useEffect } from 'preact-hooks';
 import createStylesheet from '../modules/createStylesheet.js';
+import HeaderText from '../components/HeaderText.js';
 
 const theme = createStylesheet('MainMenu', {
 	container: {
@@ -12,10 +11,6 @@ const theme = createStylesheet('MainMenu', {
 		'justify-content': 'center',
 		'align-items': 'center',
 		'flex-direction': 'column',
-		// 'background-color': COLOR_DARK_BLUE,
-	},
-	isSelected: {
-		'text-decoration': 'underline',
 	},
 });
 
@@ -27,8 +22,9 @@ export default function PlayNextScreen({ nextLevelNumber, onYes }) {
 	}, []);
 
 	return (
-		h('div', { className: theme.container }, [
-			`Next level is ${nextLevelNumber}`,
-		])
+		h('div',
+			{ className: theme.container },
+			h(HeaderText, { text: `NEXT LEVEL IS ${nextLevelNumber}` }),
+		)
 	);
 }

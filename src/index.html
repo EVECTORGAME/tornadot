@@ -10,11 +10,7 @@
 				font-size: 20px;
 				pointer-events: none;
 				overflow: hidden;
-				background-image: linear-gradient(
-					0deg,
-					black 0%,
-					blue 100%
-				);
+				background-color: #222222;
 			}
 		</style>
 		<script type="importmap">
@@ -29,12 +25,13 @@
 			}
 		</script>
 		<script type="module">
-			import { render, h } from 'preact';
+			import { render, h, Component } from 'preact';
 
 			import useLocalStorageValue from './hooks/useLocalStorageValue.js';
 
 			import createFavicon from "./modules/createFavicon.js";
 			import createKeyboardIntegrator from "./modules/createKeyboardIntegrator.js";
+			import createBitmapFont from "./modules/createBitmapFont.js";
 
 			import { useState, useEffect, useCallback } from 'preact-hooks';
 			import SplashScreen from "./screens/SplashScreen.js";
@@ -48,6 +45,69 @@
 				const LEVEL_SCREEN = 'level-screen';
 				const PLAY_NEXT_SCREEN = 'play-next-screen';
 				const GAME_END_SCREEN = 'game-end-screen';
+
+				const headerFont = createBitmapFont('bitmapfonts/font_11x16.png', {
+					tileWidth: 10,
+					tileHeight: 13,
+					paddingTop: 2,
+					paddingLeft: 2,
+					spacingX: 1,
+					spacingY: 3,
+					map: {
+						A: [0, 0],
+						B: [1, 0],
+						C: [2, 0],
+						D: [3, 0],
+						E: [4, 0],
+						F: [5, 0],
+						G: [6, 0],
+						H: [7, 0],
+						I: [8, 0],
+						J: [9, 0],
+
+						K: [0, 1],
+						L: [1, 1],
+						M: [2, 1],
+						N: [3, 1],
+						O: [4, 1],
+						P: [5, 1],
+						Q: [6, 1],
+						R: [7, 1],
+						S: [8, 1],
+						T: [9, 1],
+
+						U: [0, 2],
+						V: [1, 2],
+						W: [2, 2],
+						X: [3, 2],
+						Y: [4, 2],
+						Z: [5, 2],
+
+						0: [0, 3],
+						1: [1, 3],
+						2: [2, 3],
+						3: [3, 3],
+						4: [4, 3],
+						5: [5, 3],
+						6: [6, 3],
+						7: [7, 3],
+						8: [8, 3],
+						9: [9, 3],
+					},
+				});
+
+				class AppContext extends Component {
+					getChildContext() {
+						return {
+							headerFont,
+						}
+					};
+
+					render() {
+
+						return this.props.children;
+					}
+				}
 
 				function App({ keyboardIntegrator }) {
 					const [maxAccessibleLevel, setMaxAccessibleLevel] = useLocalStorageValue('max-accessible-level', 1);
@@ -83,42 +143,47 @@
 					}, []);
 
 					return h(SplashScreen, { elementId: 'splashscreen' }, [
-						activeItem === MAIN_MENU_SCREEN && h(MainMenuScreen,
-							{
-								items: [
-									{ label: `continue game ${maxAccessibleLevel}`, onSelected: handleContinueGame },
-									{ label: 'new game', onSelected: handleNewGame },
-									{ label: 'settings' },
-									{ label: 'quit' },
-								]
-							},
-							[
-							],
-						),
-						activeItem === LEVEL_SCREEN && h(LevelScreen,
-							{
-								levelNumber: levelToLoad,
-								keyboardIntegrator,
-								onLevelEnded: handleOnLevelEnded,
-							},
-						),
-						activeItem === PLAY_NEXT_SCREEN && h(PlayNextScreen,
-							{
-								nextLevelNumber: maxAccessibleLevel,
-								onYes: handleLoadNextLevel,
-							},
-						),
-						activeItem === GAME_END_SCREEN && h(GameEndScreen,
-							{
-								onWatched: handleEndScreenEnded,
-							},
-						),
-						// h(PauseManuScreen, { secret: 'orange' }, [
-						// 	// h(MainMenu)
-						// ]),
-						// h(CreditsScreen, { secret: 'orange' }, [
-						// 	// h(MainMenu)
-						// ]),
+						h(AppContext, null, [
+							activeItem === MAIN_MENU_SCREEN && h(MainMenuScreen,
+								{
+									headerFont,
+									items: [
+										{ label: `continue game ${maxAccessibleLevel}`, onSelected: handleContinueGame },
+										{ label: 'new game', onSelected: handleNewGame },
+										{ label: 'settings' },
+										{ label: 'quit' },
+									]
+								},
+								[
+								],
+							),
+							activeItem === LEVEL_SCREEN && h(LevelScreen,
+								{
+									levelNumber: levelToLoad,
+									keyboardIntegrator,
+									onLevelEnded: handleOnLevelEnded,
+								},
+							),
+							activeItem === PLAY_NEXT_SCREEN && h(PlayNextScreen,
+								{
+									headerFont,
+									nextLevelNumber: maxAccessibleLevel,
+									onYes: handleLoadNextLevel,
+								},
+							),
+							activeItem === GAME_END_SCREEN && h(GameEndScreen,
+								{
+									headerFont,
+									onWatched: handleEndScreenEnded,
+								},
+							),
+							// h(PauseManuScreen, { secret: 'orange' }, [
+							// 	// h(MainMenu)
+							// ]),
+							// h(CreditsScreen, { secret: 'orange' }, [
+							// 	// h(MainMenu)
+							// ]),
+						]),
 					]);
 				}
 
@@ -159,7 +224,6 @@
 			style="
 				position: fixed;
 				inset: 0;
-				background-color: red;
 				display: flex;
 				justify-content: center;
 				align-items: center;
