@@ -15,8 +15,6 @@ const theme = createStylesheet('HeaderText', {
 export default function HeaderText({ text }, { headerFont }) {
 	const headerText = usePersistent(() => headerFont.createText(text, {}));
 
-	console.log(theme);
-
 	return h('div',
 		{ className: theme.container },
 		...headerText.map(elementAttributes => h('div', elementAttributes)),

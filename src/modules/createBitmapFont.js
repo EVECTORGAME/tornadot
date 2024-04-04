@@ -1,10 +1,6 @@
 export default function createBitmapFont(src, props) {
 	const {
 		tileSize,
-		// imageSize,
-		// tileHeight,
-		// imageWidth,
-		// imageHeight,
 		spacing = 0,
 		paddingTop = 0,
 		paddingLeft = 0,
@@ -15,8 +11,6 @@ export default function createBitmapFont(src, props) {
 	const tileHeight = props.tileHeight ?? tileSize;
 	const spacingX = props.spacingX ?? spacing;
 	const spacingY = props.spacingY ?? spacing;
-
-	// const charactersInRow = ((imageWidth - 2 * spacingX) / (tileWidth + spacingX));
 
 	function calculatePosition({ column, row }) {
 		const offsetLeft = column * tileWidth * -1;
