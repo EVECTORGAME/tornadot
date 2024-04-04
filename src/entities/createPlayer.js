@@ -8,8 +8,9 @@ import {
 import {
 	COLOR_ACCENT,
 } from '../config.js';
+import createLevelEnd from './createLevelEnd.js';
 
-export default function createPlayer() {
+export default function createPlayer({ onLevelEnded }) {
 	const geometry = new BoxGeometry(1, 1, 1);
 	const material = new MeshBasicMaterial({ color: COLOR_ACCENT });
 	const cube = new Mesh(geometry, material);
@@ -34,7 +35,12 @@ export default function createPlayer() {
 		model: group,
 		radius: 0.5,
 		collidesWith(other) {
-			console.log('>> collidesWith', other);
+			if (other.type === createLevelEnd) {
+				onLevelEnded();
+				console.log('>> levelend', other);
+			} else {
+				console.log('>> collidesWith', other);
+			}
 		},
 	};
 }

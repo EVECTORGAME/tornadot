@@ -17,7 +17,10 @@ const CAMERA_FRUSTRUM_FAR_PLANE = 1000;
 export default function createScene() {
 	const { innerWidth, innerHeight } = window;
 	const aspectRatio = innerWidth / innerHeight;
+
 	const scene = new Scene();
+	scene.fog = new Fog(COLOR_DARK_BLUE, 10, 55);
+
 	const camera = new PerspectiveCamera(
 		FOV,
 		aspectRatio,
@@ -29,7 +32,6 @@ export default function createScene() {
 	renderer.setClearColor(COLOR_DARK_BLUE, 1);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
-	scene.fog = new Fog(COLOR_DARK_BLUE, 10, 55);
 	camera.position.y = CAMERA_POSITION_Y;
 	camera.position.z = CAMERA_POSITION_Z;
 
@@ -38,6 +40,9 @@ export default function createScene() {
 	const entities = [];
 
 	return {
+		destroy() {
+			renderer.domElement.parentElement.removeChild(renderer.domElement);
+		},
 		entities,
 		camera,
 		add(entity) {
@@ -47,8 +52,8 @@ export default function createScene() {
 		render() {
 			renderer.render(scene, camera);
 		},
-		addPosionToObjectAtIndex(subjectEntity, forwardMovement) {
-			const rotationRadians = subjectEntity.model.rotation.y;
+		addPosionToObjectAtIndex(subjectEntity, forwardMovement, rotationOffset) {
+			const rotationRadians = subjectEntity.model.rotation.y + rotationOffset;
 			const newForward = subjectEntity.model.position.x + forwardMovement * Math.sin(rotationRadians);
 			const newRight = subjectEntity.model.position.z + forwardMovement * Math.cos(rotationRadians);
 

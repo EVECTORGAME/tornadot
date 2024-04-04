@@ -3,13 +3,11 @@ import utilCreateDefer from '../utils/utilCreateDefer.js';
 export default function createKeyboardIntegrator() {
 	const EVENT_KEY_TO_FLAG = {
 		ArrowLeft: 'isLeft',
-		A: 'isLeft',
+		a: 'isStepLeft',
 		ArrowRight: 'isRight',
-		D: 'isRight',
+		d: 'isStepRight',
 		ArrowUp: 'isForward',
-		W: 'isForward',
 		ArrowDown: 'isBackward',
-		S: 'isBackward',
 		Enter: 'isAction',
 		Space: 'isAction',
 		Escape: 'isCancel',
@@ -30,6 +28,8 @@ export default function createKeyboardIntegrator() {
 		isRight: 'isRightHolded',
 		isForward: 'isForwardHolded',
 		isBackward: 'isBackwardHolded',
+		isStepLeft: 'isStepLeftHolded',
+		isStepRight: 'isStepRightHolded',
 		// isAction: 'isActionHolded',
 		// isCancel: 'isCancelHolded',
 	};
@@ -39,6 +39,8 @@ export default function createKeyboardIntegrator() {
 		isLeftHolded: false,
 		isRightHolded: false,
 		isBackwardHolded: false,
+		isStepLeftHolded: false,
+		isStepRightHolded: false,
 	};
 
 	let anyKeyResolvers;

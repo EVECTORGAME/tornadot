@@ -17,7 +17,7 @@ export default function createLevelEnd({ x, y, z }) {
 	return {
 		type: createLevelEnd,
 		model: sphere,
-		radius: 0.5,
+		radius: 1,
 		handleTimeUpdate(timeDeltaTime) {
 			//
 		},
