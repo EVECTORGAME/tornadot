@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { useRef, useLayoutEffect } from 'preact-hooks';
+import classNames from 'clsx';
 import createStylesheet from '../modules/createStylesheet.js';
 
 const theme = createStylesheet('HeaderText', {
@@ -12,10 +13,17 @@ const theme = createStylesheet('HeaderText', {
 	},
 });
 
-export default function HeaderText({ text }, { headerFont }) {
+export default ({ charactersCount, paddingCharacter, shouldAlignToRight, className, apiRef }, { headerFont }) => {
 	const containerRef = useRef();
 	useLayoutEffect(() => {
-		headerFont.createTextElement(containerRef.current, text, {});
+		const textApi = headerFont.createTextElement(containerRef.current, ' '.repeat(charactersCount), {
+			paddingCharacter,
+			shouldAlignToRight,
+		});
+
+		apiRef.current = {
+			alternateToNumber: textApi.alternateToNumber,
+		};
 
 		return () => {
 			/* while (containerRef.current.firstChild) {
@@ -25,7 +33,7 @@ export default function HeaderText({ text }, { headerFont }) {
 	}, []);
 
 	return h('div', {
-		className: theme.container,
+		className: classNames(theme.container, className),
 		ref: containerRef,
 	});
-}
+};
