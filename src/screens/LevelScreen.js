@@ -40,12 +40,6 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 
 	const keyboardIntegrator = createKeyboardIntegrator();
 
-	// scene.add(createHugeRock({ x: 15, y: 0, radius: 5 }))
-
-	player.model.add(scene.camera);
-
-	randomLevelGenerator(scene, levelRadius);
-
 	const chronos = createChronos((deltaTimeMilliseconds, timeMilliseconds) => {
 		const entitesToAdd = [];
 
@@ -198,7 +192,6 @@ export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEn
 					paddingCharacter: '0',
 					shouldAlignToRight: true,
 					className: theme.distanceHolder,
-<<<<<<< Updated upstream
 					apiRef: distanceApiRef,
 				}),
 				h('div',
@@ -210,10 +203,6 @@ export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEn
 						apiRef: fpsApiRef,
 					}),
 				),
-=======
-					ref: distanceToMetaRef,
-				}),
->>>>>>> Stashed changes
 			],
 		)
 	);
