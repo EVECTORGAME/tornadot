@@ -1,3 +1,5 @@
+import utilMergePlaceholderArrayWithDataArray from '../utils/utilMergePlaceholderArrayWithDataArray.js';
+
 export default function createBitmapFont(src, props) {
 	const {
 		tileSize,
@@ -13,6 +15,7 @@ export default function createBitmapFont(src, props) {
 	const spacingY = props.spacingY ?? spacing;
 
 	function calculatePosition({ column, row }) {
+		// TODO add cache
 		const offsetLeft = column * tileWidth * -1;
 		const offsetTop = row * tileHeight * -1;
 
@@ -22,44 +25,55 @@ export default function createBitmapFont(src, props) {
 		};
 	}
 
-	function createLetter(column, row) {
+	function calculateCharacterStyles(column, row) {
 		const {
 			offsetLeft,
 			offsetTop,
 		} = calculatePosition({ column, row });
 
-		return [
-			{
-				style: {
-					'display': 'inline-block',
-					'width': `${tileWidth}px`,
-					'height': `${tileHeight}px`,
-					'background-image': `url(${src})`,
-					'background-position': `${offsetLeft}px ${offsetTop}px`,
-				},
-			},
-		];
+		return {
+			'width': `${tileWidth}px`,
+			'height': `${tileHeight}px`,
+			'background-image': `url(${src})`,
+			'background-position': `${offsetLeft}px ${offsetTop}px`,
+		};
 	}
 
 	return {
-		createLetter,
-		createText(text) {
-			const elements = text.split('').map((letter) => {
-				const cetterCoorgainates = map[letter];
-				if (cetterCoorgainates) {
-					const [elementAttributes] = createLetter(cetterCoorgainates[0], cetterCoorgainates[1]);
+		createTextElement(element, text, { paddingCharacter, shouldAlignToRight }) {
+			const elements = [];
+			text.split('').forEach((letter) => {
+				const characterCoordinates = map[letter] ?? map[''];
+				const characterStyles = calculateCharacterStyles(characterCoordinates[0], characterCoordinates[1]);
 
-					return elementAttributes;
-				}
+				const characterElement = document.createElement('div');
+				characterElement.style.display = 'inline-block';
+				characterElement.style.width = characterStyles.width;
+				characterElement.style.height = characterStyles.height;
+				characterElement.style.backgroundImage = characterStyles['background-image'];
+				characterElement.style.backgroundPosition = characterStyles['background-position'];
 
-				return {
-					display: 'inline-block',
-					width: `${tileWidth}px`,
-					height: `${tileHeight}px`,
-				};
+				elements.push(characterElement);
+				element.appendChild(characterElement);
 			});
 
-			return elements;
+			return {
+				alternateToNumber(number) { // TODO cache previous
+					const digits = String(number).split('');
+					utilMergePlaceholderArrayWithDataArray(elements, digits, shouldAlignToRight, (_, digit, index) => {
+						const characterCoordinates = map[digit ?? paddingCharacter] ?? map[''];
+						const {
+							offsetLeft,
+							offsetTop,
+						} = calculatePosition({
+							column: characterCoordinates[0],
+							row: characterCoordinates[1],
+						});
+
+						elements[index].style.backgroundPosition = `${offsetLeft}px ${offsetTop}px`;
+					});
+				},
+			};
 		},
 	};
 }

@@ -11,26 +11,10 @@ import randomLevelGenerator from '../modules/randomLevelGenerator.js';
 //
 import createPlayer from '../entities/createPlayer.js';
 //
+import CountDisplay from '../components/CountDisplay.js';
+//
 import { CAMERA_POSITION_Z } from '../config.js';
 import { NINETY_DEGREES_IN_RADIANS } from '../constants.js';
-
-const theme = createStylesheet('MainMenu', {
-	container: {
-		'position': 'fixed',
-		'inset': 0,
-		'display': 'flex',
-		'justify-content': 'center',
-		'align-items': 'center',
-		'flex-direction': 'column',
-		// 'background-color': COLOR_DARK_BLUE,
-	},
-	distanceHolder: {
-		position: 'absolute',
-		top: '1rem',
-		left: '50%',
-		transform: 'translateX(-50%)',
-	},
-});
 
 function createLevel(levelNumber, { keyboardIntegrator, onLevelEnded, onRefreshUi }) {
 	const scene = createScene();
@@ -57,6 +41,7 @@ function createLevel(levelNumber, { keyboardIntegrator, onLevelEnded, onRefreshU
 				const playerDistanceToLevelEnd = player.model.position.distanceTo(levelEnd.model.position);
 				onRefreshUi({
 					playerDistanceToLevelEnd,
+					deltaTimeMilliseconds,
 				});
 
 				const {
@@ -113,16 +98,48 @@ function createLevel(levelNumber, { keyboardIntegrator, onLevelEnded, onRefreshU
 	};
 }
 
+const theme = createStylesheet('MainMenu', {
+	container: {
+		'position': 'fixed',
+		'inset': 0,
+		'display': 'flex',
+		'justify-content': 'center',
+		'align-items': 'center',
+		'flex-direction': 'column',
+		// 'background-color': COLOR_DARK_BLUE,
+	},
+	distanceHolder: {
+		position: 'absolute',
+		top: '1em',
+		left: '50%',
+		transform: 'translateX(-50%) scale(2)',
+	},
+	topLeftCorner: {
+		'position': 'absolute',
+		'top': '1em',
+		'left': '1em',
+		'display': 'flex',
+		'flex-direction': 'column',
+		// transform: 'translateX(-50%)',
+	},
+});
+
 export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEnded }) {
-	const distanceToMetaRef = useRef();
+	const distanceApiRef = useRef();
+	const fpsApiRef = useRef();
 
 	useEffect(() => {
 		const scene = createLevel(levelNumber, {
 			keyboardIntegrator,
 			onRefreshUi({
 				playerDistanceToLevelEnd,
+				deltaTimeMilliseconds,
 			}) {
-				distanceToMetaRef.current.innerText = playerDistanceToLevelEnd;
+				const playerDistanceToLevelEndRounded = Math.round(playerDistanceToLevelEnd);
+				distanceApiRef.current.alternateToNumber(`${playerDistanceToLevelEndRounded}M`);
+
+				const fps = Math.round(1000 / deltaTimeMilliseconds);
+				fpsApiRef.current.alternateToNumber(`FPS ${fps}`);
 			},
 			onLevelEnded({ endedLevel }) {
 				onLevelEnded(endedLevel);
@@ -138,10 +155,22 @@ export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEn
 		h('div',
 			{ className: theme.container },
 			[
-				h('div', {
+				h(CountDisplay, {
+					charactersCount: 4,
+					paddingCharacter: '0',
+					shouldAlignToRight: true,
 					className: theme.distanceHolder,
-					ref: distanceToMetaRef,
+					apiRef: distanceApiRef,
 				}),
+				h('div',
+					{ className: theme.topLeftCorner },
+					h(CountDisplay, {
+						charactersCount: 7,
+						paddingCharacter: ' ',
+						shouldAlignToRight: false,
+						apiRef: fpsApiRef,
+					}),
+				),
 			],
 		)
 	);
