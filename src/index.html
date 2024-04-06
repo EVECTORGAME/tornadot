@@ -29,16 +29,15 @@
 
 			import useLocalStorageValue from './hooks/useLocalStorageValue.js';
 
-			import createFavicon from "./modules/createFavicon.js";
-			import createKeyboardIntegrator from "./modules/createKeyboardIntegrator.js";
-			import createBitmapFont from "./modules/createBitmapFont.js";
+			import createFavicon from './modules/createFavicon.js';
+			import createBitmapFont from './modules/createBitmapFont.js';
 
 			import { useState, useEffect, useCallback } from 'preact-hooks';
-			import SplashScreen from "./screens/SplashScreen.js";
-			import MainMenuScreen from "./screens/MainMenuScreen.js";
-			import LevelScreen from "./screens/LevelScreen.js";
-			import PlayNextScreen from "./screens/PlayNextScreen.js";
-			import GameEndScreen from "./screens/GameEndScreen.js";
+			import SplashScreen from './screens/SplashScreen.js';
+			import MainMenuScreen from './screens/MainMenuScreen.js';
+			import LevelScreen from './screens/LevelScreen.js';
+			import PlayNextScreen from './screens/PlayNextScreen.js';
+			import GameEndScreen from './screens/GameEndScreen.js';
 
 			document.body.addEventListener('keydown', ({ key }) => {
 			    if (key === '`') {
@@ -116,7 +115,7 @@
 					}
 				}
 
-				function App({ keyboardIntegrator }) {
+				function App() {
 					const [maxAccessibleLevel, setMaxAccessibleLevel] = useLocalStorageValue('max-accessible-level', 1);
 					const [levelToLoad, setLevelToload] = useState(maxAccessibleLevel);
 					const [activeItem, setActiveItem] = useState(MAIN_MENU_SCREEN);
@@ -167,7 +166,6 @@
 							activeItem === LEVEL_SCREEN && h(LevelScreen,
 								{
 									levelNumber: levelToLoad,
-									keyboardIntegrator,
 									onLevelEnded: handleOnLevelEnded,
 								},
 							),
@@ -195,32 +193,9 @@
 				}
 
 				const favicon = createFavicon({ width: 16, height: 16 });
-				const keyboardIntegrator = createKeyboardIntegrator({});
 				const mainElement = document.getElementById('main');
 
-				render(h(App, { keyboardIntegrator }), mainElement);
-
-				/*
-
-				const splashscreen = createSplashscreen({
-					keyboardIntegrator,
-					shouldSkipIntro: true,
-				});
-
-				await splashscreen.waitUntilUserPressedAnyKey();
-
-				splashscreen.destroy();
-
-				const levelResult = await createLevel(1, { keyboardIntegrator });
-
-				const screenEnded = createLevelEndedScreen({ keyboardIntegrator });
-
-				await screenEnded.waitUntilUserPressedAnyKey();
-
-				screenEnded.destroy();
-
-				console.log('>> game ended', levelResult);
-				*/
+				render(h(App), mainElement);
 			});
 		</script>
 	</head>

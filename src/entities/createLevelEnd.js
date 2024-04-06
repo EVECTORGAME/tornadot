@@ -20,6 +20,8 @@ export default function createLevelEnd({ x, y, z }) {
 		radius: 1,
 		handleTimeUpdate(timeDeltaTime) {
 			//
+
+			return {};
 		},
 	};
 }

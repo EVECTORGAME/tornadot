@@ -1,7 +1,7 @@
-import utilCreateDefer from '../utils/utilCreateDefer.js';
+// import utilCreateDefer from '../utils/utilCreateDefer.js';
 
 export default function createKeyboardIntegrator() {
-	const EVENT_KEY_TO_FLAG = {
+	/* const EVENT_KEY_TO_FLAG = {
 		ArrowLeft: 'isLeft',
 		a: 'isStepLeft',
 		ArrowRight: 'isRight',
@@ -12,18 +12,18 @@ export default function createKeyboardIntegrator() {
 		Space: 'isAction',
 		Escape: 'isCancel',
 		Backspace: 'isCancel',
-	};
+	}; */
 
-	const EVENT_FLAG_TO_PRESSED_FLAG = {
+	/* const EVENT_FLAG_TO_PRESSED_FLAG = {
 		isLeft: 'isLeftPressed',
 		isRight: 'isRightPressed',
 		isForward: 'isUpPressed',
 		isBackward: 'isDownPressed',
 		isAction: 'isActionPressed',
 		isCancel: 'isCancelPressed',
-	};
+	}; */
 
-	const EVENT_FLAG_TO_HOLDED_FLAG = {
+	/* const EVENT_FLAG_TO_HOLDED_FLAG = {
 		isLeft: 'isLeftHolded',
 		isRight: 'isRightHolded',
 		isForward: 'isForwardHolded',
@@ -32,33 +32,41 @@ export default function createKeyboardIntegrator() {
 		isStepRight: 'isStepRightHolded',
 		// isAction: 'isActionHolded',
 		// isCancel: 'isCancelHolded',
-	};
+	}; */
+
+	/* const currentPressed = {
+	}; */
 
 	const current = {
-		isForwardHolded: false,
-		isLeftHolded: false,
-		isRightHolded: false,
-		isBackwardHolded: false,
-		isStepLeftHolded: false,
-		isStepRightHolded: false,
+		// isForwardHolded: false,
+		// isLeftHolded: false,
+		// isRightHolded: false,
+		// isBackwardHolded: false,
+		// isStepLeftHolded: false,
+		// isStepRightHolded: false,
 	};
 
-	let anyKeyResolvers;
-	let handlers = [];
+	// let anyKeyResolvers;
+	// let handlers = [];
 
 	document.body.addEventListener('keydown', (event) => {
-		if (anyKeyResolvers) {
+		const { code } = event;
+
+		current[code] = true;
+		/* if (anyKeyResolvers) {
 			anyKeyResolvers.forEach((resolver) => {
 				resolver?.();
 			});
 
 			anyKeyResolvers = undefined;
-		}
+		} */
 
-		const keyAlias = EVENT_KEY_TO_FLAG[event.key];
+		/* const keyAlias = EVENT_KEY_TO_FLAG[event.code];
 		if (keyAlias) {
 			const keyPresedFlag = EVENT_FLAG_TO_PRESSED_FLAG[keyAlias];
 			if (keyPresedFlag) {
+				currentPressed[keyPresedFlag] = true;
+
 				handlers.forEach((handler) => {
 					handler({ [keyPresedFlag]: true });
 				});
@@ -68,27 +76,30 @@ export default function createKeyboardIntegrator() {
 			if (keyHoldedFlag) {
 				current[keyHoldedFlag] = true;
 			}
-		}
+		} */
 	});
 
 	document.body.addEventListener('keyup', (event) => {
-		const keyAlias = EVENT_KEY_TO_FLAG[event.key];
+		const { code } = event;
+
+		current[code] = false;
+		/* const keyAlias = EVENT_KEY_TO_FLAG[event.key];
 		if (keyAlias) {
 			const keyHoldedFlag = EVENT_FLAG_TO_HOLDED_FLAG[keyAlias];
 			if (keyHoldedFlag) {
 				current[keyHoldedFlag] = false;
 			}
-		}
+		} */
 	});
 
 	return {
 		current,
-		checkIsPressedAnyKey() {
+		/* checkIsPressedAnyKey() {
 			const isAnyPressed = Object.values(current).some(value => value === true);
 
 			return isAnyPressed;
-		},
-		obtainPressAnyKeyPromise() {
+		}, */
+		/* obtainPressAnyKeyPromise() {
 			const [anyKeyDefer, anyKeyResolver] = utilCreateDefer();
 
 			if (!anyKeyResolvers) {
@@ -98,12 +109,19 @@ export default function createKeyboardIntegrator() {
 			anyKeyResolvers.push(anyKeyResolver);
 
 			return anyKeyDefer;
-		},
-		addListener(handler) {
+		}, */
+		/* addListener(handler) {
 			handlers.push(handler);
-		},
-		removeListener(handlerToRemove) {
+		}, */
+		/* removeListener(handlerToRemove) {
 			handlers = handlers.filter(handler => handler !== handlerToRemove);
+		}, */
+		consumeIsPressed(keyPresedFlag) {
+			const isPressed = current[keyPresedFlag];
+
+			current[keyPresedFlag] = false;
+
+			return isPressed;
 		},
 	};
 }

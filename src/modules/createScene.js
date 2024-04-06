@@ -1,41 +1,20 @@
 import {
 	Scene,
-	PerspectiveCamera,
 	WebGLRenderer,
 	Fog,
 } from 'three';
 import {
 	COLOR_DARK_BLUE,
-	CAMERA_POSITION_Y,
-	CAMERA_POSITION_Z,
 } from '../config.js';
 
-const FOV = 75;
-const CAMERA_FRUSTRUM_NEAR_PLANE = 0.1;
-const CAMERA_FRUSTRUM_FAR_PLANE = 1000;
-
-export default function createScene() {
-	const { innerWidth, innerHeight } = window;
-	const aspectRatio = innerWidth / innerHeight;
-
+export default function createScene({ camera }) {
 	const scene = new Scene();
 	scene.fog = new Fog(COLOR_DARK_BLUE, 10, 55);
-
-	const camera = new PerspectiveCamera(
-		FOV,
-		aspectRatio,
-		CAMERA_FRUSTRUM_NEAR_PLANE,
-		CAMERA_FRUSTRUM_FAR_PLANE,
-	);
 
 	const renderer = new WebGLRenderer();
 	renderer.setClearColor(COLOR_DARK_BLUE, 1);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
-	camera.position.y = CAMERA_POSITION_Y;
-	camera.position.z = CAMERA_POSITION_Z;
-
-	camera.rotation.set(0, Math.PI, 0);
 
 	const entities = [];
 
@@ -44,9 +23,8 @@ export default function createScene() {
 			renderer.domElement.parentElement.removeChild(renderer.domElement);
 		},
 		entities,
-		camera,
 		findClosestEntityToObject({ forward, right, radius }, excludeEntity) {
-			return entities.filter(entity => entity !== excludeEntity).filter(other => other.radius > 0).reduce((stack, otherEntity) => {
+			return entities.filter(entity => entity !== excludeEntity && (excludeEntity ? entity.shooterEntity !== excludeEntity : true)).filter(other => other.radius > 0).reduce((stack, otherEntity) => {
 				const {
 					model: otherModel,
 					radius: otherRadius,
@@ -58,11 +36,10 @@ export default function createScene() {
 				// const rightDifference = Math.abs(right - otherRight);
 				const radiusesCombined = otherRadius + radius;
 
+				const distanceForward = forward - otherForward;
+				const distanceRight = right - otherRight;
 				const distanceFromCenters = Math.abs(
-					Math.sqrt(
-						Math.pow(forward - otherForward, 2)
-						+ Math.pow(right - otherRight, 2)
-					),
+					Math.sqrt(distanceForward ** 2 + distanceRight ** 2),
 				);
 
 				const distanceBetween = distanceFromCenters - radiusesCombined;
@@ -85,6 +62,7 @@ export default function createScene() {
 			}, undefined);
 		},
 		add(entity) {
+			// TODO search for forst empty slot
 			entities.push(entity);
 			scene.add(entity.model);
 		},

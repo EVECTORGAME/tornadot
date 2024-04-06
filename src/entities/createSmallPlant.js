@@ -38,6 +38,8 @@ export default function createSmallPlant({ x, z }) {
 		radius: 1,
 		handleTimeUpdate(timeDeltaTime) {
 			//
+
+			return {};
 		},
 	};
 }

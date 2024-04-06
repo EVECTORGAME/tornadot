@@ -20,6 +20,8 @@ export default function createHugeRock({ x, z, radius }) {
 		radius,
 		handleTimeUpdate(timeDeltaTime) {
 			//
+
+			return {};
 		},
 	};
 }
