@@ -7,8 +7,10 @@ import utilCreateDefer from '../utils/utilCreateDefer.js';
 import createChronos from '../modules/createChronos.js';
 import createStylesheet from '../modules/createStylesheet.js';
 import createScene from '../modules/createScene.js';
+import randomLevelGenerator from '../modules/randomLevelGenerator.js';
+//
 import createPlayer from '../entities/createPlayer.js';
-import createLevelEnd from '../entities/createLevelEnd.js';
+//
 import { CAMERA_POSITION_Z } from '../config.js';
 import { NINETY_DEGREES_IN_RADIANS } from '../constants.js';
 
@@ -38,9 +40,16 @@ function createLevel(levelNumber, { keyboardIntegrator, onLevelEnded, onRefreshU
 			onLevelEnded({ endedLevel: levelNumber });
 		},
 	});
-	const levelEnd = createLevelEnd({ x: 0, y: 0, z: levelNumber * 10 });
+
+	const levelRadius = 150 + (levelNumber * 50);
+
 	scene.add(player);
-	scene.add(levelEnd);
+
+	// scene.add(createHugeRock({ x: 15, y: 0, radius: 5 }))
+
+	player.model.add(scene.camera);
+
+	const { levelEnd } = randomLevelGenerator(scene, levelRadius);
 
 	const chronos = createChronos((deltaTimeMilliseconds, timeMilliseconds) => {
 		scene.entities.forEach((entity) => {
@@ -85,11 +94,11 @@ function createLevel(levelNumber, { keyboardIntegrator, onLevelEnded, onRefreshU
 			}
 		});
 
-		scene.camera.position.set(
-			player.model.position.x,
-			scene.camera.position.y,
-			player.model.position.z + CAMERA_POSITION_Z,
-		);
+		// scene.camera.position.set(
+		// 	player.model.position.x,
+		// 	scene.camera.position.y,
+		// 	player.model.position.z + CAMERA_POSITION_Z,
+		// );
 
 		scene.render();
 	}, {
@@ -132,7 +141,7 @@ export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEn
 				h('div', {
 					className: theme.distanceHolder,
 					ref: distanceToMetaRef,
-				})
+				}),
 			],
 		)
 	);
