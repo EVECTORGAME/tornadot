@@ -1,8 +1,10 @@
 import { h } from 'preact';
 import classNames from 'clsx';
 import { useState, useEffect, useCallback } from 'preact-hooks';
+import usePersistent from '../hooks/usePersistent.js';
 import utilClamp from '../utils/utilClamp.js';
 import createStylesheet from '../modules/createStylesheet.js';
+import HeaderText from '../components/HeaderText.js';
 
 const theme = createStylesheet('MainMenu', {
 	container: {
@@ -19,7 +21,7 @@ const theme = createStylesheet('MainMenu', {
 	},
 });
 
-export default function MainMenu({ items }) {
+export default function MainMenu({ headerFont, items }) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	const addOffsetToValue = useCallback((offset) => {
@@ -48,6 +50,7 @@ export default function MainMenu({ items }) {
 
 	return (
 		h('div', { className: theme.container }, [
+			h(HeaderText, { text: 'LIL SUBMARINE' }),
 			items.map(({ label }, index) => {
 				const isSelectedItem = index === activeIndex;
 

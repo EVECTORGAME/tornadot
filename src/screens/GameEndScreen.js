@@ -1,8 +1,7 @@
 import { h } from 'preact';
-import classNames from 'clsx';
-import { useState, useEffect, useCallback } from 'preact-hooks';
-import utilClamp from '../utils/utilClamp.js';
+import { useEffect } from 'preact-hooks';
 import createStylesheet from '../modules/createStylesheet.js';
+import HeaderText from '../components/HeaderText.js';
 
 const theme = createStylesheet('MainMenu', {
 	container: {
@@ -20,14 +19,12 @@ export default function GameEndScreen({ onWatched }) {
 	useEffect(() => {
 		setTimeout(() => {
 			onWatched();
-		}, 1000);
+		}, 2000);
 	}, []);
 
 	return (
 		h('div', { className: theme.container }, [
-			h('div', {}, [
-				'thanks for playing',
-			]),
+			h(HeaderText, { text: 'THANKS FOR _PLAYING' }),
 		])
 	);
 }
