@@ -45,6 +45,45 @@ export default function createScene() {
 		},
 		entities,
 		camera,
+		findClosestEntityToObject({ forward, right, radius }, excludeEntity) {
+			return entities.filter(entity => entity !== excludeEntity).filter(other => other.radius > 0).reduce((stack, otherEntity) => {
+				const {
+					model: otherModel,
+					radius: otherRadius,
+				} = otherEntity;
+				const otherForward = otherModel.position.x;
+				const otherRight = otherModel.position.z;
+
+				// const forwardDifference = Math.abs(forward - otherForward);
+				// const rightDifference = Math.abs(right - otherRight);
+				const radiusesCombined = otherRadius + radius;
+
+				const distanceFromCenters = Math.abs(
+					Math.sqrt(
+						Math.pow(forward - otherForward, 2)
+						+ Math.pow(right - otherRight, 2)
+					),
+				);
+
+				const distanceBetween = distanceFromCenters - radiusesCombined;
+
+				if (stack) {
+					if (distanceBetween < stack.distanceBetween) {
+						return {
+							distanceBetween,
+							entity: otherEntity,
+						};
+					}
+				} else {
+					return {
+						distanceBetween,
+						entity: otherEntity,
+					};
+				}
+
+				return stack;
+			}, undefined);
+		},
 		add(entity) {
 			entities.push(entity);
 			scene.add(entity.model);
@@ -57,20 +96,15 @@ export default function createScene() {
 			const newForward = subjectEntity.model.position.x + forwardMovement * Math.sin(rotationRadians);
 			const newRight = subjectEntity.model.position.z + forwardMovement * Math.cos(rotationRadians);
 
-			const colidesWith = entities.filter(entity => entity !== subjectEntity).filter(other => other.radius > 0).find(({
-				model: otherModel,
-				radius: otherRadius,
-			}) => {
-				const otherForward = otherModel.position.x;
-				const otherRight = otherModel.position.z;
+			const closestEntity = this.findClosestEntityToObject({
+				forward: newForward,
+				right: newRight,
+				radius: subjectEntity.radius,
+			}, subjectEntity);
 
-				const forwardDifference = Math.abs(newForward - otherForward);
-				const rightDifference = Math.abs(newRight - otherRight);
-				const radiusesCombined = otherRadius + subjectEntity.radius;
-				const isSeemsClose = forwardDifference < radiusesCombined && rightDifference < radiusesCombined;
-
-				return isSeemsClose;
-			});
+			const colidesWith = closestEntity.distanceBetween < 0
+				? closestEntity.entity
+				: undefined;
 
 			const canGo = colidesWith
 				? subjectEntity.collidesWith(colidesWith)

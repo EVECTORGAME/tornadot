@@ -40,6 +40,12 @@
 			import PlayNextScreen from "./screens/PlayNextScreen.js";
 			import GameEndScreen from "./screens/GameEndScreen.js";
 
+			document.body.addEventListener('keydown', ({ key }) => {
+			    if (key === '`') {
+			        console.clear(); // eslint-disable-line no-console
+			    }
+			});
+
 			document.addEventListener('DOMContentLoaded', async (event) => {
 				const MAIN_MENU_SCREEN = 'main-menu-screen';
 				const LEVEL_SCREEN = 'level-screen';
