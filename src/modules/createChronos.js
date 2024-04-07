@@ -1,6 +1,5 @@
 export default function createChronos(onTick, { initialDelayMilliseconds = 0, doInitialSyncCall = false }) {
 	let prevMilliseconds;
-	let accumulatorMilliseconds = 0;
 
 	let handleTimeUpdate = () => {
 		const nowMilliseconds = Date.now();
@@ -11,9 +10,9 @@ export default function createChronos(onTick, { initialDelayMilliseconds = 0, do
 		if (deltaMilliseconds > 1000) {
 			//
 		} else if (deltaMilliseconds > 16) {
-			accumulatorMilliseconds += deltaMilliseconds;
+			const deltaSeconds = deltaMilliseconds / 1000;
 
-			onTick(deltaMilliseconds, accumulatorMilliseconds);
+			onTick(deltaSeconds);
 		}
 
 		window.requestAnimationFrame(() => {

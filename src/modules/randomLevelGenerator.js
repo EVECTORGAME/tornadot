@@ -1,7 +1,6 @@
 import utilRandomDegrees0360 from '../utils/utilRandomDegrees0360.js';
 import utilRandomValueMinMax from '../utils/utilRandomValueMinMax.js';
 import utilRepeatUntilResult from '../utils/utilRepeatUntilResult.js';
-
 import createHugeRock from '../entities/createHugeRock.js';
 import createSmallPlant from '../entities/createSmallPlant.js';
 import createLevelEnd from '../entities/createLevelEnd.js';
@@ -43,12 +42,6 @@ export default function randomLevelGenerator(scene, radius) {
 
 			areaTakenUpSoFar += hudeRockArea;
 
-			console.log('>> added', hugeRock, 'at', {
-				forward: randomPositionForward,
-				right: randomPositionRight,
-				radius: randomRadius,
-			});
-
 			scene.add(hugeRock);
 		}
 	} while ((areaTakenUpSoFar / totalArea) < 0.3);
@@ -68,11 +61,7 @@ export default function randomLevelGenerator(scene, radius) {
 		}, undefined);
 
 		if (closestEntity.distanceBetween < 1) {
-			/* console.log('>> skip', {
-				forward: randomPositionForward,
-				right: randomPositionRight,
-				radius: randomRadius,
-			}, 'collides with', closestEntity); */
+			//
 		} else {
 			const entity = createLevelEnd({ x: randomPositionForward, y: 0, z: randomPositionRight });
 
@@ -98,11 +87,7 @@ export default function randomLevelGenerator(scene, radius) {
 		}, undefined);
 
 		if (closestEntity.distanceBetween < 1) {
-			/* console.log('>> skip', {
-				forward: randomPositionForward,
-				right: randomPositionRight,
-				radius: randomRadius,
-			}, 'collides with', closestEntity); */
+			//
 		} else {
 			const plant = createSmallPlant({
 				x: randomPositionForward,
@@ -112,8 +97,6 @@ export default function randomLevelGenerator(scene, radius) {
 			scene.add(plant);
 
 			plantsToPlace -= 1;
-
-			console.log('>> plantsToPlace', plantsToPlace);
 		}
 	} while (plantsToPlace >= 1);
 

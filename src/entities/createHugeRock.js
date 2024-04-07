@@ -3,9 +3,6 @@ import {
 	MeshBasicMaterial,
 	Mesh,
 } from 'three';
-import {
-	COLOR_ACCENT,
-} from '../config.js';
 
 export default function createHugeRock({ x, z, radius }) {
 	const geometry = new SphereGeometry(radius);
@@ -18,7 +15,7 @@ export default function createHugeRock({ x, z, radius }) {
 		type: createHugeRock,
 		model: sphere,
 		radius,
-		handleTimeUpdate(timeDeltaTime) {
+		handleTimeUpdate(deltaTimeSeconds) { // eslint-disable-line no-unused-vars
 			//
 
 			return {};

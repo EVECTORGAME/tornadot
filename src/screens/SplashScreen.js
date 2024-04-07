@@ -63,5 +63,4 @@ export default function createSplashscreen({ keyboardIntegrator, shouldSkipIntro
 	};
 }
 
-
 */

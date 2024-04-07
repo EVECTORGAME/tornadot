@@ -19,19 +19,22 @@ export default function createRocket({ x, z, rotation, shooterEntity }) {
 	group.position.set(x, 0, z);
 	group.rotation.y = rotation;
 
+	let timeToLiveSeconds = 3;
+
 	return {
 		type: createRocket,
 		model: group,
 		radius: 1,
 		shooterEntity,
-		collidesWith(other) { // should explode
+		collidesWith(other) { // eslint-disable-line no-unused-vars
 			return true;
 		},
-		handleTimeUpdate(timeDeltaTime) {
-			//
+		handleTimeUpdate(deltaTimeSeconds) {
+			timeToLiveSeconds -= deltaTimeSeconds;
 
 			return {
-				moveForward: timeDeltaTime * 0.01,
+				shouldDestroy: timeToLiveSeconds <= 0,
+				moveForwardStep: deltaTimeSeconds * 9,
 			};
 		},
 	};

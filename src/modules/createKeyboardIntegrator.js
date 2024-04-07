@@ -49,7 +49,13 @@ export default function createKeyboardIntegrator() {
 	// let anyKeyResolvers;
 	// let handlers = [];
 
-	document.body.addEventListener('keydown', (event) => {
+	function handleDocumentVisibilityChanged() {
+		Object.keys(current).forEach((key) => {
+			current[key] = false;
+		});
+	}
+
+	function handleKeyDown(event) {
 		const { code } = event;
 
 		current[code] = true;
@@ -77,9 +83,9 @@ export default function createKeyboardIntegrator() {
 				current[keyHoldedFlag] = true;
 			}
 		} */
-	});
+	}
 
-	document.body.addEventListener('keyup', (event) => {
+	function handleKeyUp(event) {
 		const { code } = event;
 
 		current[code] = false;
@@ -90,7 +96,11 @@ export default function createKeyboardIntegrator() {
 				current[keyHoldedFlag] = false;
 			}
 		} */
-	});
+	}
+
+	document.addEventListener('visibilitychange', handleDocumentVisibilityChanged);
+	document.addEventListener('keydown', handleKeyDown);
+	document.addEventListener('keyup', handleKeyUp);
 
 	return {
 		current,
@@ -122,6 +132,11 @@ export default function createKeyboardIntegrator() {
 			current[keyPresedFlag] = false;
 
 			return isPressed;
+		},
+		destroy() {
+			document.removeEventListener('visibilitychange', handleDocumentVisibilityChanged);
+			document.removeEventListener('keydown', handleKeyDown);
+			document.removeEventListener('keyup', handleKeyUp);
 		},
 	};
 }
