@@ -10,6 +10,7 @@ import {
 } from 'three';
 import {
 	COLOR_ACCENT,
+	COLOR_RED,
 } from '../config.js';
 import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
 import createFactorPlusMinus from '../factors/createFactorPlusMinus.js';
@@ -31,7 +32,7 @@ export default function createPlayer({ onLevelEnded }) {
 	cube.position.set(0, 0.5, 0);
 
 	const engineGeometry = new BoxGeometry(0.5, 0.5, 0.5);
-	const engineMaterial = new MeshBasicMaterial({ color: 0xff00000 });
+	const engineMaterial = new MeshBasicMaterial({ color: COLOR_RED });
 	const engineMesh = new Mesh(engineGeometry, engineMaterial);
 	engineMesh.position.set(0, 0.5, -0.5);
 
@@ -46,9 +47,23 @@ export default function createPlayer({ onLevelEnded }) {
 	group.add(engineMesh);
 	group.add(cone);
 
-	const factorForwardBackward = createFactorPlusMinus({ factorOfIncreasing: 1, factorOfDecreasing: 0.5 });
-	const factorSidestepLeftRight = createFactorPlusMinus({ factorOfIncreasing: 0.5, factorOfDecreasing: 0.5 });
-	const factorRotatingLeftRight = createFactorPlusMinus({ factorOfIncreasing: 1, factorOfDecreasing: 1 });
+	const factorForwardBackward = createFactorPlusMinus({
+		factorOfIncreasing: 1,
+		factorOfDecreasing: 0.5,
+		factorOfContring: 3,
+	});
+
+	const factorSidestepLeftRight = createFactorPlusMinus({
+		factorOfIncreasing: 0.5,
+		factorOfDecreasing: 0.5,
+		factorOfContring: 3,
+	});
+
+	const factorRotatingLeftRight = createFactorPlusMinus({
+		factorOfIncreasing: 1,
+		factorOfDecreasing: 1,
+		factorOfContring: 3,
+	});
 
 	return {
 		type: createPlayer,
@@ -84,7 +99,7 @@ export default function createPlayer({ onLevelEnded }) {
 			const rotatingFactor = factorRotatingLeftRight.update(deltaTimeSeconds, {
 				shouldGoToMinus: isRightHolded,
 				shouldGoToPlus: isLeftHolded,
-			}) * 0.5;
+			}) * 0.2;
 
 			let entitiesToAddToScene;
 			if (isActionPressed) {

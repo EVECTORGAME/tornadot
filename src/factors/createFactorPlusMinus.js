@@ -3,6 +3,7 @@ import utilClamp from '../utils/utilClamp.js';
 export default function createFactorPlusMinus({
 	factorOfIncreasing,
 	factorOfDecreasing,
+	factorOfContring,
 }) {
 	let factor = 0;
 
@@ -11,11 +12,15 @@ export default function createFactorPlusMinus({
 			if (shouldGoToMinus && shouldGoToPlus) {
 				return factor;
 			} else if (shouldGoToPlus) {
-				factor = utilClamp(factor + (timeDeltaSeconds * factorOfIncreasing), -1, +1);
+				const changeFactor = factor < 0 ? factorOfContring : factorOfIncreasing;
+
+				factor = utilClamp(factor + (timeDeltaSeconds * changeFactor), -1, +1);
 
 				return factor;
 			} else if (shouldGoToMinus) {
-				factor = utilClamp(factor - (timeDeltaSeconds * factorOfIncreasing), -1, +1);
+				const changeFactor = factor > 0 ? factorOfContring : factorOfIncreasing;
+
+				factor = utilClamp(factor - (timeDeltaSeconds * changeFactor), -1, +1);
 
 				return factor;
 			} else if (factor > 0) {
