@@ -5,6 +5,7 @@
     ],
     "globals": {
         "window": "readonly",
+        "localStorage": "readonly",
         "document": "readonly"
     },
     "extends": [
@@ -13,6 +14,15 @@
         // "plugin:jsx-control-statements/recommended",
         // "plugin:react-perf/recommended"
     ],
+    "settings": {
+        "import/resolver": {
+            "eslint-import-resolver-custom-alias": {
+                "alias": {
+                    "preact-hooks": "./node_modules/preact/hooks/dist/hooks.module.js"
+                },
+            }
+        }
+    },
     "parserOptions": {
         "ecmaVersion": 2020,
         "sourceType": "module",

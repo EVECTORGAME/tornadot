@@ -4,14 +4,14 @@ import {
 	Mesh,
 	Group,
 } from 'three';
-import utilRandomValueMInMax from '../utils/utilRandomValueMInMax.js';
+import utilRandomValueMinMax from '../utils/utilRandomValueMinMax.js';
 import utilRandomDegrees0360 from '../utils/utilRandomDegrees0360.js';
 import {
 	COLOR_ACCENT,
 } from '../config.js';
 
 export default function createSmallPlant({ x, z }) {
-	const count = utilRandomValueMInMax(1, 3);
+	const count = utilRandomValueMinMax(1, 3);
 
 	const group = new Group();
 	for (let i = 1; i <= count; i++) {
@@ -21,7 +21,7 @@ export default function createSmallPlant({ x, z }) {
 
 		const randomDegrees = utilRandomDegrees0360();
 		const randomDegreesInRadians = (randomDegrees * Math.PI) / 180;
-		const range = i * 0.5;
+		const range = (i - 1) * 0.5;
 		const positionForward = range * Math.cos(randomDegreesInRadians);
 		const positionRight = range * Math.sin(randomDegreesInRadians);
 
@@ -36,7 +36,7 @@ export default function createSmallPlant({ x, z }) {
 		type: createSmallPlant,
 		model: group,
 		radius: 1,
-		handleTimeUpdate(timeDeltaTime) {
+		handleTimeUpdate(deltaTimeSeconds) { // eslint-disable-line no-unused-vars
 			//
 
 			return {};

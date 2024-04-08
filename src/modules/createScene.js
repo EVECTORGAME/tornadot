@@ -24,7 +24,17 @@ export default function createScene({ camera }) {
 		},
 		entities,
 		findClosestEntityToObject({ forward, right, radius }, excludeEntity) {
-			return entities.filter(entity => entity !== excludeEntity && (excludeEntity ? entity.shooterEntity !== excludeEntity : true)).filter(other => other.radius > 0).reduce((stack, otherEntity) => {
+			return entities.filter((entity) => {
+				const isEmptySlot = !entity;
+				if (isEmptySlot) {
+					return false;
+				}
+
+				const isNotItself = entity !== excludeEntity;
+				const isNotShootedBySubject = excludeEntity ? entity.shooterEntity !== excludeEntity : true;
+
+				return isNotItself && isNotShootedBySubject;
+			}).filter(other => other.radius > 0).reduce((stack, otherEntity) => {
 				const {
 					model: otherModel,
 					radius: otherRadius,
@@ -65,6 +75,22 @@ export default function createScene({ camera }) {
 			// TODO search for forst empty slot
 			entities.push(entity);
 			scene.add(entity.model);
+		},
+		removeEntityAdnItsReferencesentity(entityToRemove) {
+			for (let i = 0; i < entities.length; i += 1) {
+				const entity = entities[i];
+				if (entity) {
+					if (entity.shooterEntity === entityToRemove) {
+						entity.shooterEntity = undefined;
+					}
+				}
+
+				if (entity === entityToRemove) {
+					scene.remove(entityToRemove.model);
+
+					entities[i] = undefined;
+				}
+			}
 		},
 		render() {
 			renderer.render(scene, camera);

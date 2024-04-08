@@ -18,7 +18,7 @@ export default function createLevelEnd({ x, y, z }) {
 		type: createLevelEnd,
 		model: sphere,
 		radius: 1,
-		handleTimeUpdate(timeDeltaTime) {
+		handleTimeUpdate(deltaTimeSeconds) { // eslint-disable-line no-unused-vars
 			//
 
 			return {};

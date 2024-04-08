@@ -2,7 +2,6 @@ import { h } from 'preact';
 // import classNames from 'clsx';
 import { useEffect, useRef } from 'preact-hooks';
 // import utilClamp from '../utils/utilClamp.js';
-import utilCreateDefer from '../utils/utilCreateDefer.js';
 // import usePersistent from '../hooks/usePersistent.js';
 import createChronos from '../modules/createChronos.js';
 import createStylesheet from '../modules/createStylesheet.js';
@@ -12,11 +11,10 @@ import randomLevelGenerator from '../modules/randomLevelGenerator.js';
 //
 import createPlayer from '../entities/createPlayer.js';
 import createCamera from '../entities/createCamera.js';
-import createRocket from '../entities/createRocket.js';
+import createOceanFloor from '../entities/createOceanFloor.js';
 //
 import CountDisplay from '../components/CountDisplay.js';
 //
-import { CAMERA_POSITION_Z } from '../config.js';
 import { NINETY_DEGREES_IN_RADIANS } from '../constants.js';
 
 function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
@@ -28,6 +26,7 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 	});
 
 	const cameraEntity = createCamera({ playerEntity });
+	const oceanFloor = createOceanFloor({ playerEntity });
 
 	const scene = createScene({ camera: cameraEntity.camera });
 
@@ -35,76 +34,113 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 
 	scene.add(cameraEntity);
 	scene.add(playerEntity);
+	scene.add(oceanFloor);
 
 	const { levelEnd } = randomLevelGenerator(scene, levelRadius);
 
 	const keyboardIntegrator = createKeyboardIntegrator();
 
-	const chronos = createChronos((deltaTimeMilliseconds, timeMilliseconds) => {
+	const chronos = createChronos((deltaTimeSeconds) => {
 		const entitesToAdd = [];
+		const entitesToDestroy = [];
 
 		scene.entities.forEach((entity) => {
-			if (entity === playerEntity) {
+			const isEmptyEntitySlot = !entity;
+			if (isEmptyEntitySlot) {
+				return;
+			}
+
+			const isItPlayer = entity === playerEntity;
+			const {
+				ArrowLeft: isLeftHolded,
+				ArrowRight: isRightHolded,
+				ArrowUp: isForwardHolded,
+				ArrowDown: isBackwardHolded,
+				KeyA: isStepLeftHolded,
+				KeyD: isStepRightHolded,
+			} = isItPlayer ? keyboardIntegrator.current : {};
+
+			const isActionPressed = isItPlayer ? keyboardIntegrator.consumeIsPressed('Space') : false;
+
+			if (isItPlayer) {
 				const playerDistanceToLevelEnd = playerEntity.model.position.distanceTo(levelEnd.model.position);
 				onRefreshUi({
 					playerDistanceToLevelEnd,
-					deltaTimeMilliseconds,
+					deltaTimeSeconds,
+					// TODO entities: [...entities]
+				});
+			}
+
+			/* const isMovingSide = isStepLeftHolded || isStepRightHolded;
+			if (isMovingSide) {
+				if (isStepLeftHolded) {
+					scene.addPosionToObjectAtIndex(entity, deltaTimeSeconds * +10, NINETY_DEGREES_IN_RADIANS);
+				} else if (isStepRightHolded) {
+					scene.addPosionToObjectAtIndex(entity, deltaTimeSeconds * -10, NINETY_DEGREES_IN_RADIANS);
+				}
+			} else if (isForwardHolded) {
+				scene.addPosionToObjectAtIndex(entity, deltaTimeSeconds * 10, 0);
+			} else if (isBackwardHolded) {
+				scene.addPosionToObjectAtIndex(entity, deltaTimeSeconds * -5, 0);
+			} */
+
+			/* const isActionPressed = keyboardIntegrator.consumeIsPressed('Space');
+			if (isActionPressed) {
+				const rocket = createRocket({
+					x: entity.model.position.x,
+					z: entity.model.position.z,
+					rotation: entity.model.rotation.y, // TODO reds to degreesm degrees to radds
+					shooterEntity: entity,
 				});
 
-				const {
-					ArrowLeft: isLeftHolded,
-					ArrowRight: isRightHolded,
-					ArrowUp: isForwardHolded,
-					ArrowDown: isBackwardHolded,
-					KeyA: isStepLeftHolded,
-					KeyD: isStepRightHolded,
-				} = keyboardIntegrator.current;
+				entitesToAdd.push(rocket);
+			} */
 
-				const isMovingSide = isStepLeftHolded || isStepRightHolded;
-				if (isMovingSide) {
-					if (isStepLeftHolded) {
-						scene.addPosionToObjectAtIndex(entity, deltaTimeMilliseconds * +0.01, NINETY_DEGREES_IN_RADIANS);
-					} else if (isStepRightHolded) {
-						scene.addPosionToObjectAtIndex(entity, deltaTimeMilliseconds * -0.01, NINETY_DEGREES_IN_RADIANS);
-					}
-				} else if (isForwardHolded) {
-					scene.addPosionToObjectAtIndex(entity, deltaTimeMilliseconds * 0.01, 0);
-				} else if (isBackwardHolded) {
-					scene.addPosionToObjectAtIndex(entity, deltaTimeMilliseconds * -0.005, 0);
-				}
-
-				const isActionPressed = keyboardIntegrator.consumeIsPressed('Space');
-				if (isActionPressed) {
-					const rocket = createRocket({
-						x: entity.model.position.x,
-						z: entity.model.position.z,
-						rotation: entity.model.rotation.y, // TODO reds to degreesm degrees to radds
-						shooterEntity: entity,
-					});
-
-					entitesToAdd.push(rocket);
-				}
-
-				const isRotationPressed = isLeftHolded || isRightHolded;
-				if (isLeftHolded && isRightHolded) {
-					//
-				} else if (isLeftHolded) {
-					entity.model.rotation.y += (deltaTimeMilliseconds * +0.005);
-				} else if (isRightHolded) {
-					entity.model.rotation.y += (deltaTimeMilliseconds * -0.005);
-				}
-			}
+			/* const isRotationPressed = isLeftHolded || isRightHolded;
+			if (isLeftHolded && isRightHolded) {
+				//
+			} else if (isLeftHolded) {
+				entity.model.rotation.y += (deltaTimeSeconds * +5);
+			} else if (isRightHolded) {
+				entity.model.rotation.y += (deltaTimeSeconds * -5);
+			} */
 
 			const {
-				moveForward,
-			} = entity.handleTimeUpdate?.(deltaTimeMilliseconds) ?? {};
-			if (moveForward) {
-				scene.addPosionToObjectAtIndex(entity, moveForward, 0);
+				shouldDestroy,
+				moveForwardStep,
+				moveSidesStep,
+				rotationStep,
+				entitiesToAddToScene,
+			} = entity.handleTimeUpdate?.(deltaTimeSeconds, {
+				isLeftHolded,
+				isRightHolded,
+				isForwardHolded,
+				isBackwardHolded,
+				isStepLeftHolded,
+				isStepRightHolded,
+				isActionPressed,
+			}) ?? {};
+			if (moveForwardStep) {
+				scene.addPosionToObjectAtIndex(entity, moveForwardStep, 0);
 			}
-		});
 
-		scene.entities.forEach((entity) => {
-			//
+			if (moveSidesStep) {
+				scene.addPosionToObjectAtIndex(entity, moveSidesStep, NINETY_DEGREES_IN_RADIANS);
+			}
+
+			if (rotationStep) {
+				entity.model.rotation.y += rotationStep;
+			}
+
+			if (shouldDestroy) {
+				entitesToDestroy.push(entity);
+			}
+
+			if (entitiesToAddToScene) {
+				entitiesToAddToScene.forEach((entityToadd) => {
+					entitesToAdd.push(entityToadd);
+				});
+			}
 		});
 
 		// scene.camera.position.set(
@@ -115,6 +151,9 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 
 		scene.render();
 
+		entitesToDestroy.forEach((entity) => {
+			scene.removeEntityAdnItsReferencesentity(entity);
+		});
 		entitesToAdd.forEach((entity) => {
 			scene.add(entity);
 		});
@@ -165,11 +204,12 @@ export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEn
 			keyboardIntegrator,
 			onRefreshUi({
 				playerDistanceToLevelEnd,
-				deltaTimeMilliseconds,
+				deltaTimeSeconds,
 			}) {
 				const playerDistanceToLevelEndRounded = Math.round(playerDistanceToLevelEnd);
 				distanceApiRef.current.alternateToNumber(`${playerDistanceToLevelEndRounded}M`);
 
+				const deltaTimeMilliseconds = deltaTimeSeconds * 1000;
 				const fps = Math.round(1000 / deltaTimeMilliseconds);
 				fpsApiRef.current.alternateToNumber(`FPS ${fps}`);
 			},

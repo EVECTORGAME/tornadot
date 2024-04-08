@@ -2,7 +2,6 @@ import {
 	PerspectiveCamera,
 	Group,
 	MathUtils,
-	Vector3,
 } from 'three';
 import {
 	CAMERA_POSITION_Y,
@@ -36,25 +35,26 @@ export default function createCamera({ playerEntity }) {
 		model: group,
 		camera,
 		radius: 0,
-		handleTimeUpdate(timeDeltaTime) {
-			// group.position.set(
-			// 	playerEntity.model.position.x,
-			// 	playerEntity.model.position.y,
-			// 	playerEntity.model.position.z,
-			// );
+		handleTimeUpdate(deltaTimeSeconds) { // eslint-disable-line no-unused-vars
+			group.position.set(
+				playerEntity.model.position.x,
+				playerEntity.model.position.y,
+				playerEntity.model.position.z,
+			);
 			// Oblicz wektor kierunku między obiektami
 
-			const direction = new Vector3().subVectors(playerEntity.model.position, group.position).normalize();
-
-			const constantVelocity = 0.007;
-			let distanceToMove = timeDeltaTime * constantVelocity;
-
-			const distanceToTarget = group.position.distanceTo(playerEntity.model.position);
-			if (distanceToMove > distanceToTarget) {
-				distanceToMove = distanceToTarget;
-			}
-
-			group.position.lerp(group.position.clone().add(direction.multiplyScalar(distanceToMove)), 1);
+			// const direction = new Vector3().subVectors(playerEntity.model.position, group.position).normalize();
+			//
+			// const constantVelocity = 7;
+			//
+			// let distanceToMove = deltaTimeSeconds * constantVelocity;
+			//
+			// const distanceToTarget = group.position.distanceTo(playerEntity.model.position);
+			// if (distanceToMove > distanceToTarget) {
+			// 	distanceToMove = distanceToTarget;
+			// }
+			//
+			// group.position.lerp(group.position.clone().add(direction.multiplyScalar(distanceToMove)), 1);
 
 			const currentRotation = group.rotation.y;
 			const rotationDiff = Math.abs(group.rotation.y - playerEntity.model.rotation.y);

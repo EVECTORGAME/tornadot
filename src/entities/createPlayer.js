@@ -4,18 +4,29 @@ import {
 	Mesh,
 	Group,
 	ConeGeometry,
-	CircleGeometry,
+	TextureLoader,
+	RepeatWrapping,
+	NearestFilter,
 } from 'three';
-import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
 import {
 	COLOR_ACCENT,
-	COLOR_LIGHT_BLUE,
 } from '../config.js';
+import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
+import createFactorPlusMinus from '../factors/createFactorPlusMinus.js';
+import createRocket from './createRocket.js';
 import createLevelEnd from './createLevelEnd.js';
 
 export default function createPlayer({ onLevelEnded }) {
+	const textureLoader = new TextureLoader();
+
 	const geometry = new BoxGeometry(1, 1, 1);
-	const material = new MeshBasicMaterial({ color: COLOR_ACCENT });
+	const metaLTexture = textureLoader.load('./textures/ditrheredBase.png');
+	metaLTexture.minFilter = NearestFilter;
+	metaLTexture.magFilter = NearestFilter;
+	metaLTexture.wrapS = RepeatWrapping;
+	metaLTexture.wrapT = RepeatWrapping;
+	metaLTexture.repeat.set(0.5, 0.5);
+	const material = new MeshBasicMaterial({ map: metaLTexture, color: COLOR_ACCENT });
 	const cube = new Mesh(geometry, material);
 	cube.position.set(0, 0.5, 0);
 
@@ -30,17 +41,14 @@ export default function createPlayer({ onLevelEnded }) {
 	cone.rotation.x = utilDegreesToRadians(-30);
 	cone.position.set(0, 1, -0.5);
 
-	const floorGeometry = new CircleGeometry(50 /* fog range*/, 32);
-	const floorMaterial = new MeshBasicMaterial({ color: COLOR_LIGHT_BLUE });
-	const floor = new Mesh(floorGeometry, floorMaterial);
-	floor.rotation.x = utilDegreesToRadians(-90);
-	floor.position.set(0, 0, 0);
-
 	const group = new Group();
 	group.add(cube);
 	group.add(engineMesh);
 	group.add(cone);
-	group.add(floor);
+
+	const factorForwardBackward = createFactorPlusMinus({ factorOfIncreasing: 1, factorOfDecreasing: 0.5 });
+	const factorSidestepLeftRight = createFactorPlusMinus({ factorOfIncreasing: 0.5, factorOfDecreasing: 0.5 });
+	const factorRotatingLeftRight = createFactorPlusMinus({ factorOfIncreasing: 1, factorOfDecreasing: 1 });
 
 	return {
 		type: createPlayer,
@@ -49,10 +57,53 @@ export default function createPlayer({ onLevelEnded }) {
 		collidesWith(other) {
 			if (other.type === createLevelEnd) {
 				onLevelEnded();
-				console.log('>> levelend', other);
 			} else {
-				console.log('>> collidesWith', other);
+				factorForwardBackward.reverseAndMultiply(0.5);
+				factorSidestepLeftRight.reverseAndMultiply(0.5);
 			}
+		},
+		handleTimeUpdate(deltaTimeSeconds, {
+			isLeftHolded,
+			isRightHolded,
+			isForwardHolded,
+			isBackwardHolded,
+			isStepLeftHolded,
+			isStepRightHolded,
+			isActionPressed,
+		}) {
+			const forwardFactor = factorForwardBackward.update(deltaTimeSeconds, {
+				shouldGoToMinus: isBackwardHolded,
+				shouldGoToPlus: isForwardHolded,
+			}) * 0.5;
+
+			const sidestepFactor = factorSidestepLeftRight.update(deltaTimeSeconds, {
+				shouldGoToMinus: isStepRightHolded,
+				shouldGoToPlus: isStepLeftHolded,
+			}) * 0.5;
+
+			const rotatingFactor = factorRotatingLeftRight.update(deltaTimeSeconds, {
+				shouldGoToMinus: isRightHolded,
+				shouldGoToPlus: isLeftHolded,
+			}) * 0.5;
+
+			let entitiesToAddToScene;
+			if (isActionPressed) {
+				entitiesToAddToScene = [
+					createRocket({
+						x: group.position.x,
+						z: group.position.z,
+						rotation: group.rotation.y, // TODO reds to degreesm degrees to radds
+						shooterEntity: this,
+					}),
+				];
+			}
+
+			return {
+				moveForwardStep: forwardFactor,
+				moveSidesStep: sidestepFactor,
+				rotationStep: rotatingFactor,
+				entitiesToAddToScene,
+			};
 		},
 	};
 }
