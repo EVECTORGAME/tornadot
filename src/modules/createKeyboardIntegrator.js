@@ -98,9 +98,9 @@ export default function createKeyboardIntegrator() {
 		} */
 	}
 
-	document.addEventListener('visibilitychange', handleDocumentVisibilityChanged);
-	document.addEventListener('keydown', handleKeyDown);
-	document.addEventListener('keyup', handleKeyUp);
+	document.addEventListener('visibilitychange', handleDocumentVisibilityChanged, { passive: true });
+	document.addEventListener('keydown', handleKeyDown, { passive: true });
+	document.addEventListener('keyup', handleKeyUp, { passive: true });
 
 	return {
 		current,

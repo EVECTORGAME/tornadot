@@ -8,7 +8,7 @@ import {
 	NearestFilter,
 } from 'three';
 import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
-import { COLOR_LIGHT_BLUE } from '../config.js';
+import { COLOR_FLOOR } from '../config.js';
 
 const MODULO = 6.2; // 6.2 dobrane empirycznie
 const OCEAN_FLOOR_RADIUS = 50; // fog range
@@ -27,8 +27,8 @@ export default function createPlayer({ playerEntity }) {
 		OCEAN_FLOOR_RADIUS,
 		OCEAN_FLOOR_SEGMENTS_COUNT,
 	);
-	// const floorMaterial = new MeshBasicMaterial({ color: COLOR_LIGHT_BLUE });
-	const floorMaterial = new MeshBasicMaterial({ map: floorTexture, color: COLOR_LIGHT_BLUE });
+	// const floorMaterial = new MeshBasicMaterial({ color: COLOR_FLOOR });
+	const floorMaterial = new MeshBasicMaterial({ map: floorTexture, color: COLOR_FLOOR });
 	const floor = new Mesh(floorGeometry, floorMaterial);
 	floor.rotation.x = utilDegreesToRadians(-90);
 	floor.position.set(0, 0, 0);
