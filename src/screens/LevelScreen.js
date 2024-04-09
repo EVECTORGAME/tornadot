@@ -169,7 +169,7 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 	};
 }
 
-const theme = createStylesheet('MainMenu', {
+const theme = createStylesheet('LevelScreen', {
 	container: {
 		'position': 'fixed',
 		'inset': 0,

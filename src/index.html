@@ -38,6 +38,7 @@
 			import LevelScreen from './screens/LevelScreen.js';
 			import PlayNextScreen from './screens/PlayNextScreen.js';
 			import GameEndScreen from './screens/GameEndScreen.js';
+			import ShowroomScreen from './screens/ShowroomScreen.js';
 
 			document.body.addEventListener('keydown', ({ key }) => {
 			    if (key === '`') {
@@ -50,6 +51,7 @@
 				const LEVEL_SCREEN = 'level-screen';
 				const PLAY_NEXT_SCREEN = 'play-next-screen';
 				const GAME_END_SCREEN = 'game-end-screen';
+				const SHOWROOM_SCREEN = 'showroom-screen';
 
 				const headerFont = createBitmapFont('bitmapfonts/font_11x16.png', {
 					tileWidth: 10,
@@ -144,6 +146,10 @@
 						setActiveItem(LEVEL_SCREEN);
 					}, []);
 
+					const handleShowroomScreen = useCallback(() => {
+						setActiveItem(SHOWROOM_SCREEN);
+					}, []);
+
 					const handleEndScreenEnded = useCallback(() => {
 						setActiveItem(MAIN_MENU_SCREEN);
 					}, []);
@@ -152,10 +158,10 @@
 						h(AppContext, null, [
 							activeItem === MAIN_MENU_SCREEN && h(MainMenuScreen,
 								{
-									headerFont,
 									items: [
 										{ label: `continue game ${maxAccessibleLevel}`, onSelected: handleContinueGame },
 										{ label: 'new game', onSelected: handleNewGame },
+										{ label: 'showroom', onSelected: handleShowroomScreen },
 										{ label: 'settings' },
 										{ label: 'quit' },
 									]
@@ -171,17 +177,22 @@
 							),
 							activeItem === PLAY_NEXT_SCREEN && h(PlayNextScreen,
 								{
-									headerFont,
 									nextLevelNumber: maxAccessibleLevel,
 									onYes: handleLoadNextLevel,
 								},
 							),
 							activeItem === GAME_END_SCREEN && h(GameEndScreen,
 								{
-									headerFont,
 									onWatched: handleEndScreenEnded,
 								},
 							),
+							activeItem === SHOWROOM_SCREEN && h(ShowroomScreen,
+								{
+									// onWatched: handleEndScreenEnded,
+								},
+							),
+
+
 							// h(PauseManuScreen, { secret: 'orange' }, [
 							// 	// h(MainMenu)
 							// ]),
