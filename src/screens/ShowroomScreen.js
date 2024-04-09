@@ -1,8 +1,11 @@
 import { h } from 'preact';
-import { useEffect, useState, useRef } from 'preact-hooks';
+import { useEffect, useState, useRef, useCallback } from 'preact-hooks';
+
+import useKeyHook from '../hooks/useKeyHook.js';
 
 import createStylesheet from '../modules/createStylesheet.js';
 import HeaderText from '../components/HeaderText.js';
+import MainMenuScreen from './MainMenuScreen.js';
 //
 import createScene from '../modules/createScene.js';
 import createChronos from '../modules/createChronos.js';
@@ -36,11 +39,18 @@ const ITEMS = [
 	[createLevelEnd, { x: 0, z: 0 }],
 ];
 
-export default function PlayNextScreen() {
+export default function PlayNextScreen({ onClose }) {
 	const holderRef = useRef();
 	const sceneRef = useRef();
 	const currentEntityRef = useRef();
 	const [selectedIndex, setSelectedIndex] = useState(0);
+	const [showPauseMenu, setShowPauseMenu] = useState();
+
+	useKeyHook('Escape', () => {
+		const shouldBePaused = !showPauseMenu;
+
+		setShowPauseMenu(shouldBePaused);
+	}, []);
 
 	useEffect(() => {
 		const holder = createDemoHolder({ x: 0, z: 0 });
@@ -112,6 +122,20 @@ export default function PlayNextScreen() {
 			document.body.removeEventListener('keyup', handleKey);
 		};
 	}, [selectedIndex]);
+
+	const handleResume = useCallback(() => {
+		setShowPauseMenu(false);
+	}, []);
+
+	if (showPauseMenu) {
+		return h(MainMenuScreen, {
+			title: 'DEMO',
+			items: [
+				{ label: 'resume', onSelected: handleResume },
+				{ label: 'quit', onSelected: onClose },
+			],
+		});
+	}
 
 	return (
 		h('div',

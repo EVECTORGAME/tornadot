@@ -20,7 +20,7 @@ const theme = createStylesheet('MainMenu', {
 	},
 });
 
-export default function MainMenu({ items }) {
+export default function MainMenu({ title, items }) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	const addOffsetToValue = useCallback((offset) => {
@@ -49,7 +49,7 @@ export default function MainMenu({ items }) {
 
 	return (
 		h('div', { className: theme.container }, [
-			h(HeaderText, { text: 'LIL SUBMARINE' }),
+			h(HeaderText, { text: title }),
 			items.map(({ label }, index) => {
 				const isSelectedItem = index === activeIndex;
 

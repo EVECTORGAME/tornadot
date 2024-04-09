@@ -28,6 +28,7 @@
 			import { render, h, Component } from 'preact';
 
 			import useLocalStorageValue from './hooks/useLocalStorageValue.js';
+			import useIncrement from './hooks/useIncrement.js';
 
 			import createFavicon from './modules/createFavicon.js';
 			import createBitmapFont from './modules/createBitmapFont.js';
@@ -121,6 +122,7 @@
 					const [maxAccessibleLevel, setMaxAccessibleLevel] = useLocalStorageValue('max-accessible-level', 1);
 					const [levelToLoad, setLevelToload] = useState(maxAccessibleLevel);
 					const [activeItem, setActiveItem] = useState(MAIN_MENU_SCREEN);
+					const [key, reloadLevel] = useIncrement();
 
 					const handleNewGame = useCallback(() => {
 						setLevelToload(1);
@@ -142,6 +144,14 @@
 						}
 					}, []);
 
+					const handleShowMainMenu = useCallback(() => {
+						setActiveItem(MAIN_MENU_SCREEN);
+					}, []);
+
+					const handleReloadLevel = useCallback(() => {
+						reloadLevel();
+					}, []);
+
 					const handleLoadNextLevel = useCallback(() => {
 						setActiveItem(LEVEL_SCREEN);
 					}, []);
@@ -158,6 +168,7 @@
 						h(AppContext, null, [
 							activeItem === MAIN_MENU_SCREEN && h(MainMenuScreen,
 								{
+									title: 'MARINE HUNTER',
 									items: [
 										{ label: `continue game ${maxAccessibleLevel}`, onSelected: handleContinueGame },
 										{ label: 'new game', onSelected: handleNewGame },
@@ -171,8 +182,11 @@
 							),
 							activeItem === LEVEL_SCREEN && h(LevelScreen,
 								{
+									key,
 									levelNumber: levelToLoad,
 									onLevelEnded: handleOnLevelEnded,
+									onAbort: handleShowMainMenu,
+									onReload: handleReloadLevel,
 								},
 							),
 							activeItem === PLAY_NEXT_SCREEN && h(PlayNextScreen,
@@ -189,6 +203,7 @@
 							activeItem === SHOWROOM_SCREEN && h(ShowroomScreen,
 								{
 									// onWatched: handleEndScreenEnded,
+									onClose: handleShowMainMenu,
 								},
 							),
 

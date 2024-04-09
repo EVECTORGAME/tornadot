@@ -1,8 +1,9 @@
 import { h } from 'preact';
 // import classNames from 'clsx';
-import { useEffect, useRef } from 'preact-hooks';
+import { useEffect, useRef, useState, useCallback } from 'preact-hooks';
 // import utilClamp from '../utils/utilClamp.js';
 // import usePersistent from '../hooks/usePersistent.js';
+import useKeyHook from '../hooks/useKeyHook.js';
 import createChronos from '../modules/createChronos.js';
 import createStylesheet from '../modules/createStylesheet.js';
 import createScene from '../modules/createScene.js';
@@ -14,6 +15,7 @@ import createCamera from '../entities/createCamera.js';
 import createOceanFloor from '../entities/createOceanFloor.js';
 //
 import CountDisplay from '../components/CountDisplay.js';
+import MainMenuScreen from './MainMenuScreen.js';
 //
 import { NINETY_DEGREES_IN_RADIANS } from '../constants.js';
 
@@ -166,18 +168,21 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 		destroy() {
 			scene.destroy();
 		},
+		setIsRunning(shouldBeRunning) {
+			chronos.setIsRunning(shouldBeRunning);
+		},
 	};
 }
 
 const theme = createStylesheet('LevelScreen', {
 	container: {
-		'position': 'fixed',
-		'inset': 0,
-		'display': 'flex',
-		'justify-content': 'center',
-		'align-items': 'center',
-		'flex-direction': 'column',
-		// 'background-color': COLOR_DARK_BLUE,
+		position: 'fixed',
+		inset: 0,
+		// 'display': 'flex',
+		// 'justify-content': 'center',
+		// 'align-items': 'center',
+		// 'flex-direction': 'column',
+		// // 'background-color': COLOR_DARK_BLUE,
 	},
 	distanceHolder: {
 		position: 'absolute',
@@ -195,12 +200,23 @@ const theme = createStylesheet('LevelScreen', {
 	},
 });
 
-export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEnded }) {
+export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEnded, onAbort, onReload }) {
+	const [showPauseMenu, setShowPauseMenu] = useState();
+	const levelRef = useRef();
+
+	// setIsRunning(shouldBeRunning) {
 	const distanceApiRef = useRef();
 	const fpsApiRef = useRef();
 
+	useKeyHook('Escape', () => {
+		const shouldBePaused = !showPauseMenu;
+
+		levelRef.current.setIsRunning(!shouldBePaused);
+		setShowPauseMenu(shouldBePaused);
+	}, []);
+
 	useEffect(() => {
-		const scene = createLevel(levelNumber, {
+		const level = createLevel(levelNumber, {
 			keyboardIntegrator,
 			onRefreshUi({
 				playerDistanceToLevelEnd,
@@ -218,10 +234,28 @@ export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEn
 			},
 		});
 
+		levelRef.current = level;
+
 		return () => {
-			scene.destroy();
+			level.destroy();
 		};
 	}, []);
+
+	const handleResume = useCallback(() => {
+		levelRef.current.setIsRunning(true);
+		setShowPauseMenu(false);
+	}, []);
+
+	if (showPauseMenu) {
+		return h(MainMenuScreen, {
+			title: 'PAUSE MANU',
+			items: [
+				{ label: 'resume', onSelected: handleResume },
+				{ label: 'restart', onSelected: onReload },
+				{ label: 'quit', onSelected: onAbort },
+			],
+		});
+	}
 
 	return (
 		h('div',
