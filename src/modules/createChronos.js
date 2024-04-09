@@ -1,4 +1,5 @@
 export default function createChronos(onTick, { initialDelayMilliseconds = 0, doInitialSyncCall = false }) {
+	let isRunning = true;
 	let prevMilliseconds;
 
 	let handleTimeUpdate = () => {
@@ -12,7 +13,9 @@ export default function createChronos(onTick, { initialDelayMilliseconds = 0, do
 		} else if (deltaMilliseconds > 16) {
 			const deltaSeconds = deltaMilliseconds / 1000;
 
-			onTick(deltaSeconds);
+			if (isRunning) {
+				onTick(deltaSeconds);
+			}
 		}
 
 		window.requestAnimationFrame(() => {
@@ -34,6 +37,9 @@ export default function createChronos(onTick, { initialDelayMilliseconds = 0, do
 		destroy() {
 			clearTimeout(initialDelayTimerId);
 			handleTimeUpdate = undefined;
+		},
+		setIsRunning(shouldBeRunning) {
+			isRunning = shouldBeRunning;
 		},
 	};
 }

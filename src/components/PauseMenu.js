@@ -20,7 +20,7 @@ const theme = createStylesheet('MainMenu', {
 	},
 });
 
-export default function MainMenu({ title, items }) {
+export default function PauseMenu({ items }) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	const addOffsetToValue = useCallback((offset) => {
@@ -49,7 +49,7 @@ export default function MainMenu({ title, items }) {
 
 	return (
 		h('div', { className: theme.container }, [
-			h(HeaderText, { text: title }),
+			h(HeaderText, { text: 'Pause Menue' }),
 			items.map(({ label }, index) => {
 				const isSelectedItem = index === activeIndex;
 
