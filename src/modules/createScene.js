@@ -9,7 +9,7 @@ import {
 
 export default function createScene({ camera }) {
 	const scene = new Scene();
-	scene.fog = new Fog(COLOR_WATER, 10, 55);
+	scene.fog = new Fog(COLOR_WATER, 10, 55); // TODO config
 
 	const renderer = new WebGLRenderer();
 	renderer.setClearColor(COLOR_WATER, 1);

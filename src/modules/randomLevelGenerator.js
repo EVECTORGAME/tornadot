@@ -63,7 +63,7 @@ export default function randomLevelGenerator(scene, radius) {
 		if (closestEntity.distanceBetween < 1) {
 			//
 		} else {
-			const entity = createLevelEnd({ x: randomPositionForward, y: 0, z: randomPositionRight });
+			const entity = createLevelEnd({ x: randomPositionForward, z: randomPositionRight });
 
 			scene.add(entity);
 

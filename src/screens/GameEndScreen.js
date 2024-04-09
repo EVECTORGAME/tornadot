@@ -3,7 +3,7 @@ import { useEffect } from 'preact-hooks';
 import createStylesheet from '../modules/createStylesheet.js';
 import HeaderText from '../components/HeaderText.js';
 
-const theme = createStylesheet('MainMenu', {
+const theme = createStylesheet('GameEndScreen', {
 	container: {
 		'position': 'fixed',
 		'inset': 0,

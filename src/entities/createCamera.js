@@ -8,11 +8,11 @@ import {
 	CAMERA_POSITION_Z,
 } from '../config.js';
 
-const FOV = 75;
+const FOV = 75; // TODO config.js
 const CAMERA_FRUSTRUM_NEAR_PLANE = 0.1;
 const CAMERA_FRUSTRUM_FAR_PLANE = 1000;
 
-export default function createCamera({ playerEntity }) {
+export default function createCamera({ playerEntity }) { // TODO rename following camera
 	const { innerWidth, innerHeight } = window;
 	const aspectRatio = innerWidth / innerHeight;
 
