@@ -55,6 +55,7 @@ export default function MainMenu({ title, items }) {
 
 				return (
 					h('div', {
+						key: label,
 						className: classNames({ [theme.isSelected]: isSelectedItem }),
 					}, label)
 				);

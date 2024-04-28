@@ -129,5 +129,6 @@
         ],
         "no-await-in-loop": "off",
         "quote-props": ["error", "consistent-as-needed"],
+        "function-call-argument-newline": "off"
     }
 }
