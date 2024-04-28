@@ -6,14 +6,14 @@ import Window, {
 	TitleBarButtonMinimize,
 	TitleBarButtonMaximize,
 	TitleBarButtonHelp,
-} from '../windows/Window.js';
-import CommandTogglePixelArtGrid from './CommandTogglePixelArtGrid.js';
-import CommandToggleTransparentUnderlay from './CommandToggleTransparentUnderlay.js';
-import CommandLetterUnderlay from './CommandLetterUnderlay.js';
+} from '../components/Window.js';
+import ToolGridUnderlay from '../tools/ToolGridUnderlay.js';
+import ToolLetterUnderlay from '../tools/ToolLetterUnderlay.js';
+import ToolTransparentUnderlay from '../tools/ToolTransparentUnderlay.js';
 
 // TINPAEYALF
 
-const theme = createStylesheet('CommandBox', {
+const theme = createStylesheet('CommandWindow', {
 	container: {
 		'display': 'flex',
 		'flex-direction': 'column',
@@ -41,7 +41,7 @@ const theme = createStylesheet('CommandBox', {
 
 // TODO transparent background base64
 
-export default function CommandBox({
+export default function CommandWindow({
 	// width,
 	// height,
 	selectedHsl,
@@ -68,9 +68,9 @@ export default function CommandBox({
 				],
 				childrenClassName: theme.container,
 			},
-			h(CommandTogglePixelArtGrid, { pixelartGridRef }),
-			h(CommandToggleTransparentUnderlay, { pixelartGridRef }),
-			h(CommandLetterUnderlay, { pixelartGridRef }),
+			h(ToolGridUnderlay, { pixelartGridRef }),
+			h(ToolLetterUnderlay, { pixelartGridRef }),
+			h(ToolTransparentUnderlay, { pixelartGridRef }),
 			h('div',
 				{ className: theme.selectedColor },
 				h('div', {

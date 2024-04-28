@@ -1,21 +1,22 @@
 import { h } from 'preact';
-import { useCallback } from 'preact-hooks';
+import { useCallback, useRef } from 'preact-hooks';
 import classNames from 'clsx';
 import Window, {
 	TitleBarButtonClose,
 	TitleBarButtonMinimize,
 	TitleBarButtonMaximize,
 	TitleBarButtonHelp,
-} from '../windows/Window.js';
+} from '../components/Window.js';
 import createStylesheet from 'createStylesheet';
 
-const theme = createStylesheet('HslColorPalete', {
+const theme = createStylesheet('HslColorPaleteWindow', {
 	container: {
 		'display': 'flex',
 		'gap': '3px',
 		'flex-wrap': 'nowrap',
 		// 'margin-bottom': '1em',
 		'align-items': 'center',
+		'flex-direction': 'column',
 		// 'padding': '1em',
 		// 'background-color': 'silver',
 	},
@@ -31,19 +32,28 @@ const theme = createStylesheet('HslColorPalete', {
 		'flex-wrap': 'no-wrap',
 		'gap': '0.2em',
 	},
+	selected: {
+		'width': '100%',
+		'color': 'white',
+		'text-align': 'center',
+		'padding': '10px',
+	},
+	clear: {
+		width: '100%',
+	},
 	color: {
 		'display': 'flex',
 		'align-items': 'center',
 		'justify-content': 'center',
-		'font-size': '0.5em',
 		'width': '20px',
 		'height': '20px',
+		'color': 'white',
 		// 'user-selection': 'none',
 		// 'pointer-events': 'none',
 	},
 });
 
-export default function HslColorPalete({
+export default function HslColorPaleteWindow({
 	width,
 	height,
 	colorsCount,
@@ -53,31 +63,25 @@ export default function HslColorPalete({
 	// output
 	onSetHslColor,
 }) {
+	const selectedRef = useRef();
+
 	const handleMouseOver = useCallback((event) => {
 		// console.log(event);
 	}, []);
 
 	const handleSetColor = useCallback((hslBaseColor, selectedSaturationPercent, selectedLightness) => {
-		const selectedHls = `hsl(${hslBaseColor}, ${selectedSaturationPercent}%, ${selectedLightness}%)`;
+		const selectedHls = hslBaseColor
+			? `hsl(${hslBaseColor}, ${selectedSaturationPercent}%, ${selectedLightness}%)`
+			: undefined;
+
+		selectedRef.current.style.backgroundColor = selectedHls ?? 'transparent';
 
 		onSetHslColor(selectedHls);
 	}, []);
 
 	const colorStep = 360 / colorsCount;
 
-	// <div class="window" style="width: 300px">
-	//   <div class="title-bar">
-	//     <div class="title-bar-text">A Window With Stuff In It</div>
-	//     <div class="title-bar-controls">
-	//       <button aria-label="Minimize"></button>
-	//       <button aria-label="Maximize"></button>
-	//       <button aria-label="Close"></button>
-	//     </div>
-	//   </div>
-	//   <div class="window-body">
-	//     <p>There's so much room for activities!</p>
-	//   </div>
-	// </div>
+	// TODO historia wybranych kolorów
 
 	return (
 		h('div', {},
@@ -93,6 +97,14 @@ export default function HslColorPalete({
 				},
 				h('div',
 					{ className: theme.container },
+					h('div', {
+						ref: selectedRef,
+						className: theme.selected,
+					}, 'selected'),
+					h('button', {
+						className: theme.clear,
+						onclick: () => handleSetColor(undefined),
+					}, 'clear'),
 					h('div',
 						{ className: theme.rows },
 						Array(colorsCount).fill(undefined).map((_, colorOffset) => {
@@ -103,21 +115,21 @@ export default function HslColorPalete({
 							return h('div',
 								{ className: theme.row },
 								// Array(width).fill(undefined).map((__, columnIndex) => {
-								h('div', {
+								h('button', {
 									className: theme.color,
 									onclick: () => handleSetColor(hslBaseColor, saturationPercent, lighterColor),
 									style: {
 										'background-color': `hsl(${hslBaseColor}, ${saturationPercent}%, ${lighterColor}%)`,
 									},
 								}, `-${lightnessOffsetPercent}`),
-								h('div', {
+								h('button', {
 									className: theme.color,
 									onclick: () => handleSetColor(hslBaseColor, saturationPercent, lightnessPercent),
 									style: {
 										'background-color': `hsl(${hslBaseColor}, ${saturationPercent}%, ${lightnessPercent}%)`,
 									},
 								}, `${hslBaseColor}`),
-								h('div', {
+								h('button', {
 									className: theme.color,
 									onclick: () => handleSetColor(hslBaseColor, saturationPercent, darkerColor),
 									style: {

@@ -6,11 +6,13 @@ import Window, {
 	TitleBarButtonMinimize,
 	TitleBarButtonMaximize,
 	TitleBarButtonHelp,
-} from '../windows/Window.js';
-import HslColorPalete from '../components/HslColorPalete.js';
-import PixelartGrid from '../components/PixelartGrid.js';
-import CommandBox from '../components/CommandBox.js';
-import Database from '../components/Database.js';
+} from '../components/Window.js';
+import HslColorPaleteWindow from '../windows/HslColorPaleteWindow.js';
+import PixelartGridWindow from '../windows/PixelartGridWindow.js';
+import CommandWindow from '../windows/CommandWindow.js';
+import ResourcesWindow from '../windows/ResourcesWindow.js';
+
+const UNIT_PIXELS = 32;
 
 const theme = createStylesheet('MainScreen', {
 	selectedColor: {
@@ -31,23 +33,23 @@ export default function MainScreen() {
 	// console.log('>>', selectedHsl);
 
 	return [
-		h(HslColorPalete, {
+		h(HslColorPaleteWindow, {
 			colorsCount: 9,
 			saturationPercent: 40,
 			lightnessPercent: 40,
 			lightnessOffsetPercent: 10,
 			onSetHslColor: handleSelectedHls,
 		}),
-		h(PixelartGrid, {
-			width: 32,
-			height: 32,
+		h(PixelartGridWindow, {
+			width: UNIT_PIXELS,
+			height: UNIT_PIXELS,
 			apiRef: pixelartGridRef,
 		}),
-		h(CommandBox, {
+		h(CommandWindow, {
 			pixelartGridRef,
 			// width: 32,
 			// height: 32,
 		}),
-		h(Database),
+		h(ResourcesWindow),
 	];
 }

@@ -6,9 +6,9 @@ import Window, {
 	TitleBarButtonMinimize,
 	TitleBarButtonMaximize,
 	TitleBarButtonHelp,
-} from '../windows/Window.js';
+} from '../components/Window.js';
 
-const theme = createStylesheet('Database', {
+const theme = createStylesheet('ResourcesWindow', {
 	container: {
 		'display': 'flex',
 		'flex-direction': 'column',
@@ -34,7 +34,7 @@ const theme = createStylesheet('Database', {
 	},
 });
 
-export default function Database({ apiRef }) {
+export default function ResourcesWindow({ apiRef }) {
 	useLayoutEffect(() => {
 		apiRef.current = {
 			// setSelectedHslColor(selectedHsl) {

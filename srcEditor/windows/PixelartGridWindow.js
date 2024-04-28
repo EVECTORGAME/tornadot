@@ -12,11 +12,11 @@ import Window, {
 	TitleBarButtonMinimize,
 	TitleBarButtonMaximize,
 	TitleBarButtonHelp,
-} from '../windows/Window.js';
+} from '../components/Window.js';
 
 // TINPAEYALF
 
-const theme = createStylesheet('PixelartGrid', {
+const theme = createStylesheet('PixelartGridWindow', {
 	container: {
 		'position': 'relative',
 		'display': 'flex',
@@ -65,7 +65,7 @@ const theme = createStylesheet('PixelartGrid', {
 
 // TODO transparent background base64
 
-export default function PixelartGrid({
+export default function PixelartGridWindow({
 	width,
 	height,
 	apiRef,
