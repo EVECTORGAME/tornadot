@@ -7,16 +7,20 @@ import Window, {
 	TitleBarButtonMaximize,
 	TitleBarButtonHelp,
 } from '../windows/Window.js';
+import CommandTogglePixelArtGrid from './CommandTogglePixelArtGrid.js';
+import CommandToggleTransparentUnderlay from './CommandToggleTransparentUnderlay.js';
+import CommandLetterUnderlay from './CommandLetterUnderlay.js';
 
 // TINPAEYALF
 
 const theme = createStylesheet('CommandBox', {
 	container: {
 		'display': 'flex',
-		'gap': '3px',
-		'flex-wrap': 'nowrap',
-		// 'margin-bottom': '1em',
-		'align-items': 'center',
+		'flex-direction': 'column',
+		// 'gap': '3px',
+		// 'flex-wrap': 'nowrap',
+		// // 'margin-bottom': '1em',
+		// 'align-items': 'center',
 	},
 	rows: {
 
@@ -41,6 +45,7 @@ export default function CommandBox({
 	// width,
 	// height,
 	selectedHsl,
+	pixelartGridRef,
 }) {
 	const handleClick = useCallback((event) => {
 		event.target.style.backgroundColor = selectedHsl;
@@ -54,14 +59,18 @@ export default function CommandBox({
 	return (
 		h(Window,
 			{
-				title: 'Picel Grid',
+				title: 'Toolbox',
 				childrenTitleBarButtons: [
 					h(TitleBarButtonClose),
 					h(TitleBarButtonMinimize),
 					h(TitleBarButtonMaximize),
 					h(TitleBarButtonHelp),
 				],
+				childrenClassName: theme.container,
 			},
+			h(CommandTogglePixelArtGrid, { pixelartGridRef }),
+			h(CommandToggleTransparentUnderlay, { pixelartGridRef }),
+			h(CommandLetterUnderlay, { pixelartGridRef }),
 			h('div',
 				{ className: theme.selectedColor },
 				h('div', {
@@ -82,7 +91,6 @@ export default function CommandBox({
 				{ className: theme.backgroundText },
 				h('input', { type: 'text' }),
 			),
-			h('button', {}, 'toggle grid'),
 			h('button', {}, 'toggle spacing'),
 			h('button', {}, 'color picker'),
 			h('button', {}, 'erase'),
@@ -90,6 +98,8 @@ export default function CommandBox({
 			h('button', {}, 'set lighter'),
 			h('button', {}, 'save'), // wypluwa bitmape i użyte ustawienia
 			// h('div', {}, 'edit hitory');
+
+			// ROLL up/down, roll left, right
 		)
 	);
 }

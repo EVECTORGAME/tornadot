@@ -10,6 +10,7 @@ import Window, {
 import HslColorPalete from '../components/HslColorPalete.js';
 import PixelartGrid from '../components/PixelartGrid.js';
 import CommandBox from '../components/CommandBox.js';
+import Database from '../components/Database.js';
 
 const theme = createStylesheet('MainScreen', {
 	selectedColor: {
@@ -40,12 +41,13 @@ export default function MainScreen() {
 		h(PixelartGrid, {
 			width: 32,
 			height: 32,
-			initialPosition: 'center',
 			apiRef: pixelartGridRef,
 		}),
 		h(CommandBox, {
+			pixelartGridRef,
 			// width: 32,
 			// height: 32,
 		}),
+		h(Database),
 	];
 }

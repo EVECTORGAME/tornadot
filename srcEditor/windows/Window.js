@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { useRef } from 'preact-hooks';
+import classNames from 'clsx';
 import useDragging from '../hooks/useDragging.js';
 import useTopZIndex from '../hooks/useTopZIndex.js';
 
@@ -28,7 +29,7 @@ export default function Window({
 	width,
 	children,
 	childrenTitleBarButtons,
-	initialPosition,
+	childrenClassName,
 }) {
 	const windowRef = useRef();
 	const titleRef = useRef();
@@ -36,12 +37,8 @@ export default function Window({
 	useDragging(windowRef, titleRef);
 	useTopZIndex(windowRef);
 
-	const initialPositionArgs = initialPosition === 'center'
-		? { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
-		: {};
-
 	return (
-		h('div', { className: 'window', style: { width, position: 'absolute', ...initialPositionArgs }, ref: windowRef },
+		h('div', { className: 'window', style: { width, position: 'absolute' }, ref: windowRef },
 			h('div', { className: 'title-bar', ref: titleRef },
 				h('div', { className: 'title-bar-text', style: { 'white-space': 'nowrap' } },
 					title,
@@ -50,7 +47,7 @@ export default function Window({
 					childrenTitleBarButtons,
 				),
 			),
-			h('div', { className: 'window-body' },
+			h('div', { className: classNames('window-body', childrenClassName) },
 				// h('p', null, 'There are just so many possibilities:'),
 				/* h('ul', null,
 					h('li', null, 'A Task Manager'),

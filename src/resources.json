@@ -1,0 +1,13 @@
+{
+	"colorPalette": {
+	},
+	"sprites": [
+		{
+			id: 1000,
+			codename: 'plant1',
+			widthUnits: 1,
+			heightUnits: 1,
+			data: []
+		}
+	]
+}
