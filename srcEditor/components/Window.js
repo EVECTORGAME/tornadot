@@ -1,30 +1,31 @@
 import { h } from 'preact';
-import { useRef } from 'preact-hooks';
+import { useRef, useLayoutEffect } from 'preact-hooks';
 import classNames from 'clsx';
 import useDragging from '../hooks/useDragging.js';
 import useTopZIndex from '../hooks/useTopZIndex.js';
+import useTrackInstances from '../hooks/useTrackInstances.js';
+import usePersistent from '../hooks/usePersistent.js';
 
 export const TitleBarButtonClose = () => h('button', { 'aria-label': 'Close' });
 export const TitleBarButtonMinimize = () => h('button', { 'aria-label': 'Minimize' });
 export const TitleBarButtonMaximize = () => h('button', { 'aria-label': 'Maximize' });
 export const TitleBarButtonHelp = () => h('button', { 'aria-label': 'Help' });
 
-/*
-	h(Window,
-		{
-			title: 'A Window With A Status Bar',
-			childrenTitleBarButtons: [
-				h(TitleBarButtonClose),
-				h(TitleBarButtonMinimize),
-				h(TitleBarButtonMaximize),
-				h(TitleBarButtonHelp),
-			],
-		},
-		'hello',
-	),
-*/
+const WINDOW_POSITION_PADDING_PIXELD = 15;
+const windows = new Set();
+
+export function realignWindows() {
+	Array.from(windows).forEach((windowRef, index) => {
+		const number = index + 1;
+		const position = `${number * WINDOW_POSITION_PADDING_PIXELD}px`;
+
+		windowRef.current.style.top = position;
+		windowRef.current.style.left = position;
+	});
+}
 
 export default function Window({
+	persistentId,
 	title,
 	width,
 	children,
@@ -33,14 +34,33 @@ export default function Window({
 }) {
 	const windowRef = useRef();
 	const titleRef = useRef();
+	const instanceNumber = useTrackInstances(windows, windowRef);
 
-	useDragging(windowRef, titleRef);
+	const [{ top, left }, saveParams] = usePersistent(persistentId, {
+		top: `${instanceNumber * WINDOW_POSITION_PADDING_PIXELD}px`,
+		left: `${instanceNumber * WINDOW_POSITION_PADDING_PIXELD}px`,
+	});
+
+	useDragging(windowRef, titleRef, {
+		onDragEnded: ({ left: x, top: y }) => {
+			saveParams({ left: x, top: y });
+		},
+	});
+
 	useTopZIndex(windowRef);
 
+	useLayoutEffect(() => {
+		// windows.add(windowRef);
+
+		return () => {
+			// windows.remove(windowRef);
+		};
+	}, []);
+
 	return (
-		h('div', { className: 'window', style: { width, position: 'absolute' }, ref: windowRef },
+		h('div', { className: 'window', style: { width, position: 'absolute', top, left }, ref: windowRef },
 			h('div', { className: 'title-bar', ref: titleRef },
-				h('div', { className: 'title-bar-text', style: { 'white-space': 'nowrap' } },
+				h('div', { className: 'title-bar-text', style: { 'white-space': 'nowrap', 'cursor': 'default' } },
 					title,
 				),
 				h('div', { className: 'title-bar-controls', style: { 'flex-wrap': 'nowrap' } },

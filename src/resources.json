@@ -1,13 +1,291 @@
 {
-	"colorPalette": {
-	},
+	"colorPalette": {},
 	"sprites": [
 		{
-			id: 1000,
-			codename: 'plant1',
-			widthUnits: 1,
-			heightUnits: 1,
-			data: []
+			"id": 1001,
+			"codename": "letter-A",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "A"
+			}
+		},
+		{
+			"id": 1002,
+			"codename": "letter-B",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "B"
+			}
+		},
+		{
+			"id": 1003,
+			"codename": "letter-C",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "C"
+			}
+		},
+		{
+			"id": 1004,
+			"codename": "letter-D",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "D"
+			}
+		},
+		{
+			"id": 1005,
+			"codename": "letter-E",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "E"
+			}
+		},
+		{
+			"id": 1006,
+			"codename": "letter-F",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "F"
+			}
+		},
+		{
+			"id": 1007,
+			"codename": "letter-G",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "G"
+			}
+		},
+		{
+			"id": 1008,
+			"codename": "letter-H",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "H"
+			}
+		},
+		{
+			"id": 1009,
+			"codename": "letter-I",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "I"
+			}
+		},
+		{
+			"id": 1010,
+			"codename": "letter-J",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "J"
+			}
+		},
+		{
+			"id": 1011,
+			"codename": "letter-K",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "K"
+			}
+		},
+		{
+			"id": 1012,
+			"codename": "letter-L",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "L"
+			}
+		},
+		{
+			"id": 1013,
+			"codename": "letter-M",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "M"
+			}
+		},
+		{
+			"id": 1014,
+			"codename": "letter-N",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "N"
+			}
+		},
+		{
+			"id": 1015,
+			"codename": "letter-O",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "O"
+			}
+		},
+		{
+			"id": 1016,
+			"codename": "letter-P",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "P"
+			}
+		},
+		{
+			"id": 1017,
+			"codename": "letter-Q",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "Q"
+			}
+		},
+		{
+			"id": 1018,
+			"codename": "letter-R",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "R"
+			}
+		},
+		{
+			"id": 1019,
+			"codename": "letter-S",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "S"
+			}
+		},
+		{
+			"id": 1020,
+			"codename": "letter-T",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "T"
+			}
+		},
+		{
+			"id": 1021,
+			"codename": "letter-U",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "U"
+			}
+		},
+		{
+			"id": 1022,
+			"codename": "letter-V",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "V"
+			}
+		},
+		{
+			"id": 1023,
+			"codename": "letter-W",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "W"
+			}
+		},
+		{
+			"id": 1024,
+			"codename": "letter-X",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "X"
+			}
+		},
+		{
+			"id": 1025,
+			"codename": "letter-Y",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "Y"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "letter-Z",
+			"type": "capital-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "Z"
+			}
 		}
 	]
 }

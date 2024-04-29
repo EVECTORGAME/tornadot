@@ -34,7 +34,6 @@ const theme = createStylesheet('HslColorPaleteWindow', {
 	},
 	selected: {
 		'width': '100%',
-		'color': 'white',
 		'text-align': 'center',
 		'padding': '10px',
 	},
@@ -54,6 +53,7 @@ const theme = createStylesheet('HslColorPaleteWindow', {
 });
 
 export default function HslColorPaleteWindow({
+	persistentId,
 	width,
 	height,
 	colorsCount,
@@ -70,14 +70,16 @@ export default function HslColorPaleteWindow({
 	}, []);
 
 	const handleSetColor = useCallback((hslBaseColor, selectedSaturationPercent, selectedLightness) => {
-		const selectedHls = hslBaseColor
-			? `hsl(${hslBaseColor}, ${selectedSaturationPercent}%, ${selectedLightness}%)`
-			: undefined;
+		const selectedHls = hslBaseColor === undefined
+			? undefined
+			: `hsl(${hslBaseColor}, ${selectedSaturationPercent}%, ${selectedLightness}%)`;
 
 		selectedRef.current.style.backgroundColor = selectedHls ?? 'transparent';
+		selectedRef.current.innerText = selectedHls ? 'selected color' : 'no color selected';
+		selectedRef.current.style.color = selectedHls ? 'white' : 'black';
 
 		onSetHslColor(selectedHls);
-	}, []);
+	}, [], [undefined]);
 
 	const colorStep = 360 / colorsCount;
 
@@ -87,6 +89,7 @@ export default function HslColorPaleteWindow({
 		h('div', {},
 			h(Window,
 				{
+					persistentId,
 					title: 'HSL color picker',
 					childrenTitleBarButtons: [
 						h(TitleBarButtonClose),
@@ -100,7 +103,7 @@ export default function HslColorPaleteWindow({
 					h('div', {
 						ref: selectedRef,
 						className: theme.selected,
-					}, 'selected'),
+					}, 'no initial color'),
 					h('button', {
 						className: theme.clear,
 						onclick: () => handleSetColor(undefined),

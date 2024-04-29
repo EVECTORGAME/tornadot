@@ -1,5 +1,8 @@
 <html>
 	<head>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
 		<style type="text/css">
 			* {
 				box-sizing: border-box;
@@ -8,9 +11,10 @@
 			body {
 				color: white;
 				font-size: 20px;
-				Coverflow: hidden;
+				overflow: hidden;
 				background-color: white;
 				background-image: url(wallpapers/setup.png);
+				user-select: none;
 			}
 		</style>
 		<link
@@ -30,149 +34,36 @@
 		</script>
 		<script type="module">
 			import { render, h, Component } from 'preact';
-
-			// import useLocalStorageValue from './hooks/useLocalStorageValue.js';
-			// import useIncrement from './hooks/useIncrement.js';
-			//
-			// import createFavicon from './modules/createFavicon.js';
-			// import createBitmapFont from './modules/createBitmapFont.js';
 			import MainScreen from './screens/MainScreen.js';
-			//
-			// import { useState, useEffect, useCallback } from 'preact-hooks';
-			// import SplashScreen from './screens/SplashScreen.js';
-			// import MainMenuScreen from './screens/MainMenuScreen.js';
-			// import LevelScreen from './screens/LevelScreen.js';
-			// import PlayNextScreen from './screens/PlayNextScreen.js';
-			// import GameEndScreen from './screens/GameEndScreen.js';
-			// import ShowroomScreen from './screens/ShowroomScreen.js';
 
-			/* document.body.addEventListener('keydown', ({ key }) => {
-			    if (key === '`') {
-			        console.clear(); // eslint-disable-line no-console
-			    }
-			}); */
+			class AppContext extends Component {
+				getChildContext() {
+					return {
+						// headerFont,
+					}
+				};
+
+				render() {
+					return this.props.children;
+				}
+			}
+
+			function App({ sprites }) {
+				return h(AppContext, null,
+					h(MainScreen, { sprites }),
+				);
+			}
 
 			document.addEventListener('DOMContentLoaded', async (event) => {
-				// const MAIN_MENU_SCREEN = 'main-menu-screen';
-				// const LEVEL_SCREEN = 'level-screen';
-				// const PLAY_NEXT_SCREEN = 'play-next-screen';
-				// const GAME_END_SCREEN = 'game-end-screen';
-				// const SHOWROOM_SCREEN = 'showroom-screen';
-
-				class AppContext extends Component {
-					getChildContext() {
-						return {
-							// headerFont,
-						}
-					};
-
-					render() {
-						return this.props.children;
-					}
-				}
-
-				/* function condition(i, t, e) {
-					return i ? t : e;
-				} */
-
-				function App() {
-					// const [maxAccessibleLevel, setMaxAccessibleLevel] = useLocalStorageValue('max-accessible-level', 1);
-					// const [levelToLoad, setLevelToload] = useState(maxAccessibleLevel);
-					// const [activeItem, setActiveItem] = useState(MAIN_MENU_SCREEN);
-					// const [key, reloadLevel] = useIncrement();
-
-					/* const handleNewGame = useCallback(() => {
-						setLevelToload(1);
-						setActiveItem(LEVEL_SCREEN);
-					}, []); */
-
-					/* const handleContinueGame = useCallback(() => {
-						setLevelToload(maxAccessibleLevel);
-						setActiveItem(LEVEL_SCREEN);
-					}, [maxAccessibleLevel]); */
-
-					/* const handleOnLevelEnded = useCallback((endedLevel) => {
-						if (endedLevel == 3) {
-							setActiveItem(GAME_END_SCREEN);
-						} else {
-							setLevelToload(endedLevel + 1);
-							setMaxAccessibleLevel(endedLevel + 1);
-							setActiveItem(PLAY_NEXT_SCREEN);
-						}
-					}, []); */
-
-					/* const handleShowMainMenu = useCallback(() => {
-						setActiveItem(MAIN_MENU_SCREEN);
-					}, []); */
-
-					/* const handleReloadLevel = useCallback(() => {
-						reloadLevel();
-					}, []); */
-
-					/* const handleLoadNextLevel = useCallback(() => {
-						setActiveItem(LEVEL_SCREEN);
-					}, []); */
-
-					/* const handleShowroomScreen = useCallback(() => {
-						setActiveItem(SHOWROOM_SCREEN);
-					}, []); */
-
-					/* const handleEndScreenEnded = useCallback(() => {
-						setActiveItem(MAIN_MENU_SCREEN);
-					}, []); */
-
-					return h(AppContext, null,
-						h(MainScreen),
-						/* activeItem === MAIN_MENU_SCREEN && h(MainMenuScreen,
-							{
-								title: 'MARINE HUNTER',
-								items: [
-									{ label: `continue game ${maxAccessibleLevel}`, onSelected: handleContinueGame },
-									{ label: 'new game', onSelected: handleNewGame },
-									{ label: 'showroom', onSelected: handleShowroomScreen },
-									{ label: 'settings' },
-									{ label: 'quit' },
-								]
-							},
-							[
-							],
-						), */
-						/* activeItem === LEVEL_SCREEN && h(LevelScreen,
-							{
-								key,
-								levelNumber: levelToLoad,
-								onLevelEnded: handleOnLevelEnded,
-								onAbort: handleShowMainMenu,
-								onReload: handleReloadLevel,
-							},
-						), */
-						/* activeItem === PLAY_NEXT_SCREEN && h(PlayNextScreen,
-							{
-								nextLevelNumber: maxAccessibleLevel,
-								onYes: handleLoadNextLevel,
-							},
-						), */
-						/* condition(
-							activeItem === GAME_END_SCREEN,
-							h(GameEndScreen,
-								{
-									onWatched: handleEndScreenEnded,
-								},
-							),
-						), */
-						/* activeItem === SHOWROOM_SCREEN && h(ShowroomScreen,
-							{
-								// onWatched: handleEndScreenEnded,
-								onClose: handleShowMainMenu,
-							},
-						), */
-					);
-				}
-
-				// const favicon = createFavicon({ width: 16, height: 16 });
 				const mainElement = document.getElementById('main');
 
-				render(h(App), mainElement);
+				const response = await fetch('../src/resources.json');
+				const resources = await response.json();
+				const { colorPalette, sprites } = resources;
+
+				console.log('>>', resources);
+
+				render(h(App, { sprites }), mainElement);
 			});
 		</script>
 	</head>

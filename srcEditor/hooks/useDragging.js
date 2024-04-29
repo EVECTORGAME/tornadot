@@ -1,6 +1,6 @@
 import { useEffect } from 'preact-hooks';
 
-export default function useDragging(windowRef, titleRef) {
+export default function useDragging(windowRef, titleRef, { onDragEnded }) {
 	// Get the elements
 	// const windowElement = document.getElementById('myWindow');
 	// const titleBar = document.getElementById('titleBar');
@@ -40,6 +40,11 @@ export default function useDragging(windowRef, titleRef) {
 
 		function handleMouseUp() {
 			isDragging = false;
+
+			onDragEnded({
+				left: windowRef.current.style.left,
+				top: windowRef.current.style.top,
+			});
 		}
 
 		// Event listener for mouse down on the title bar

@@ -42,6 +42,7 @@ const theme = createStylesheet('CommandWindow', {
 // TODO transparent background base64
 
 export default function CommandWindow({
+	persistentId,
 	// width,
 	// height,
 	selectedHsl,
@@ -59,6 +60,7 @@ export default function CommandWindow({
 	return (
 		h(Window,
 			{
+				persistentId,
 				title: 'Toolbox',
 				childrenTitleBarButtons: [
 					h(TitleBarButtonClose),
@@ -68,8 +70,8 @@ export default function CommandWindow({
 				],
 				childrenClassName: theme.container,
 			},
-			h(ToolGridUnderlay, { pixelartGridRef }),
 			h(ToolLetterUnderlay, { pixelartGridRef }),
+			h(ToolGridUnderlay, { pixelartGridRef }),
 			h(ToolTransparentUnderlay, { pixelartGridRef }),
 			h('div',
 				{ className: theme.selectedColor },
@@ -91,12 +93,10 @@ export default function CommandWindow({
 				{ className: theme.backgroundText },
 				h('input', { type: 'text' }),
 			),
-			h('button', {}, 'toggle spacing'),
 			h('button', {}, 'color picker'),
 			h('button', {}, 'erase'),
 			h('button', {}, 'set darker'),
 			h('button', {}, 'set lighter'),
-			h('button', {}, 'save'), // wypluwa bitmape i użyte ustawienia
 			// h('div', {}, 'edit hitory');
 
 			// ROLL up/down, roll left, right

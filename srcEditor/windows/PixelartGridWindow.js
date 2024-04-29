@@ -33,6 +33,14 @@ const theme = createStylesheet('PixelartGridWindow', {
 	underlayTransparent: {
 		'background-image': 'url("./images/transparent-background.png")',
 	},
+	underlayLetter: {
+		'display': 'flex',
+		'align-items': 'center',
+		'justify-content': 'center',
+		'font-size': '600px',
+		'font-family': 'Rubik Mono One',
+		'opacity': 0.5,
+	},
 	rows: {
 		'position': 'relative',
 		//
@@ -66,11 +74,17 @@ const theme = createStylesheet('PixelartGridWindow', {
 // TODO transparent background base64
 
 export default function PixelartGridWindow({
+	persistentId,
 	width,
 	height,
 	apiRef,
 	// onClickedPixel
 	// onSelectedRectangle
+	onPixelMouseDown,
+	onPixelMouseUp,
+	onPixelMouseDragOver,
+	//
+	letterUnderlay,
 }) {
 	const selectedHslRef = useRef();
 	const isMouseDownRef = useRef(false);
@@ -79,17 +93,14 @@ export default function PixelartGridWindow({
 	const [showGrid, setShowGrid] = useState(true);
 	const [shouldTransparentUnderlay, setShouldTransparentUnderlay] = useState();
 
-	const handleClick = useCallback((event) => {
-		if (event.target.style.backgroundColor !== 'transparent') {
-			event.target.style.backgroundColor = 'transparent';
-		} else {
-			event.target.style.backgroundColor = selectedHslRef.current;
-		}
+	const handleClick = useCallback(() => {
+		//
 	}, []);
 
 	const handleMouseDown = useCallback((event) => {
 		isMouseDownRef.current = true;
 
+		// onPixelMouseDown();
 		event.target.style.backgroundColor = selectedHslRef.current;
 	}, []);
 
@@ -101,6 +112,8 @@ export default function PixelartGridWindow({
 
 	const handleMouseUp = useCallback(() => {
 		isMouseDownRef.current = false;
+
+		event.target.style.backgroundColor = selectedHslRef.current;
 	}, []);
 
 	useLayoutEffect(() => {
@@ -119,17 +132,18 @@ export default function PixelartGridWindow({
 					return should === undefined ? !prev : should;
 				});
 			},
-			setLetterUnderlay(text, styles) {
-				underlayLetterRef.current.innerText = text;
-				underlayLetterRef.current.style.cssText = styles;
-				// setLetterUnderlay([text, styles]);
-			},
+				setLetterUnderlay(text, styles) {
+					underlayLetterRef.current.innerText = text;
+					underlayLetterRef.current.style.cssText = styles;
+					// setLetterUnderlay([text, styles]);
+				},
 		};
 	}, [showGrid]);
 
 	return (
 		h(Window,
 			{
+				persistentId,
 				title: 'Picel Grid',
 				childrenTitleBarButtons: [
 					h(TitleBarButtonClose),
@@ -149,13 +163,14 @@ export default function PixelartGridWindow({
 				}),
 				h('div',
 					{
-						ref: underlayLetterRef,
+						ref: underlayLetterRef, // kkicj
 						className: classNames(
 							theme.underlay,
+							theme.underlayLetter,
 							// letter && theme.underlayTransparent,
 						),
-
 					},
+					letterUnderlay,
 				),
 				h('div',
 					{
