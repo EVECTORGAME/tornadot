@@ -22,7 +22,13 @@ const theme = createStylesheet('MainScreen', {
 	},
 });
 
-export default function MainScreen({ sprites }) {
+export default function MainScreen({
+	colorsCount,
+	saturationPercent,
+	lightnessPercent,
+	lightnessOffsetPercent,
+	sprites,
+}) {
 	const pixelartGridRef = useRef();
 	const [{ type, data, metadata }, setTypeAndData] = useState({});
 	// const [selectedHsl, setSelectedHsl] = useState();
@@ -50,10 +56,10 @@ export default function MainScreen({ sprites }) {
 	return [
 		h(HslColorPaleteWindow, {
 			persistentId: HslColorPaleteWindow.name,
-			colorsCount: 9,
-			saturationPercent: 40,
-			lightnessPercent: 40,
-			lightnessOffsetPercent: 10,
+			colorsCount,
+			saturationPercent,
+			lightnessPercent,
+			lightnessOffsetPercent,
 			onSetHslColor: handleSelectedHls,
 		}),
 		h(PixelartGridWindow, {

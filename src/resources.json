@@ -1,6 +1,12 @@
 {
-	"colorPalette": {},
+	"colorPalette": {
+		"colorsCount": 9,
+		"saturationPercent": 40,
+		"lightnessPercent": 40,
+		"lightnessOffsetPercent": 10
+	},
 	"sprites": [
+		"### capital-letter ###############################################################################################################",
 		{
 			"id": 1001,
 			"codename": "letter-A",
@@ -285,6 +291,360 @@
 			"data": [],
 			"metadata": {
 				"letterUnderlay": "Z"
+			}
+		},
+		"### small letters ################################################################################################################",
+		{
+			"id": 1001,
+			"codename": "letter-a",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "A"
+			}
+		},
+		{
+			"id": 1002,
+			"codename": "letter-b",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "B"
+			}
+		},
+		{
+			"id": 1003,
+			"codename": "letter-c",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "C"
+			}
+		},
+		{
+			"id": 1004,
+			"codename": "letter-d",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "D"
+			}
+		},
+		{
+			"id": 1005,
+			"codename": "letter-e",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "E"
+			}
+		},
+		{
+			"id": 1006,
+			"codename": "letter-f",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "F"
+			}
+		},
+		{
+			"id": 1007,
+			"codename": "letter-g",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "G"
+			}
+		},
+		{
+			"id": 1008,
+			"codename": "letter-h",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "H"
+			}
+		},
+		{
+			"id": 1009,
+			"codename": "letter-i",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "I"
+			}
+		},
+		{
+			"id": 1010,
+			"codename": "letter-j",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "J"
+			}
+		},
+		{
+			"id": 1011,
+			"codename": "letter-k",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "K"
+			}
+		},
+		{
+			"id": 1012,
+			"codename": "letter-l",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "L"
+			}
+		},
+		{
+			"id": 1013,
+			"codename": "letter-m",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "M"
+			}
+		},
+		{
+			"id": 1014,
+			"codename": "letter-n",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "N"
+			}
+		},
+		{
+			"id": 1015,
+			"codename": "letter-o",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "O"
+			}
+		},
+		{
+			"id": 1016,
+			"codename": "letter-p",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "P"
+			}
+		},
+		{
+			"id": 1017,
+			"codename": "letter-q",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "Q"
+			}
+		},
+		{
+			"id": 1018,
+			"codename": "letter-r",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "R"
+			}
+		},
+		{
+			"id": 1019,
+			"codename": "letter-s",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "S"
+			}
+		},
+		{
+			"id": 1020,
+			"codename": "letter-t",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "T"
+			}
+		},
+		{
+			"id": 1021,
+			"codename": "letter-u",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "U"
+			}
+		},
+		{
+			"id": 1022,
+			"codename": "letter-v",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "V"
+			}
+		},
+		{
+			"id": 1023,
+			"codename": "letter-w",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "W"
+			}
+		},
+		{
+			"id": 1024,
+			"codename": "letter-x",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "X"
+			}
+		},
+		{
+			"id": 1025,
+			"codename": "letter-y",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "Y"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "letter-z",
+			"type": "small-letter",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "Z"
+			}
+		},
+		"### spacial-characters ###########################################################################################################",
+		{
+			"id": 1026,
+			"codename": "character-colon",
+			"type": "character",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": ":"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "character-semicolon",
+			"type": "character",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": ";"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "character-comma",
+			"type": "character",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": ","
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "character-dot",
+			"type": "character",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "."
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "character-question-mark",
+			"type": "character",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "?"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "character-exclamation",
+			"type": "character",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"data": [],
+			"metadata": {
+				"letterUnderlay": "!"
 			}
 		}
 	]

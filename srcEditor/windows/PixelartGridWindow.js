@@ -35,15 +35,17 @@ const theme = createStylesheet('PixelartGridWindow', {
 	},
 	underlayLetter: {
 		'display': 'flex',
-		'align-items': 'center',
+		'align-items': 'flex-end',
 		'justify-content': 'center',
 		'font-size': '600px',
 		'font-family': 'Rubik Mono One',
 		'opacity': 0.5,
+
+		'line-height': '380px',
+		'transform': 'scaleY(1.5)',
 	},
 	rows: {
-		'position': 'relative',
-		//
+		position: 'relative',
 	},
 	row: {
 		'display': 'flex',
@@ -86,7 +88,8 @@ export default function PixelartGridWindow({
 	//
 	letterUnderlay,
 }) {
-	const selectedHslRef = useRef();
+		const selectedHslRef = useRef();
+	const gridRef = useRef();
 	const isMouseDownRef = useRef(false);
 	const underlayLetterRef = useRef();
 	// const underlayTransparentRef = useRef();
@@ -132,11 +135,9 @@ export default function PixelartGridWindow({
 					return should === undefined ? !prev : should;
 				});
 			},
-				setLetterUnderlay(text, styles) {
-					underlayLetterRef.current.innerText = text;
-					underlayLetterRef.current.style.cssText = styles;
-					// setLetterUnderlay([text, styles]);
-				},
+			setGridOpacity(opacity) {
+				gridRef.current.style.opacity = opacity;
+			},
 		};
 	}, [showGrid]);
 
@@ -174,6 +175,7 @@ export default function PixelartGridWindow({
 				),
 				h('div',
 					{
+						ref: gridRef,
 						onmousedown: handleMouseDown,
 						onmouseup: handleMouseUp,
 						// onmouseout: handleMouseUp,

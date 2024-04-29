@@ -57,7 +57,7 @@ export default function HslColorPaleteWindow({
 	width,
 	height,
 	colorsCount,
-	saturationPercent,
+	saturationPercent: baseSaturationPercent,
 	lightnessPercent,
 	lightnessOffsetPercent,
 	// output
@@ -110,7 +110,7 @@ export default function HslColorPaleteWindow({
 					}, 'clear'),
 					h('div',
 						{ className: theme.rows },
-						Array(colorsCount).fill(undefined).map((_, colorOffset) => {
+						Array(colorsCount).fill(baseSaturationPercent).concat([0]).map((saturationPercent, colorOffset) => {
 							const hslBaseColor = colorOffset * colorStep;
 							const lighterColor = lightnessPercent - lightnessOffsetPercent;
 							const darkerColor = lightnessPercent + lightnessOffsetPercent;

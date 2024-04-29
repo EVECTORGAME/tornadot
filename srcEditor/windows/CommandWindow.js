@@ -7,8 +7,8 @@ import Window, {
 	TitleBarButtonMaximize,
 	TitleBarButtonHelp,
 } from '../components/Window.js';
+import ToolGridTransparency from '../tools/ToolGridTransparency.js';
 import ToolGridUnderlay from '../tools/ToolGridUnderlay.js';
-import ToolLetterUnderlay from '../tools/ToolLetterUnderlay.js';
 import ToolTransparentUnderlay from '../tools/ToolTransparentUnderlay.js';
 
 // TINPAEYALF
@@ -70,36 +70,9 @@ export default function CommandWindow({
 				],
 				childrenClassName: theme.container,
 			},
-			h(ToolLetterUnderlay, { pixelartGridRef }),
 			h(ToolGridUnderlay, { pixelartGridRef }),
 			h(ToolTransparentUnderlay, { pixelartGridRef }),
-			h('div',
-				{ className: theme.selectedColor },
-				h('div', {
-					style: {
-						'background-color': selectedHsl,
-					},
-				}, 'selected color'),
-			),
-			h('div',
-				{ className: theme.backgroundUrl },
-				h('input', { type: 'text' }),
-			),
-			h('div', // TODO obrazek z urla czy ma być repeating czy nie etc
-				{ className: theme.backgroundUrl },
-				h('input', { type: 'text' }),
-			),
-			h('div', // TODO kontrolki do powiększania i pomniejzania, ustawiania opacity, link do google font i możłiowść podania urla
-				{ className: theme.backgroundText },
-				h('input', { type: 'text' }),
-			),
-			h('button', {}, 'color picker'),
-			h('button', {}, 'erase'),
-			h('button', {}, 'set darker'),
-			h('button', {}, 'set lighter'),
-			// h('div', {}, 'edit hitory');
-
-			// ROLL up/down, roll left, right
+			h(ToolGridTransparency, { pixelartGridRef }),
 		)
 	);
 }

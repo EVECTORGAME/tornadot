@@ -48,9 +48,25 @@
 				}
 			}
 
-			function App({ sprites }) {
+			function App({
+				colorPalette,
+				sprites,
+			}) {
+				const {
+					colorsCount,
+					saturationPercent,
+					lightnessPercent,
+					lightnessOffsetPercent,
+				} = colorPalette;
+
 				return h(AppContext, null,
-					h(MainScreen, { sprites }),
+					h(MainScreen, {
+						colorsCount,
+						saturationPercent,
+						lightnessPercent,
+						lightnessOffsetPercent,
+						sprites,
+					}),
 				);
 			}
 
@@ -63,7 +79,10 @@
 
 				console.log('>>', resources);
 
-				render(h(App, { sprites }), mainElement);
+				render(h(App, {
+					colorPalette,
+					sprites,
+				}), mainElement);
 			});
 		</script>
 	</head>

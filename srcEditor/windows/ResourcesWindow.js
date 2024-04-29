@@ -18,8 +18,14 @@ const theme = createStylesheet('ResourcesWindow', {
 		// // 'margin-bottom': '1em',
 		// 'align-items': 'center',
 	},
+	scrollable: {
+		'max-height': '60vh',
+	},
 	rows: {
 
+	},
+	headerRow: {
+		'font-weight': 'bold',
 	},
 	row: {
 		'display': 'flex',
@@ -32,6 +38,11 @@ const theme = createStylesheet('ResourcesWindow', {
 		'font-size': '0.5em',
 		'width': '20px',
 		'height': '20px',
+	},
+	th: {
+		position: 'sticky',
+		top: 0,
+		// display: 'table',
 	},
 });
 
@@ -77,6 +88,13 @@ export default function ResourcesWindow({
 		});
 	}, []);
 
+	const handleRemoveDraft = useCallback(() => {
+		const isConfirmed = window.confirm('czy na pewno usunąć?');
+		if (isConfirmed) {
+			// TODO remove draft
+		}
+	}, [selectedRowIndex]);
+
 	return (
 		h(Window,
 			{
@@ -90,7 +108,7 @@ export default function ResourcesWindow({
 				],
 				childrenClassName: theme.container,
 			},
-			h('div', { className: 'sunken-panel' }, // style: { height: 120px; width: 240px;">
+			h('div', { className: classNames(theme.scrollable, 'sunken-panel') }, // style: { height: 120px; width: 240px;">
 				h('table', { className: 'interactive' },
 					h('thead', null,
 						h('tr', {},
@@ -100,12 +118,29 @@ export default function ResourcesWindow({
 							h('th', null, 'size'),
 						),
 					),
-					h('tbody', null,
-						sprites.map(({ id, codename, type, widthUnits, heightUnits }, rowIndex) => {
+					h('tbody', { className: theme.tbody },
+						sprites.map((spriteOrText, rowIndex) => {
+							if (typeof spriteOrText === 'string') {
+								return (
+									h('tr',
+										{
+											className: classNames(
+												theme.headerRow,
+											),
+											// onclick: () => handleRowClick(rowIndex),
+										},
+										h('td', { colspan: 5 }, `${spriteOrText.replace(/[#\s]/g, '')}:`),
+									)
+								);
+							}
+
+							const { id, type, codename, widthUnits, heightUnits } = spriteOrText;
+
 							return (
 								h('tr',
 									{
 										className: classNames(
+											theme.tr,
 											selectedRowIndex === rowIndex && 'highlighted',
 										),
 										onclick: () => handleRowClick(rowIndex),
@@ -121,6 +156,7 @@ export default function ResourcesWindow({
 				),
 			),
 			h('button', {}, 'dump data'), // wypluwa bitmape i użyte ustawienia
+			h('button', { onclick: handleRemoveDraft }, 'remove draft'), // wypluwa bitmape i użyte ustawienia
 		)
 	);
 }
