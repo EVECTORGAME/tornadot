@@ -9,7 +9,7 @@ export default function useTrackInstances(set, ref) {
 	}
 
 	useLayoutEffect(() => () => {
-		set.remove(ref);
+		set.delete(ref);
 	}, []);
 
 	return instanceNumberRef.current;

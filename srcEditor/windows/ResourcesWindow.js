@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useCallback, useLayoutEffect, useState } from 'preact-hooks';
+import { useCallback, useState } from 'preact-hooks';
 import classNames from 'clsx';
 import createStylesheet from 'createStylesheet';
 import Window, {
@@ -13,10 +13,6 @@ const theme = createStylesheet('ResourcesWindow', {
 	container: {
 		'display': 'flex',
 		'flex-direction': 'column',
-		// 'gap': '3px',
-		// 'flex-wrap': 'nowrap',
-		// // 'margin-bottom': '1em',
-		// 'align-items': 'center',
 	},
 	scrollable: {
 		'max-height': '60vh',
@@ -42,50 +38,36 @@ const theme = createStylesheet('ResourcesWindow', {
 	th: {
 		position: 'sticky',
 		top: 0,
-		// display: 'table',
 	},
 });
 
 export default function ResourcesWindow({
 	persistentId,
-	// apiRef,
-	sprites,
+	resources,
+	draftApi,
+	pixelartGridRef,
 	onSelectedSprite,
 }) {
-	useLayoutEffect(() => {
-		// apiRef.current = {
-			// setSelectedHslColor(selectedHsl) {
-			// 	selectedHslRef.current = selectedHsl;
-			// },
-			// checkIsGridShowed() {
-			// 	return showGrid;
-			// },
-			// setShouldShowGrid(should) {
-			// 	setShowGrid(should);
-			// },
-			// setShowTransparentUnderlay(should) {
-			// 	setShouldTransparentUnderlay((prev) => {
-			// 		return should === undefined ? !prev : should;
-			// 	});
-			// },
-			// setLetterUnderlay(text, styles) {
-			// 	underlayLetterRef.current.innerText = text;
-			// 	underlayLetterRef.current.style.cssText = styles;
-			// 	// setLetterUnderlay([text, styles]);
-			// },
-		// };
-	}, []);
+	const { sprites } = resources;
 
 	const [selectedRowIndex, setSelectedRowIndex] = useState();
 	const handleRowClick = useCallback((rowIndex) => {
-		setSelectedRowIndex(rowIndex);
-
-		const { type, data, metadata } = sprites[rowIndex];
-		onSelectedSprite({
+		const {
+			codename,
 			type,
-			data,
+			matrix: matrixFlatten,
+			metadata,
+		} = sprites[rowIndex];
+		const matrix = draftApi.utilUnflattenMatrix(matrixFlatten);
+		const didChanged = onSelectedSprite({
+			codename,
+			type,
+			matrix,
 			metadata,
 		});
+		if (didChanged) {
+			setSelectedRowIndex(rowIndex);
+		}
 	}, []);
 
 	const handleRemoveDraft = useCallback(() => {
@@ -95,11 +77,43 @@ export default function ResourcesWindow({
 		}
 	}, [selectedRowIndex]);
 
+	const handleDumpData = useCallback(() => {
+		const isAllSaved = pixelartGridRef.current?.checkIsSaved() ?? true;
+		if (isAllSaved) {
+			const dump = {
+				...resources,
+				sprites: resources.sprites.map((sprite) => {
+					const isString = typeof sprite === 'string';
+					if (isString) {
+						return sprite;
+					}
+
+					const { codename } = sprite;
+					const pendingMatrix = draftApi.getMatrixForCodename(codename, { shouldReturnMatrixFlatten: true });
+					if (pendingMatrix) {
+						return {
+							...sprite,
+							matrix: pendingMatrix,
+						};
+					}
+
+					return sprite;
+				}),
+			};
+
+			console.log(JSON.stringify(dump, null, '\t'));
+
+			// TODO remove all pandings
+		} else {
+			// TODO tooltip
+		}
+	}, []);
+
 	return (
 		h(Window,
 			{
 				persistentId,
-				title: 'Toolbox',
+				title: 'List of Sprites',
 				childrenTitleBarButtons: [
 					h(TitleBarButtonClose),
 					h(TitleBarButtonMinimize),
@@ -108,7 +122,7 @@ export default function ResourcesWindow({
 				],
 				childrenClassName: theme.container,
 			},
-			h('div', { className: classNames(theme.scrollable, 'sunken-panel') }, // style: { height: 120px; width: 240px;">
+			h('div', { className: classNames(theme.scrollable, 'sunken-panel') },
 				h('table', { className: 'interactive' },
 					h('thead', null,
 						h('tr', {},
@@ -116,6 +130,7 @@ export default function ResourcesWindow({
 							h('th', null, 'codename'),
 							h('th', null, 'type'),
 							h('th', null, 'size'),
+							h('th', null, 'has draft'),
 						),
 					),
 					h('tbody', { className: theme.tbody },
@@ -127,7 +142,6 @@ export default function ResourcesWindow({
 											className: classNames(
 												theme.headerRow,
 											),
-											// onclick: () => handleRowClick(rowIndex),
 										},
 										h('td', { colspan: 5 }, `${spriteOrText.replace(/[#\s]/g, '')}:`),
 									)
@@ -135,6 +149,7 @@ export default function ResourcesWindow({
 							}
 
 							const { id, type, codename, widthUnits, heightUnits } = spriteOrText;
+							const hasDraft = draftApi.checkHasEntryForCodename(codename);
 
 							return (
 								h('tr',
@@ -149,14 +164,15 @@ export default function ResourcesWindow({
 									h('td', null, codename),
 									h('td', null, type),
 									h('td', null, `${widthUnits}x${heightUnits}`),
+									h('td', null, hasDraft ? 'yes' : ''),
 								)
 							);
 						}),
 					),
 				),
 			),
-			h('button', {}, 'dump data'), // wypluwa bitmape i użyte ustawienia
-			h('button', { onclick: handleRemoveDraft }, 'remove draft'), // wypluwa bitmape i użyte ustawienia
+			h('button', { onclick: handleDumpData }, 'dump data'),
+			h('button', { onclick: handleRemoveDraft }, 'remove draft'),
 		)
 	);
 }

@@ -7,6 +7,9 @@ import {
 } from 'preact-hooks';
 import classNames from 'clsx';
 import createStylesheet from 'createStylesheet';
+import { createMatrixWidthHeight } from '../utils/utilMatrix.js';
+import useRefresh from '../hooks/useRefresh.js';
+import useIsInitialRender from '../hooks/useIsInitialRender.js';
 import Window, {
 	TitleBarButtonClose,
 	TitleBarButtonMinimize,
@@ -14,16 +17,11 @@ import Window, {
 	TitleBarButtonHelp,
 } from '../components/Window.js';
 
-// TINPAEYALF
-
 const theme = createStylesheet('PixelartGridWindow', {
 	container: {
 		'position': 'relative',
 		'display': 'flex',
-		'gap': '3px',
-		'flex-wrap': 'nowrap',
-		// 'margin-bottom': '1em',
-		'align-items': 'center',
+		'flex-direction': 'column',
 	},
 	underlay: {
 		'position': 'absolute',
@@ -45,13 +43,15 @@ const theme = createStylesheet('PixelartGridWindow', {
 		'transform': 'scaleY(1.5)',
 	},
 	rows: {
-		position: 'relative',
+		'position': 'relative',
+		'border-width': '1px 0px 0px 1px',
+		'border-style': 'solid',
+		'border-color': 'transparent',
 	},
 	row: {
 		'display': 'flex',
 		'flex-direction': 'row',
 		'flex-wrap': 'no-wrap',
-		// 'border': '1px solid red',
 	},
 	pixel: {
 		'font-size': '0.5em',
@@ -63,7 +63,7 @@ const theme = createStylesheet('PixelartGridWindow', {
 		'border-width': '1px 0px 0px 1px',
 		'border-style': 'dotted',
 		'border-color': 'black',
-		'box-sizing': 'border-box',
+		'box-sizing': 'content-box',
 	},
 	bottomRightGrid: {
 		'border-width': '0px 1px 1px 0px',
@@ -71,61 +71,129 @@ const theme = createStylesheet('PixelartGridWindow', {
 		'border-color': 'black',
 		'box-sizing': 'border-box',
 	},
+	//
+	actionColumns: {
+		'display': 'flex',
+		'flex-direction': 'row',
+		'flex-wrap': 'no-wrap',
+	},
+	actionColumn: {
+		'display': 'flex',
+		'flex-direction': 'column',
+		'flex-grow': 1,
+	},
 });
-
-// TODO transparent background base64
 
 export default function PixelartGridWindow({
 	persistentId,
 	width,
 	height,
 	apiRef,
-	// onClickedPixel
-	// onSelectedRectangle
-	onPixelMouseDown,
-	onPixelMouseUp,
-	onPixelMouseDragOver,
-	//
+	draftApi,
+	onPixelMouseInteraction,
+	codename,
 	letterUnderlay,
+	matrix: databaseMatrix,
 }) {
-		const selectedHslRef = useRef();
+	const refresh = useRefresh();
+	const databaseDataRef = useRef();
+	const editorDataRef = useRef();
+	const draftDataRef = useRef();
+	const isTouchedRef = useRef(false);
+	const isInitialRender = useIsInitialRender();
+	if (isInitialRender) {
+		databaseDataRef.current = createMatrixWidthHeight(width, height, databaseMatrix, 'transparent');
+		editorDataRef.current = createMatrixWidthHeight(width, height, undefined, 'transparent');
+
+		const draftMatrix = draftApi.getMatrixForCodename(codename, {});
+		draftDataRef.current = createMatrixWidthHeight(width, height, draftMatrix, 'transparent');
+
+		console.log('>> inited:', [
+			databaseDataRef.current,
+			editorDataRef.current,
+			draftDataRef.current,
+		]);
+	}
+
+	const [showDatabaseEditorDraft, setShow] = useState(1);
 	const gridRef = useRef();
 	const isMouseDownRef = useRef(false);
 	const underlayLetterRef = useRef();
-	// const underlayTransparentRef = useRef();
-	const [showGrid, setShowGrid] = useState(true);
+	const [shouldShowGrid, setShowGrid] = useState(true);
 	const [shouldTransparentUnderlay, setShouldTransparentUnderlay] = useState();
 
-	const handleClick = useCallback(() => {
-		//
-	}, []);
-
-	const handleMouseDown = useCallback((event) => {
+	const handleMouseDown = useCallback((event, rowIndex, columnIndex) => {
 		isMouseDownRef.current = true;
 
-		// onPixelMouseDown();
-		event.target.style.backgroundColor = selectedHslRef.current;
-	}, []);
+		onPixelMouseInteraction(rowIndex, columnIndex);
+	}, [onPixelMouseInteraction]);
 
-	const handleMouseOver = useCallback((event) => {
+	const handleMouseOver = useCallback((event, rowIndex, columnIndex) => {
 		if (isMouseDownRef.current) {
-			event.target.style.backgroundColor = selectedHslRef.current;
+			onPixelMouseInteraction(rowIndex, columnIndex);
 		}
-	}, []);
+	}, [onPixelMouseInteraction]);
 
 	const handleMouseUp = useCallback(() => {
 		isMouseDownRef.current = false;
-
-		event.target.style.backgroundColor = selectedHslRef.current;
 	}, []);
+
+	const handleDeleteDraft = useCallback(() => {
+		const shouldDelete = window.confirm('Czy aby na pewno usunąć draft z localStorage?');
+		if (shouldDelete) {
+			draftApi.deleteEntryForCodename(codename);
+			// TODO reset, draftDataRef
+		}
+	}, []);
+
+	const handleSaveEditorMatrixAsDraft = useCallback(() => {
+		isTouchedRef.current = false;
+		draftApi.setMatrixForCodename(codename,
+			editorDataRef.current,
+		);
+	}, []);
+
+	const handleCopyPendingIntoEditor = useCallback(() => {
+		isTouchedRef.current = false;
+		editorDataRef.current = createMatrixWidthHeight(width, height, draftDataRef.current, 'transparent');
+		refresh();
+	}, []);
+
+	const handleCopyOriginalIntoEditor = useCallback(() => {
+		isTouchedRef.current = false;
+		editorDataRef.current = createMatrixWidthHeight(width, height, databaseDataRef.current, 'transparent');
+		refresh();
+	}, []);
+
+	const handleLoadOriginal = useCallback(() => {
+		setShow(1);
+	}, []);
+	const handleLoadDraft = useCallback(() => {
+		setShow(2);
+	}, []);
+	const handleLoadCurrent = useCallback(() => {
+		setShow(3);
+	}, []);
+
+	const isDatabaseView = showDatabaseEditorDraft === 1;
+	const isEditorView = showDatabaseEditorDraft === 2;
+	const isDraftView = showDatabaseEditorDraft === 3;
 
 	useLayoutEffect(() => {
 		apiRef.current = {
-			setSelectedHslColor(selectedHsl) {
-				selectedHslRef.current = selectedHsl;
+			checkIsSaved() {
+				return !isTouchedRef.current;
+			},
+			setPixel(rowIndex, columnIndex, selectedColor) {
+				if (isEditorView) {
+					isTouchedRef.current = true;
+					editorDataRef.current[rowIndex][columnIndex] = selectedColor;
+				}
+
+				gridRef.current.children[rowIndex].children[columnIndex].style['background-color'] = selectedColor ?? 'transparent';
 			},
 			checkIsGridShowed() {
-				return showGrid;
+				return shouldShowGrid;
 			},
 			setShouldShowGrid(should) {
 				setShowGrid(should);
@@ -139,13 +207,21 @@ export default function PixelartGridWindow({
 				gridRef.current.style.opacity = opacity;
 			},
 		};
-	}, [showGrid]);
+	}, [shouldShowGrid, isDatabaseView, isEditorView, isDraftView]);
+
+	const seletedData
+		= isDatabaseView ? databaseDataRef.current
+		: isEditorView ? editorDataRef.current
+		: isDraftView ? draftDataRef.current
+		: undefined;
+
+	const showGrid = shouldShowGrid && isEditorView;
 
 	return (
 		h(Window,
 			{
 				persistentId,
-				title: 'Picel Grid',
+				title: 'Pixel Grid',
 				childrenTitleBarButtons: [
 					h(TitleBarButtonClose),
 					h(TitleBarButtonMinimize),
@@ -153,52 +229,107 @@ export default function PixelartGridWindow({
 					h(TitleBarButtonHelp),
 				],
 			},
-			h('div',
-				{ className: theme.container },
-				// TODO dodać div na obrazek i literke
-				h('div', {
-					className: classNames(
-						theme.underlay,
-						shouldTransparentUnderlay && theme.underlayTransparent,
+			h('div', { className: theme.container },
+				h('menu', { role: 'tablist' },
+					h('li',
+						{
+							'role': 'tab',
+							'aria-selected': String(isDatabaseView),
+							'onclick': handleLoadOriginal,
+						},
+						h('a', null, 'database'),
 					),
-				}),
-				h('div',
-					{
-						ref: underlayLetterRef, // kkicj
-						className: classNames(
-							theme.underlay,
-							theme.underlayLetter,
-							// letter && theme.underlayTransparent,
-						),
-					},
-					letterUnderlay,
+					h('li',
+						{
+							'role': 'tab',
+							'aria-selected': String(isEditorView),
+							'onclick': handleLoadDraft,
+						},
+						h('a', null, '🖊️ editor'),
+					),
+					h('li',
+						{
+							'role': 'tab',
+							'aria-selected': String(isDraftView),
+							'onclick': handleLoadCurrent,
+						},
+						h('a', null, 'pending'),
+					),
 				),
-				h('div',
-					{
-						ref: gridRef,
-						onmousedown: handleMouseDown,
-						onmouseup: handleMouseUp,
-						// onmouseout: handleMouseUp,
-						className: classNames(
-							theme.rows,
-							showGrid && theme.topLeftGrid,
+				h('div', { className: 'window', role: 'tabpanel' },
+					h('div', { className: 'window-body' },
+						h('div', {
+							className: classNames(
+								theme.underlay,
+								shouldTransparentUnderlay && theme.underlayTransparent,
+							),
+						}),
+						h('div',
+							{
+								ref: underlayLetterRef,
+								className: classNames(
+									theme.underlay,
+									theme.underlayLetter,
+								),
+							},
+							letterUnderlay,
 						),
-					},
-					Array(height).fill(undefined).map((_, rowIndex) => {
-						return h('div',
-							{ className: theme.row },
-							Array(width).fill(undefined).map((__, columnIndex) => {
-								return h('div', {
-									className: classNames(
-										theme.pixel,
-										showGrid && theme.bottomRightGrid,
-									),
-									onmouseover: handleMouseOver,
-									onclick: handleClick,
-								}); // , `${columnIndex}:${rowIndex}`);
+						h('div',
+							{
+								ref: gridRef,
+								className: classNames(
+									theme.rows,
+									showGrid && theme.topLeftGrid,
+								),
+							},
+							seletedData.map((row, rowIndex) => {
+								return h('div',
+									{ className: theme.row },
+									row.map((pixel, columnIndex) => {
+										return h('div', {
+											className: classNames(
+												theme.pixel,
+												showGrid && theme.bottomRightGrid,
+											),
+											style: {
+												'background-color': pixel,
+											},
+											onmousedown: event => handleMouseDown(event, rowIndex, columnIndex),
+											onmouseup: event => handleMouseUp(event, rowIndex, columnIndex),
+											onmouseover: event => handleMouseOver(event, rowIndex, columnIndex),
+										});
+									}),
+								);
 							}),
-						);
-					}),
+						),
+						h('div', { className: theme.actionColumns },
+							h('fieldset', { className: theme.actionColumn },
+								h('legend', null, 'database element actions'),
+								h('button', {
+									onclick: handleCopyOriginalIntoEditor,
+									disabled: !isDatabaseView,
+								}, 'copy original to editor'),
+							),
+							h('fieldset', { className: theme.actionColumn },
+								h('legend', null, 'editor actions'),
+								h('button', {
+									onclick: handleSaveEditorMatrixAsDraft,
+									disabled: !isEditorView,
+								}, 'save editor as draft'),
+							),
+							h('fieldset', { className: theme.actionColumn },
+								h('legend', null, 'pending element actions'),
+								h('button', {
+									onclick: handleCopyPendingIntoEditor,
+									disabled: !isDraftView,
+								}, 'copy pending to editor'),
+								h('button', {
+									onclick: handleDeleteDraft,
+									disabled: !isDraftView,
+								}, 'delete draft'),
+							),
+						),
+					),
 				),
 			),
 		)

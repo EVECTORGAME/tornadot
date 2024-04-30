@@ -48,25 +48,9 @@
 				}
 			}
 
-			function App({
-				colorPalette,
-				sprites,
-			}) {
-				const {
-					colorsCount,
-					saturationPercent,
-					lightnessPercent,
-					lightnessOffsetPercent,
-				} = colorPalette;
-
+			function App({ resources }) {
 				return h(AppContext, null,
-					h(MainScreen, {
-						colorsCount,
-						saturationPercent,
-						lightnessPercent,
-						lightnessOffsetPercent,
-						sprites,
-					}),
+					h(MainScreen, { resources }),
 				);
 			}
 
@@ -75,13 +59,9 @@
 
 				const response = await fetch('../src/resources.json');
 				const resources = await response.json();
-				const { colorPalette, sprites } = resources;
-
-				console.log('>>', resources);
 
 				render(h(App, {
-					colorPalette,
-					sprites,
+					resources,
 				}), mainElement);
 			});
 		</script>

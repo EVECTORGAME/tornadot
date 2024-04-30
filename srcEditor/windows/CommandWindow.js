@@ -1,5 +1,4 @@
 import { h } from 'preact';
-import { useCallback } from 'preact-hooks';
 import createStylesheet from 'createStylesheet';
 import Window, {
 	TitleBarButtonClose,
@@ -17,10 +16,6 @@ const theme = createStylesheet('CommandWindow', {
 	container: {
 		'display': 'flex',
 		'flex-direction': 'column',
-		// 'gap': '3px',
-		// 'flex-wrap': 'nowrap',
-		// // 'margin-bottom': '1em',
-		// 'align-items': 'center',
 	},
 	rows: {
 
@@ -43,20 +38,8 @@ const theme = createStylesheet('CommandWindow', {
 
 export default function CommandWindow({
 	persistentId,
-	// width,
-	// height,
-	selectedHsl,
 	pixelartGridRef,
 }) {
-	const handleClick = useCallback((event) => {
-		event.target.style.backgroundColor = selectedHsl;
-		// console.log(event);
-	}, [selectedHsl]);
-
-	const handleMouseOver = useCallback((event) => {
-	//	console.log(event);
-	}, []);
-
 	return (
 		h(Window,
 			{

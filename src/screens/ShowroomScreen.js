@@ -1,22 +1,17 @@
 import { h } from 'preact';
 import { useEffect, useState, useRef, useCallback } from 'preact-hooks';
-
 import useKeyHook from '../hooks/useKeyHook.js';
-
 import createStylesheet from '../modules/createStylesheet.js';
 import HeaderText from '../components/HeaderText.js';
-import MainMenuScreen from './MainMenuScreen.js';
-//
 import createScene from '../modules/createScene.js';
 import createChronos from '../modules/createChronos.js';
 import createStaticCamera from '../entities/createStaticCamera.js';
 import createDemoHolder from '../entities/createDemoHolder.js';
 import createOceanFloor from '../entities/createOceanFloor.js';
-//
 import createPlayer from '../entities/createPlayer.js';
-// import createHugeRock from '../entities/createHugeRock.js';
 import createSmallPlant from '../entities/createSmallPlant.js';
 import createLevelEnd from '../entities/createLevelEnd.js';
+import MainMenuScreen from './MainMenuScreen.js';
 
 const theme = createStylesheet('PlayNextScreen', {
 	container: {

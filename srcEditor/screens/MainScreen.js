@@ -1,14 +1,9 @@
 import { h } from 'preact';
 import { useCallback, useState, useRef } from 'preact-hooks';
-import createStylesheet from 'createStylesheet';
+import { condition } from '../../src/utils/index.js';
+import useDraftDatabase from '../hooks/useDraftDatabase.js';
 import Topmenu from '../components/Topmenu.js';
-import Window, {
-	realignWindows,
-	TitleBarButtonClose,
-	TitleBarButtonMinimize,
-	TitleBarButtonMaximize,
-	TitleBarButtonHelp,
-} from '../components/Window.js';
+import { realignWindows } from '../components/Window.js';
 import HslColorPaleteWindow from '../windows/HslColorPaleteWindow.js';
 import PixelartGridWindow from '../windows/PixelartGridWindow.js';
 import CommandWindow from '../windows/CommandWindow.js';
@@ -16,42 +11,27 @@ import ResourcesWindow from '../windows/ResourcesWindow.js';
 
 const UNIT_PIXELS = 32;
 
-const theme = createStylesheet('MainScreen', {
-	selectedColor: {
-		height: '1em',
-	},
-});
-
-export default function MainScreen({
-	colorsCount,
-	saturationPercent,
-	lightnessPercent,
-	lightnessOffsetPercent,
-	sprites,
-}) {
+export default function MainScreen({ resources }) {
+	const draftApi = useDraftDatabase();
 	const pixelartGridRef = useRef();
-	const [{ type, data, metadata }, setTypeAndData] = useState({});
-	// const [selectedHsl, setSelectedHsl] = useState();
+	const [selectedColor, setSelectedColor] = useState(undefined);
+	const [{ codename, type, matrix, metadata }, setTypeAndData] = useState({});
 
 	const handleSelectedHls = useCallback((hslToSet) => {
-		pixelartGridRef.current.setSelectedHslColor(hslToSet);
-		console.log(hslToSet);
-		// etSelectedHsl(hslToSet);
+		setSelectedColor(hslToSet);
 	}, []);
 
-	const handleOnPixelMouseDown = useCallback(([x, y]) => {
-		console.log('>> handleOnPixelMouseDown', x, y);
-	}, []);
+	const handlePixelMouseInteraction = useCallback((rowIndex, columnIndex) => {
+		pixelartGridRef.current.setPixel(rowIndex, columnIndex, selectedColor);
+	}, [selectedColor]);
 
-	const handleOnPixelMouseUp = useCallback(([x, y]) => {
-		console.log('>> handleOnPixelMouseUp', x, y);
-	}, []);
-
-	const handleOnPixelMouseDragOver = useCallback(([x, y]) => {
-		console.log('>> handleOnPixelMouseDragOver', x, y);
-	}, []);
-
-	console.log('>>', { type, data, metadata });
+	const { colorPalette } = resources;
+	const {
+		colorsCount,
+		saturationPercent,
+		lightnessPercent,
+		lightnessOffsetPercent,
+	} = colorPalette;
 
 	return [
 		h(HslColorPaleteWindow, {
@@ -62,39 +42,52 @@ export default function MainScreen({
 			lightnessOffsetPercent,
 			onSetHslColor: handleSelectedHls,
 		}),
-		h(PixelartGridWindow, {
-			persistentId: PixelartGridWindow.name,
-			width: UNIT_PIXELS,
-			height: UNIT_PIXELS,
-			apiRef: pixelartGridRef,
-			onPixelMouseDown: handleOnPixelMouseDown,
-			onPixelMouseUp: handleOnPixelMouseUp,
-			onPixelMouseDragOver: handleOnPixelMouseDragOver,
-			letterUnderlay: metadata?.letterUnderlay,
-		}),
+		condition(
+			Boolean(codename),
+			h(PixelartGridWindow, {
+				key: codename,
+				persistentId: PixelartGridWindow.name,
+				width: UNIT_PIXELS, // TODOD from resourcess
+				height: UNIT_PIXELS,
+				apiRef: pixelartGridRef,
+				//
+				codename,
+				matrix,
+				//
+				onPixelMouseInteraction: handlePixelMouseInteraction,
+				letterUnderlay: metadata?.letterUnderlay,
+				draftApi,
+			}),
+		),
 		h(CommandWindow,
 			{
 				persistentId: CommandWindow.name,
 				pixelartGridRef,
-				// width: 32,
-				// height: 32,
 			},
 		),
-		h(Topmenu,
-			{
-				//
-			},
+		h(Topmenu, null,
 			h('button', { onclick: realignWindows }, 'reset windows positions'),
 		),
 		h(ResourcesWindow, {
 			persistentId: ResourcesWindow.name,
-			sprites,
-			onSelectedSprite({ type: a, data: b, metadata: c }) {
+			resources,
+			draftApi,
+			pixelartGridRef,
+			onSelectedSprite({ codename: a, type: b, matrix: c, metadata: d, draftData: e }) {
+				const isSaved = pixelartGridRef.current?.checkIsSaved() ?? true;
+				if (!isSaved) {
+					return false;
+				}
+
 				setTypeAndData({
-					type: a,
-					data: b,
-					metadata: c,
+					codename: a,
+					type: b,
+					matrix: c,
+					metadata: d,
+					draftData: e,
 				});
+
+				return true;
 			},
 		}),
 	];

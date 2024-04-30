@@ -13,7 +13,40 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);;;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent"
+			],
 			"metadata": {
 				"letterUnderlay": "A"
 			}
@@ -24,7 +57,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "B"
 			}
@@ -35,7 +68,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "C"
 			}
@@ -46,7 +79,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "D"
 			}
@@ -57,7 +90,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "E"
 			}
@@ -68,7 +101,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "F"
 			}
@@ -79,7 +112,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "G"
 			}
@@ -90,7 +123,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "H"
 			}
@@ -101,7 +134,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "I"
 			}
@@ -112,7 +145,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "J"
 			}
@@ -123,7 +156,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "K"
 			}
@@ -134,7 +167,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "L"
 			}
@@ -145,7 +178,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "M"
 			}
@@ -156,7 +189,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "N"
 			}
@@ -167,7 +200,40 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [
+				"hsl(280, 40%, 40%);;;;;;;;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"hsl(280, 40%, 40%);;;;;hsl(280, 40%, 40%);;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"hsl(280, 40%, 40%);;;hsl(280, 40%, 40%);hsl(280, 40%, 40%);hsl(280, 40%, 40%);;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;;;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;;transparent;transparent;transparent;transparent;hsl(40, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;;transparent;transparent;transparent;transparent;hsl(40, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;;transparent;transparent;transparent;transparent;hsl(40, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;;;;;transparent;transparent;transparent;hsl(40, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;;;;;;transparent;transparent;transparent;hsl(40, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;;;;;;transparent;transparent;transparent;hsl(40, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;;;;;;;transparent;transparent;hsl(40, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				";;;;;;;;;;transparent;transparent;hsl(40, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;;;;;;;;;transparent;hsl(40, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;;;;;;;;;;hsl(40, 40%, 40%);transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);hsl(0, 40%, 30%);hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;;;;;;;;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;;;hsl(280, 40%, 40%);hsl(280, 40%, 40%);hsl(280, 40%, 40%);transparent;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;hsl(280, 40%, 40%);hsl(280, 40%, 40%);hsl(280, 40%, 40%);hsl(280, 40%, 40%);transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;hsl(280, 40%, 40%);hsl(280, 40%, 40%);hsl(280, 40%, 40%);hsl(0, 40%, 30%);hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(280, 40%, 40%);hsl(280, 40%, 40%);hsl(0, 40%, 30%);hsl(280, 40%, 40%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(280, 40%, 40%);hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(280, 40%, 40%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(280, 40%, 40%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;hsl(0, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent"
+			],
 			"metadata": {
 				"letterUnderlay": "O"
 			}
@@ -178,7 +244,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "P"
 			}
@@ -189,7 +255,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Q"
 			}
@@ -200,7 +266,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "R"
 			}
@@ -211,7 +277,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "S"
 			}
@@ -222,7 +288,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "T"
 			}
@@ -233,7 +299,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "U"
 			}
@@ -244,7 +310,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "V"
 			}
@@ -255,7 +321,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "W"
 			}
@@ -266,7 +332,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "X"
 			}
@@ -277,7 +343,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Y"
 			}
@@ -288,7 +354,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Z"
 			}
@@ -300,7 +366,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "A"
 			}
@@ -311,7 +377,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "B"
 			}
@@ -322,7 +388,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "C"
 			}
@@ -333,7 +399,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "D"
 			}
@@ -344,7 +410,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "E"
 			}
@@ -355,7 +421,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "F"
 			}
@@ -366,7 +432,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "G"
 			}
@@ -377,7 +443,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "H"
 			}
@@ -388,7 +454,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "I"
 			}
@@ -399,7 +465,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "J"
 			}
@@ -410,7 +476,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "K"
 			}
@@ -421,7 +487,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "L"
 			}
@@ -432,7 +498,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "M"
 			}
@@ -443,7 +509,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "N"
 			}
@@ -454,7 +520,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "O"
 			}
@@ -465,7 +531,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "P"
 			}
@@ -476,7 +542,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Q"
 			}
@@ -487,7 +553,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "R"
 			}
@@ -498,7 +564,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "S"
 			}
@@ -509,7 +575,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "T"
 			}
@@ -520,7 +586,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "U"
 			}
@@ -531,7 +597,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "V"
 			}
@@ -542,7 +608,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "W"
 			}
@@ -553,7 +619,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "X"
 			}
@@ -564,7 +630,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Y"
 			}
@@ -575,9 +641,153 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Z"
+			}
+		},
+		"### digits #######################################################################################################################",
+		{
+			"id": 1026,
+			"codename": "digit-0",
+			"type": "digit",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"matrix": [],
+			"metadata": {
+				"letterUnderlay": "0"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "digit-1",
+			"type": "digit",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"matrix": [],
+			"metadata": {
+				"letterUnderlay": "1"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "digit-2",
+			"type": "digit",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"matrix": [],
+			"metadata": {
+				"letterUnderlay": "2"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "digit-3",
+			"type": "digit",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"matrix": [],
+			"metadata": {
+				"letterUnderlay": "3"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "digit-4",
+			"type": "digit",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"matrix": [],
+			"metadata": {
+				"letterUnderlay": "4"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "digit-5",
+			"type": "digit",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"matrix": [],
+			"metadata": {
+				"letterUnderlay": "5"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "digit-6",
+			"type": "digit",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"matrix": [],
+			"metadata": {
+				"letterUnderlay": "6"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "digit-7",
+			"type": "digit",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"matrix": [],
+			"metadata": {
+				"letterUnderlay": "7"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "digit-8",
+			"type": "digit",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"matrix": [],
+			"metadata": {
+				"letterUnderlay": "8"
+			}
+		},
+		{
+			"id": 1026,
+			"codename": "digit-9",
+			"type": "digit",
+			"widthUnits": 1,
+			"heightUnits": 2,
+			"matrix": [
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 40%);hsl(40, 40%, 50%);hsl(40, 40%, 50%);hsl(40, 40%, 40%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
+				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent"
+			],
+			"metadata": {
+				"letterUnderlay": "9"
 			}
 		},
 		"### spacial-characters ###########################################################################################################",
@@ -587,7 +797,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": ":"
 			}
@@ -598,7 +808,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": ";"
 			}
@@ -609,7 +819,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": ","
 			}
@@ -620,7 +830,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "."
 			}
@@ -631,7 +841,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "?"
 			}
@@ -642,9 +852,21 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 2,
-			"data": [],
+			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "!"
+			}
+		}
+		"### small plants ###########################################################################################################",
+		{
+			"id": 1026,
+			"codename": "small-plant-1",
+			"type": "small-plant",
+			"widthUnits": 1,
+			"heightUnits": 1,
+			"matrix": [],
+			"metadata": {
+				"letterUnderlay": ""
 			}
 		}
 	]

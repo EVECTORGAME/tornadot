@@ -1,6 +1,5 @@
 import { h } from 'preact';
 import { useCallback, useRef } from 'preact-hooks';
-import classNames from 'clsx';
 import Window, {
 	TitleBarButtonClose,
 	TitleBarButtonMinimize,
@@ -14,11 +13,8 @@ const theme = createStylesheet('HslColorPaleteWindow', {
 		'display': 'flex',
 		'gap': '3px',
 		'flex-wrap': 'nowrap',
-		// 'margin-bottom': '1em',
 		'align-items': 'center',
 		'flex-direction': 'column',
-		// 'padding': '1em',
-		// 'background-color': 'silver',
 	},
 	rows: {
 		'display': 'flex',
@@ -47,15 +43,11 @@ const theme = createStylesheet('HslColorPaleteWindow', {
 		'width': '20px',
 		'height': '20px',
 		'color': 'white',
-		// 'user-selection': 'none',
-		// 'pointer-events': 'none',
 	},
 });
 
 export default function HslColorPaleteWindow({
 	persistentId,
-	width,
-	height,
 	colorsCount,
 	saturationPercent: baseSaturationPercent,
 	lightnessPercent,
@@ -64,10 +56,6 @@ export default function HslColorPaleteWindow({
 	onSetHslColor,
 }) {
 	const selectedRef = useRef();
-
-	const handleMouseOver = useCallback((event) => {
-		// console.log(event);
-	}, []);
 
 	const handleSetColor = useCallback((hslBaseColor, selectedSaturationPercent, selectedLightness) => {
 		const selectedHls = hslBaseColor === undefined
@@ -82,8 +70,6 @@ export default function HslColorPaleteWindow({
 	}, [], [undefined]);
 
 	const colorStep = 360 / colorsCount;
-
-	// TODO historia wybranych kolorów
 
 	return (
 		h('div', {},
@@ -117,7 +103,6 @@ export default function HslColorPaleteWindow({
 
 							return h('div',
 								{ className: theme.row },
-								// Array(width).fill(undefined).map((__, columnIndex) => {
 								h('button', {
 									className: theme.color,
 									onclick: () => handleSetColor(hslBaseColor, saturationPercent, lighterColor),
@@ -139,15 +124,10 @@ export default function HslColorPaleteWindow({
 										'background-color': `hsl(${hslBaseColor}, ${saturationPercent}%, ${darkerColor}%)`,
 									},
 								}, `+${lightnessOffsetPercent}`),
-								// }),
 							);
 						}),
 					),
-					/* h('div',
-						{ className: theme.controls },
-						h('input', { type: 'text' }),
-					), */
-				)
+				),
 			),
 		)
 	);
