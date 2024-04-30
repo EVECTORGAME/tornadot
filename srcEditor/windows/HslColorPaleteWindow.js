@@ -1,12 +1,12 @@
 import { h } from 'preact';
 import { useCallback, useRef } from 'preact-hooks';
+import createStylesheet from 'createStylesheet';
 import Window, {
 	TitleBarButtonClose,
 	TitleBarButtonMinimize,
 	TitleBarButtonMaximize,
 	TitleBarButtonHelp,
 } from '../components/Window.js';
-import createStylesheet from 'createStylesheet';
 
 const theme = createStylesheet('HslColorPaleteWindow', {
 	container: {

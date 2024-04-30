@@ -53,6 +53,7 @@ export default function MainScreen({ resources }) {
 				//
 				codename,
 				matrix,
+				type,
 				//
 				onPixelMouseInteraction: handlePixelMouseInteraction,
 				letterUnderlay: metadata?.letterUnderlay,

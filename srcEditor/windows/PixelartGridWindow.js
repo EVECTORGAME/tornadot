@@ -35,12 +35,25 @@ const theme = createStylesheet('PixelartGridWindow', {
 		'display': 'flex',
 		'align-items': 'flex-end',
 		'justify-content': 'center',
-		'font-size': '600px',
 		'font-family': 'Rubik Mono One',
 		'opacity': 0.5,
-
-		'line-height': '380px',
-		'transform': 'scaleY(1.5)',
+		'&:global(.capital-letter)': {
+			'color': 'red',
+			'line-height': '740px',
+			'transform': 'scaleY(1.5)',
+			'font-size': '590px',
+		},
+		'&:global(.digit)': {
+			'color': 'red',
+			'line-height': '740px',
+			'transform': 'scaleY(1.5)',
+			'font-size': '590px',
+		},
+		'&:global(.small-letter)': {
+			'color': 'blue',
+			'line-height': '430px',
+			'font-size': '400px',
+		},
 	},
 	rows: {
 		'position': 'relative',
@@ -92,6 +105,7 @@ export default function PixelartGridWindow({
 	draftApi,
 	onPixelMouseInteraction,
 	codename,
+	type,
 	letterUnderlay,
 	matrix: databaseMatrix,
 }) {
@@ -270,6 +284,7 @@ export default function PixelartGridWindow({
 								className: classNames(
 									theme.underlay,
 									theme.underlayLetter,
+									type,
 								),
 							},
 							letterUnderlay,

@@ -130,7 +130,8 @@ export default function ResourcesWindow({
 							h('th', null, 'codename'),
 							h('th', null, 'type'),
 							h('th', null, 'size'),
-							h('th', null, 'has draft'),
+							h('th', null, 'has resource'),
+							h('th', null, 'has pending'),
 						),
 					),
 					h('tbody', { className: theme.tbody },
@@ -148,8 +149,9 @@ export default function ResourcesWindow({
 								);
 							}
 
-							const { id, type, codename, widthUnits, heightUnits } = spriteOrText;
-							const hasDraft = draftApi.checkHasEntryForCodename(codename);
+							const { id, type, codename, widthUnits, heightUnits, matrix } = spriteOrText;
+							const hasPending = draftApi.checkHasEntryForCodename(codename);
+							const hasResource = Boolean(matrix?.length);
 
 							return (
 								h('tr',
@@ -164,7 +166,8 @@ export default function ResourcesWindow({
 									h('td', null, codename),
 									h('td', null, type),
 									h('td', null, `${widthUnits}x${heightUnits}`),
-									h('td', null, hasDraft ? 'yes' : ''),
+									h('td', null, hasResource ? 'yes' : ''),
+									h('td', null, hasPending ? 'yes' : ''),
 								)
 							);
 						}),
