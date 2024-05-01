@@ -10,6 +10,7 @@ import createStylesheet from 'createStylesheet';
 import { createMatrixWidthHeight } from '../utils/utilMatrix.js';
 import useRefresh from '../hooks/useRefresh.js';
 import useIsInitialRender from '../hooks/useIsInitialRender.js';
+import CanvasLetter from '../components/CanvasLetter.js';
 import Window, {
 	TitleBarButtonClose,
 	TitleBarButtonMinimize,
@@ -25,38 +26,45 @@ const theme = createStylesheet('PixelartGridWindow', {
 	},
 	underlay: {
 		'position': 'absolute',
-		'inset': '0 0 0 0',
 		'pointer-events': 'none',
 	},
+	gridHolder: {
+		position: 'relative',
+	},
 	underlayTransparent: {
+		'inset': '0 0 0 0',
 		'background-image': 'url("./images/transparent-background.png")',
 	},
 	underlayLetter: {
-		'display': 'flex',
-		'align-items': 'flex-end',
-		'justify-content': 'center',
+		'left': '50%',
+		'transform': 'translateX(-50%)',
+		'bottom': 0,
 		'font-family': 'Rubik Mono One',
 		'opacity': 0.5,
+		'line-height': 0,
 		'&:global(.capital-letter)': {
 			'color': 'red',
-			'line-height': '740px',
-			'transform': 'scaleY(1.5)',
+			'bottom': '278px',
+			'transform': 'translateX(-50%) scaleY(1.5)',
 			'font-size': '590px',
 		},
 		'&:global(.digit)': {
 			'color': 'red',
-			'line-height': '740px',
-			'transform': 'scaleY(1.5)',
+			'bottom': '185px',
 			'font-size': '590px',
 		},
 		'&:global(.small-letter)': {
 			'color': 'blue',
-			'line-height': '430px',
+			'bottom': '124px',
+			'font-size': '400px',
+		},
+		'&:global(.character)': {
+			'color': 'orange',
+			'bottom': '140px',
 			'font-size': '400px',
 		},
 	},
 	rows: {
-		'position': 'relative',
 		'border-width': '1px 0px 0px 1px',
 		'border-style': 'solid',
 		'border-color': 'transparent',
@@ -121,12 +129,6 @@ export default function PixelartGridWindow({
 
 		const draftMatrix = draftApi.getMatrixForCodename(editSpriteCodename, {});
 		draftDataRef.current = createMatrixWidthHeight(width, height, draftMatrix, 'transparent');
-
-		console.log('>> inited:', [
-			databaseDataRef.current,
-			editorDataRef.current,
-			draftDataRef.current,
-		]);
 	}
 
 	const [showDatabaseEditorDraft, setShow] = useState(1);
@@ -278,56 +280,58 @@ export default function PixelartGridWindow({
 				),
 				h('div', { className: 'window', role: 'tabpanel' },
 					h('div', { className: 'window-body' },
-						h('div', {
-							className: classNames(
-								theme.underlay,
-								shouldTransparentUnderlay && theme.underlayTransparent,
-							),
-						}),
-						h('div',
-							{
-								ref: underlayLetterRef,
+						h('div', { className: theme.gridHolder },
+							h('div', {
 								className: classNames(
 									theme.underlay,
-									theme.underlayLetter,
-									editSpriteType,
+									shouldTransparentUnderlay && theme.underlayTransparent,
 								),
-							},
-							letterUnderlay,
-						),
-						h('div',
-							{
-								ref: gridRef,
-								onmouseleave: handleCanvasMouseLeave,
-								className: classNames(
-									theme.rows,
-									showGrid && theme.topLeftGrid,
-								),
-							},
-							seletedData.map((row, rowIndex) => {
-								return h('div',
-									{ className: theme.row },
-									row.map((pixel, columnIndex) => {
-										return h('div', {
-											/*
-												key here is important because it seems that changing only style['background-color']
-												doesnt trigger corosponding redraw on dom
-											*/
-											key: showDatabaseEditorDraft,
-											className: classNames(
-												theme.pixel,
-												showGrid && theme.bottomRightGrid,
-											),
-											style: {
-												'background-color': pixel,
-											},
-											onmousedown: event => handleMouseDown(event, rowIndex, columnIndex),
-											onmouseup: event => handleMouseUp(event, rowIndex, columnIndex),
-											onmouseover: event => handleMouseOver(event, rowIndex, columnIndex),
-										});
-									}),
-								);
 							}),
+							h('div',
+								{
+									ref: underlayLetterRef,
+									className: classNames(
+										theme.underlay,
+										theme.underlayLetter,
+										editSpriteType,
+									),
+								},
+								letterUnderlay,
+							),
+							h('div',
+								{
+									ref: gridRef,
+									onmouseleave: handleCanvasMouseLeave,
+									className: classNames(
+										theme.rows,
+										showGrid && theme.topLeftGrid,
+									),
+								},
+								seletedData.map((row, rowIndex) => {
+									return h('div',
+										{ className: theme.row },
+										row.map((pixel, columnIndex) => {
+											return h('div', {
+												/*
+													key here is important because it seems that changing only style['background-color']
+													doesnt trigger corosponding redraw on dom
+												*/
+												key: showDatabaseEditorDraft,
+												className: classNames(
+													theme.pixel,
+													showGrid && theme.bottomRightGrid,
+												),
+												style: {
+													'background-color': pixel,
+												},
+												onmousedown: event => handleMouseDown(event, rowIndex, columnIndex),
+												onmouseup: event => handleMouseUp(event, rowIndex, columnIndex),
+												onmouseover: event => handleMouseOver(event, rowIndex, columnIndex),
+											});
+										}),
+									);
+								}),
+							),
 						),
 						h('div', { className: theme.actionColumns },
 							h('fieldset', { className: theme.actionColumn },
