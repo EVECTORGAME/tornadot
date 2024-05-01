@@ -130,10 +130,13 @@ export default function PixelartGridWindow({
 	}
 
 	const [showDatabaseEditorDraft, setShow] = useState(1);
+	const isDatabaseView = showDatabaseEditorDraft === 1;
+	const isEditorView = showDatabaseEditorDraft === 2;
+	const isDraftView = showDatabaseEditorDraft === 3;
 	const gridRef = useRef();
 	const isMouseDownRef = useRef(false);
 	const underlayLetterRef = useRef();
-	const [shouldShowGrid, setShowGrid] = useState(true);
+	const [shouldShowGrid, setShowGrid] = useState(isEditorView);
 	const [shouldTransparentUnderlay, setShouldTransparentUnderlay] = useState();
 
 	const handleMouseDown = useCallback((event, rowIndex, columnIndex) => {
@@ -149,6 +152,10 @@ export default function PixelartGridWindow({
 	}, [onPixelMouseInteraction]);
 
 	const handleMouseUp = useCallback(() => {
+		isMouseDownRef.current = false;
+	}, []);
+
+	const handleCanvasMouseLeave = useCallback(() => {
 		isMouseDownRef.current = false;
 	}, []);
 
@@ -180,18 +187,17 @@ export default function PixelartGridWindow({
 	}, []);
 
 	const handleLoadOriginal = useCallback(() => {
+		setShowGrid(false);
 		setShow(1);
 	}, []);
 	const handleLoadDraft = useCallback(() => {
+		setShowGrid(true);
 		setShow(2);
 	}, []);
 	const handleLoadCurrent = useCallback(() => {
+		setShowGrid(false);
 		setShow(3);
 	}, []);
-
-	const isDatabaseView = showDatabaseEditorDraft === 1;
-	const isEditorView = showDatabaseEditorDraft === 2;
-	const isDraftView = showDatabaseEditorDraft === 3;
 
 	useLayoutEffect(() => {
 		apiRef.current = {
@@ -229,7 +235,7 @@ export default function PixelartGridWindow({
 		: isDraftView ? draftDataRef.current
 		: undefined;
 
-	const showGrid = shouldShowGrid && isEditorView;
+	const showGrid = shouldShowGrid;
 
 	return (
 		h(Window,
@@ -292,6 +298,7 @@ export default function PixelartGridWindow({
 						h('div',
 							{
 								ref: gridRef,
+								onmouseleave: handleCanvasMouseLeave,
 								className: classNames(
 									theme.rows,
 									showGrid && theme.topLeftGrid,
@@ -302,6 +309,11 @@ export default function PixelartGridWindow({
 									{ className: theme.row },
 									row.map((pixel, columnIndex) => {
 										return h('div', {
+											/*
+												key here is important because it seems that changing only style['background-color']
+												doesnt trigger corosponding redraw on dom
+											*/
+											key: showDatabaseEditorDraft,
 											className: classNames(
 												theme.pixel,
 												showGrid && theme.bottomRightGrid,

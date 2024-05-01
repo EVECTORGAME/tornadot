@@ -1,6 +1,7 @@
 import { h } from 'preact';
-import { useRef, useLayoutEffect } from 'preact-hooks';
+import usePersistent from '../hooks/usePersistent.js';
 import createStylesheet from '../modules/createStylesheet.js';
+import createBitmapText from '../textures/createBitmapText.js';
 
 const theme = createStylesheet('HeaderText', {
 	container: {
@@ -12,20 +13,15 @@ const theme = createStylesheet('HeaderText', {
 	},
 });
 
-export default function HeaderText({ text }, { headerFont }) {
-	const containerRef = useRef();
-	useLayoutEffect(() => {
-		headerFont.createTextElement(containerRef.current, text, {});
+export default function HeaderText({ text }) {
+	const imageDataUrl = usePersistent(() => createBitmapText('ABOPa9' ?? text, { upscale: 2 }));
 
-		return () => {
-			/* while (containerRef.current.firstChild) {
-				containerRef.current.removeChild(containerRef.current.lastChild);
-			} */
-		};
-	}, []);
-
-	return h('div', {
-		className: theme.container,
-		ref: containerRef,
-	});
+	return (
+		h('img',
+			{
+				src: imageDataUrl,
+				className: theme.container,
+			},
+		)
+	);
 }

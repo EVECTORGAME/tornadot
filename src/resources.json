@@ -14,6 +14,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "A",
 			"matrix": [
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
@@ -58,6 +59,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "B",
 			"matrix": [
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
 				"transparent;transparent;transparent;transparent;transparent;transparent;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
@@ -102,6 +104,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "C",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "C"
@@ -113,6 +116,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "D",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "D"
@@ -124,6 +128,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "E",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "E"
@@ -135,6 +140,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "F",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "F"
@@ -146,6 +152,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "G",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "G"
@@ -157,6 +164,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "H",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "H"
@@ -168,6 +176,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "I",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "I"
@@ -179,6 +188,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "J",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "J"
@@ -190,6 +200,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "K",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "K"
@@ -201,6 +212,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "L",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "L"
@@ -212,6 +224,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "M",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "M"
@@ -223,6 +236,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "N",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "N"
@@ -234,6 +248,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "O",
 			"matrix": [
 				"hsl(280, 40%, 40%);;;;;;;;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
 				"hsl(280, 40%, 40%);;;;;hsl(280, 40%, 40%);;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
@@ -278,6 +293,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "P",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "P"
@@ -289,6 +305,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "Q",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Q"
@@ -300,6 +317,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "R",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "R"
@@ -311,6 +329,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "S",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "S"
@@ -322,6 +341,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "T",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "T"
@@ -333,6 +353,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "U",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "U"
@@ -344,6 +365,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "V",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "V"
@@ -355,6 +377,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "W",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "W"
@@ -366,6 +389,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "X",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "X"
@@ -377,6 +401,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "Y",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Y"
@@ -388,6 +413,7 @@
 			"type": "capital-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "Z",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Z"
@@ -400,6 +426,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "a",
 			"matrix": [
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
@@ -444,6 +471,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "b",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "B"
@@ -455,6 +483,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "c",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "C"
@@ -467,6 +496,7 @@
 			"widthUnits": 1,
 			"heightUnits": 1,
 			"matrix": [],
+			"character": "d",
 			"metadata": {
 				"letterUnderlay": "D"
 			}
@@ -477,6 +507,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "e",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "E"
@@ -488,6 +519,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "f",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "F"
@@ -499,6 +531,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "g",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "G"
@@ -510,6 +543,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "h",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "H"
@@ -521,6 +555,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "i",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "I"
@@ -532,6 +567,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "j",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "J"
@@ -543,6 +579,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "k",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "K"
@@ -554,6 +591,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "l",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "L"
@@ -565,6 +603,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "m",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "M"
@@ -576,6 +615,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "n",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "N"
@@ -587,6 +627,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "o",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "O"
@@ -598,6 +639,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "p",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "P"
@@ -609,6 +651,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "q",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Q"
@@ -620,6 +663,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "r",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "R"
@@ -631,6 +675,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "s",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "S"
@@ -642,6 +687,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "t",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "T"
@@ -653,6 +699,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "u",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "U"
@@ -664,6 +711,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "v",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "V"
@@ -675,6 +723,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "w",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "W"
@@ -686,6 +735,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "x",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "X"
@@ -697,6 +747,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "y",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Y"
@@ -708,6 +759,7 @@
 			"type": "small-letter",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "z",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "Z"
@@ -720,6 +772,7 @@
 			"type": "digit",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "0",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "0"
@@ -731,6 +784,7 @@
 			"type": "digit",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "1",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "1"
@@ -742,6 +796,7 @@
 			"type": "digit",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "2",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "2"
@@ -753,6 +808,7 @@
 			"type": "digit",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "3",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "3"
@@ -764,6 +820,7 @@
 			"type": "digit",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "4",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "4"
@@ -775,6 +832,7 @@
 			"type": "digit",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "5",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "5"
@@ -786,6 +844,7 @@
 			"type": "digit",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "6",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "6"
@@ -797,6 +856,7 @@
 			"type": "digit",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "7",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "7"
@@ -808,6 +868,7 @@
 			"type": "digit",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "8",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "8"
@@ -819,6 +880,7 @@
 			"type": "digit",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "9",
 			"matrix": [
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;;hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);hsl(40, 40%, 30%);transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
@@ -864,6 +926,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": ":",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": ":"
@@ -875,6 +938,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": ";",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": ";"
@@ -886,6 +950,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": ",",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": ","
@@ -897,6 +962,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": ".",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "."
@@ -908,6 +974,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "?",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "?"
@@ -919,6 +986,7 @@
 			"type": "character",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": "!",
 			"matrix": [],
 			"metadata": {
 				"letterUnderlay": "!"
@@ -931,6 +999,7 @@
 			"type": "small-plant",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": null,
 			"matrix": [
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
@@ -975,6 +1044,7 @@
 			"type": "small-plant",
 			"widthUnits": 1,
 			"heightUnits": 1,
+			"character": null,
 			"matrix": [
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",
 				"transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent;transparent",

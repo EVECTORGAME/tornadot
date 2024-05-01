@@ -6,9 +6,6 @@ import Window, {
 	TitleBarButtonMaximize,
 	TitleBarButtonHelp,
 } from '../components/Window.js';
-import ToolGridTransparency from '../tools/ToolGridTransparency.js';
-import ToolGridUnderlay from '../tools/ToolGridUnderlay.js';
-import ToolTransparentUnderlay from '../tools/ToolTransparentUnderlay.js';
 
 // TINPAEYALF
 
@@ -38,7 +35,7 @@ const theme = createStylesheet('CommandWindow', {
 
 export default function CommandWindow({
 	persistentId,
-	pixelartGridRef,
+	children,
 }) {
 	return (
 		h(Window,
@@ -53,9 +50,7 @@ export default function CommandWindow({
 				],
 				childrenClassName: theme.container,
 			},
-			h(ToolGridUnderlay, { pixelartGridRef }),
-			h(ToolTransparentUnderlay, { pixelartGridRef }),
-			h(ToolGridTransparency, { pixelartGridRef }),
+			children,
 		)
 	);
 }

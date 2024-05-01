@@ -2,16 +2,16 @@ import utilPickRandomArrayElement from '../utils/utilPickRandomArrayElement.js';
 import { RESOURCES } from '../config.js';
 
 /* TODO
-    - rename to create sprite
 	- lot of memoization
 	- add dithering magFilter
 	- add upscalling (with hole filling and without)
 	- add random holes to plantSprite
 	- add random fruits to plants
 	- add merginng sprites
+	- niech to zwraca już gotowego spritea - tak, żeby ustawiało też rozmiar spritea
 */
 
-export default function createTexture({ codename, codenameStartsWith }) {
+export default function createSprite({ codename, codenameStartsWith }) {
 	const { unitSize, sprites } = RESOURCES;
 	const candidates
 		= codename ? [sprites.find(x => x.codename === codename)]

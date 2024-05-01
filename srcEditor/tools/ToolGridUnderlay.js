@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useCallback } from 'preact-hooks';
 
-export default function CommandTogglePixelArtGrid({ pixelartGridRef }) {
+export default function ToolGridUnderlay({ pixelartGridRef }) {
 	const handleToggle = useCallback(() => {
 		const isShowed = pixelartGridRef.current.checkIsGridShowed();
 

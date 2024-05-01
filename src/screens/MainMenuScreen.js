@@ -15,6 +15,10 @@ const theme = createStylesheet('MainMenu', {
 		'flex-direction': 'column',
 		// 'background-color': COLOR_DARK_BLUE,
 	},
+	entry: {
+		'pointer-events': 'all',
+		'cursor': 'hand',
+	},
 	isSelected: {
 		'text-decoration': 'underline',
 	},
@@ -56,7 +60,8 @@ export default function MainMenu({ title, items }) {
 				return (
 					h('div', {
 						key: label,
-						className: classNames({ [theme.isSelected]: isSelectedItem }),
+						className: classNames(theme.entry, { [theme.isSelected]: isSelectedItem }),
+						onmouseover: () => setActiveIndex(index),
 					}, label)
 				);
 			}),
