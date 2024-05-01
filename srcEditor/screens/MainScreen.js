@@ -9,13 +9,19 @@ import PixelartGridWindow from '../windows/PixelartGridWindow.js';
 import CommandWindow from '../windows/CommandWindow.js';
 import ResourcesWindow from '../windows/ResourcesWindow.js';
 
-const UNIT_PIXELS = 32;
-
 export default function MainScreen({ resources }) {
+	const { unitSize } = resources;
 	const draftApi = useDraftDatabase();
 	const pixelartGridRef = useRef();
 	const [selectedColor, setSelectedColor] = useState(undefined);
-	const [{ codename, type, matrix, metadata }, setTypeAndData] = useState({});
+	const [{
+		codename: editSpriteCodename,
+		type: editSpriteType,
+		matrix: editSpriteMatrix,
+		metadata: editSpriteMetadata,
+		widthUnits: editSpriteWidthUnits,
+		heightUnits: editSpriteHeightUnits,
+	}, setTypeAndData] = useState({});
 
 	const handleSelectedHls = useCallback((hslToSet) => {
 		setSelectedColor(hslToSet);
@@ -43,20 +49,20 @@ export default function MainScreen({ resources }) {
 			onSetHslColor: handleSelectedHls,
 		}),
 		condition(
-			Boolean(codename),
+			Boolean(editSpriteCodename),
 			h(PixelartGridWindow, {
-				key: codename,
+				key: editSpriteCodename,
 				persistentId: PixelartGridWindow.name,
-				width: UNIT_PIXELS, // TODOD from resourcess
-				height: UNIT_PIXELS,
+				width: unitSize * editSpriteWidthUnits,
+				height: unitSize * editSpriteHeightUnits,
 				apiRef: pixelartGridRef,
 				//
-				codename,
-				matrix,
-				type,
+				editSpriteCodename,
+				editSpriteMatrix,
+				editSpriteType,
 				//
 				onPixelMouseInteraction: handlePixelMouseInteraction,
-				letterUnderlay: metadata?.letterUnderlay,
+				letterUnderlay: editSpriteMetadata?.letterUnderlay,
 				draftApi,
 			}),
 		),
@@ -74,19 +80,13 @@ export default function MainScreen({ resources }) {
 			resources,
 			draftApi,
 			pixelartGridRef,
-			onSelectedSprite({ codename: a, type: b, matrix: c, metadata: d, draftData: e }) {
+			onSelectedSprite(spriteData) {
 				const isSaved = pixelartGridRef.current?.checkIsSaved() ?? true;
 				if (!isSaved) {
 					return false;
 				}
 
-				setTypeAndData({
-					codename: a,
-					type: b,
-					matrix: c,
-					metadata: d,
-					draftData: e,
-				});
+				setTypeAndData(spriteData);
 
 				return true;
 			},

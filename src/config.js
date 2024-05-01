@@ -36,3 +36,5 @@ export const COLOR_RED = '#FF0000';
 
 export const CAMERA_POSITION_Y = 2;
 export const CAMERA_POSITION_Z = -5;
+
+export const RESOURCES = {};

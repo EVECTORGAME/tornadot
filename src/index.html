@@ -26,10 +26,11 @@
 		<script type="module">
 			import { render, h, Component } from 'preact';
 			import { condition } from './utils/index.js';
+			import { RESOURCES } from './config.js';
 
 			import useLocalStorageValue from './hooks/useLocalStorageValue.js';
 			import useIncrement from './hooks/useIncrement.js';
-
+			import utilsMutateObjectOverwrite from './utils/utilsMutateObjectOverwrite.js';
 			import createFavicon from './modules/createFavicon.js';
 			import createBitmapFont from './modules/createBitmapFont.js';
 
@@ -53,6 +54,14 @@
 				const PLAY_NEXT_SCREEN = 'play-next-screen';
 				const GAME_END_SCREEN = 'game-end-screen';
 				const SHOWROOM_SCREEN = 'showroom-screen';
+
+				const response = await fetch('./resources.json');
+				const resourcesWithHeaders = await response.json();
+
+				utilsMutateObjectOverwrite(RESOURCES, {
+					...resourcesWithHeaders,
+					sprites: resourcesWithHeaders.sprites.filter(x => typeof x !== 'string'),
+				});
 
 				const headerFont = createBitmapFont('bitmapfonts/font_11x16.png', {
 					tileWidth: 10,
@@ -208,14 +217,6 @@
 									onClose: handleShowMainMenu,
 								},
 							),
-
-
-							// h(PauseManuScreen, { secret: 'orange' }, [
-							// 	// h(MainMenu)
-							// ]),
-							// h(CreditsScreen, { secret: 'orange' }, [
-							// 	// h(MainMenu)
-							// ]),
 						]),
 					]);
 				}

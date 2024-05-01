@@ -200,7 +200,7 @@ const theme = createStylesheet('LevelScreen', {
 	},
 });
 
-export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEnded, onAbort, onReload }) {
+export default function LevelScreen({ levelNumber, onLevelEnded, onAbort, onReload }) {
 	const [showPauseMenu, setShowPauseMenu] = useState();
 	const levelRef = useRef();
 
@@ -217,7 +217,6 @@ export default function LevelScreen({ levelNumber, keyboardIntegrator, onLevelEn
 
 	useEffect(() => {
 		const level = createLevel(levelNumber, {
-			keyboardIntegrator,
 			onRefreshUi({
 				playerDistanceToLevelEnd,
 				deltaTimeSeconds,

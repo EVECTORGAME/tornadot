@@ -18,7 +18,8 @@
         "import/resolver": {
             "eslint-import-resolver-custom-alias": {
                 "alias": {
-                    "preact-hooks": "./node_modules/preact/hooks/dist/hooks.module.js"
+                    "preact-hooks": "./node_modules/preact/hooks/dist/hooks.module.js",
+                    "createStylesheet": "./src/modules/createStylesheet.js"
                 },
             }
         }

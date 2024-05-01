@@ -104,10 +104,10 @@ export default function PixelartGridWindow({
 	apiRef,
 	draftApi,
 	onPixelMouseInteraction,
-	codename,
-	type,
+	editSpriteCodename,
+	editSpriteType,
+	editSpriteMatrix,
 	letterUnderlay,
-	matrix: databaseMatrix,
 }) {
 	const refresh = useRefresh();
 	const databaseDataRef = useRef();
@@ -116,10 +116,10 @@ export default function PixelartGridWindow({
 	const isTouchedRef = useRef(false);
 	const isInitialRender = useIsInitialRender();
 	if (isInitialRender) {
-		databaseDataRef.current = createMatrixWidthHeight(width, height, databaseMatrix, 'transparent');
+		databaseDataRef.current = createMatrixWidthHeight(width, height, editSpriteMatrix, 'transparent');
 		editorDataRef.current = createMatrixWidthHeight(width, height, undefined, 'transparent');
 
-		const draftMatrix = draftApi.getMatrixForCodename(codename, {});
+		const draftMatrix = draftApi.getMatrixForCodename(editSpriteCodename, {});
 		draftDataRef.current = createMatrixWidthHeight(width, height, draftMatrix, 'transparent');
 
 		console.log('>> inited:', [
@@ -155,14 +155,14 @@ export default function PixelartGridWindow({
 	const handleDeleteDraft = useCallback(() => {
 		const shouldDelete = window.confirm('Czy aby na pewno usunąć draft z localStorage?');
 		if (shouldDelete) {
-			draftApi.deleteEntryForCodename(codename);
+			draftApi.deleteEntryForCodename(editSpriteCodename);
 			// TODO reset, draftDataRef
 		}
 	}, []);
 
 	const handleSaveEditorMatrixAsDraft = useCallback(() => {
 		isTouchedRef.current = false;
-		draftApi.setMatrixForCodename(codename,
+		draftApi.setMatrixForCodename(editSpriteCodename,
 			editorDataRef.current,
 		);
 	}, []);
@@ -284,7 +284,7 @@ export default function PixelartGridWindow({
 								className: classNames(
 									theme.underlay,
 									theme.underlayLetter,
-									type,
+									editSpriteType,
 								),
 							},
 							letterUnderlay,

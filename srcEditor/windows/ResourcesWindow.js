@@ -57,6 +57,8 @@ export default function ResourcesWindow({
 			type,
 			matrix: matrixFlatten,
 			metadata,
+			widthUnits,
+			heightUnits,
 		} = sprites[rowIndex];
 		const matrix = draftApi.utilUnflattenMatrix(matrixFlatten);
 		const didChanged = onSelectedSprite({
@@ -64,6 +66,8 @@ export default function ResourcesWindow({
 			type,
 			matrix,
 			metadata,
+			widthUnits,
+			heightUnits,
 		});
 		if (didChanged) {
 			setSelectedRowIndex(rowIndex);

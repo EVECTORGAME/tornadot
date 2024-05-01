@@ -8,9 +8,11 @@ import {
 	NearestFilter,
 	SpriteMaterial,
 	Sprite,
+	CanvasTexture,
 } from 'three';
 import utilRandomValueMinMax from '../utils/utilRandomValueMinMax.js';
 import utilRandomDegrees0360 from '../utils/utilRandomDegrees0360.js';
+import createSprite from '../textures/createSprite.js';
 import { COLOR_GREEN } from '../config.js';
 
 export default function createSmallPlant({ x, z }) {
@@ -28,12 +30,14 @@ export default function createSmallPlant({ x, z }) {
 		metalTexture.wrapT = RepeatWrapping;
 		metalTexture.repeat.set(0.5, 0.5);
 
-		const plantTexture = textureLoader.load('./textures/small-plant-01-32x32.png');
+		const sprite = createSprite({ codenameStartsWith: 'small-plant-' });
+		const plantTexture = new CanvasTexture(sprite.getCanvas());
 		plantTexture.minFilter = NearestFilter;
 		plantTexture.magFilter = NearestFilter;
 		const plantMaterial = new SpriteMaterial({ map: plantTexture });
 		const plantSprite = new Sprite(plantMaterial);
-		plantSprite.position.set(0, 1.5, 0);
+		plantSprite.scale.set(2, 2, 0);
+		plantSprite.position.set(0, 1.4, 0);
 		subGroup.add(plantSprite);
 
 		const geometry = new SphereGeometry(1);
