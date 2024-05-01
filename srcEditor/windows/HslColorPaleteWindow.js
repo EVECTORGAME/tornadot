@@ -96,7 +96,7 @@ export default function HslColorPaleteWindow({
 					}, 'clear'),
 					h('div',
 						{ className: theme.rows },
-						Array(colorsCount).fill(baseSaturationPercent).concat([0]).map((saturationPercent, colorOffset) => {
+						Array(colorsCount).fill(baseSaturationPercent).map((saturationPercent, colorOffset) => {
 							const hslBaseColor = colorOffset * colorStep;
 							const lighterColor = lightnessPercent - lightnessOffsetPercent;
 							const darkerColor = lightnessPercent + lightnessOffsetPercent;
@@ -122,6 +122,40 @@ export default function HslColorPaleteWindow({
 									onclick: () => handleSetColor(hslBaseColor, saturationPercent, darkerColor),
 									style: {
 										'background-color': `hsl(${hslBaseColor}, ${saturationPercent}%, ${darkerColor}%)`,
+									},
+								}, `+${lightnessOffsetPercent}`),
+							);
+						}),
+						[lightnessOffsetPercent, 50, 100 - lightnessOffsetPercent].map((lightness) => {
+							const lighterColor = lightness - lightnessOffsetPercent;
+							const darkerColor = lightness + lightnessOffsetPercent;
+							const useBlackColor = lightness > 75;
+							const color = useBlackColor ? 'black' : 'white';
+
+							return h('div',
+								{ className: theme.row },
+								h('button', {
+									className: theme.color,
+									onclick: () => handleSetColor(0, 0, lighterColor),
+									style: {
+										color,
+										'background-color': `hsl(0, 0%, ${lighterColor}%)`,
+									},
+								}, `-${lightnessOffsetPercent}`),
+								h('button', {
+									className: theme.color,
+									onclick: () => handleSetColor(0, 0, lightness),
+									style: {
+										color,
+										'background-color': `hsl(0, 0%, ${lightness}%)`,
+									},
+								}, `${lightness}`),
+								h('button', {
+									className: theme.color,
+									onclick: () => handleSetColor(0, 0, darkerColor),
+									style: {
+										color,
+										'background-color': `hsl(0, 0%, ${darkerColor}%)`,
 									},
 								}, `+${lightnessOffsetPercent}`),
 							);
