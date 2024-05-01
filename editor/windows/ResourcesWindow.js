@@ -97,7 +97,7 @@ export default function ResourcesWindow({
 					const { codename } = sprite;
 					const pendingMatrix = draftApi.getMatrixForCodename(codename, { shouldReturnMatrixFlatten: true });
 					if (pendingMatrix) {
-						draftApi.deleteEntryForCodename(codename);
+						// draftApi.deleteEntryForCodename(codename);
 
 						return {
 							...sprite,
