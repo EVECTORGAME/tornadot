@@ -2,6 +2,7 @@ import { h } from 'preact';
 import { useCallback, useState } from 'preact-hooks';
 import classNames from 'clsx';
 import createStylesheet from 'createStylesheet';
+import useRefresh from '../hooks/useRefresh.js';
 import Window, {
 	TitleBarButtonClose,
 	TitleBarButtonMinimize,
@@ -50,6 +51,7 @@ export default function ResourcesWindow({
 }) {
 	const { sprites } = resources;
 
+	const [refresh] = useRefresh();
 	const [selectedRowIndex, setSelectedRowIndex] = useState();
 	const handleRowClick = useCallback((rowIndex) => {
 		const {
@@ -95,6 +97,8 @@ export default function ResourcesWindow({
 					const { codename } = sprite;
 					const pendingMatrix = draftApi.getMatrixForCodename(codename, { shouldReturnMatrixFlatten: true });
 					if (pendingMatrix) {
+						draftApi.deleteEntryForCodename(codename);
+
 						return {
 							...sprite,
 							matrix: pendingMatrix,
@@ -107,7 +111,7 @@ export default function ResourcesWindow({
 
 			console.log(JSON.stringify(dump, null, '\t'));
 
-			// TODO remove all pandings
+			refresh();
 		} else {
 			// TODO tooltip
 		}

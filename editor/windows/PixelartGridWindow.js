@@ -10,7 +10,6 @@ import createStylesheet from 'createStylesheet';
 import { createMatrixWidthHeight } from '../utils/utilMatrix.js';
 import useRefresh from '../hooks/useRefresh.js';
 import useIsInitialRender from '../hooks/useIsInitialRender.js';
-import CanvasLetter from '../components/CanvasLetter.js';
 import Window, {
 	TitleBarButtonClose,
 	TitleBarButtonMinimize,
@@ -44,9 +43,9 @@ const theme = createStylesheet('PixelartGridWindow', {
 		'line-height': 0,
 		'&:global(.capital-letter)': {
 			'color': 'red',
-			'bottom': '278px',
-			'transform': 'translateX(-50%) scaleY(1.5)',
-			'font-size': '590px',
+			'bottom': '285px',
+			'transform': 'translateX(-50%) scaleY(1.2)',
+			'font-size': '760px',
 		},
 		'&:global(.digit)': {
 			'color': 'red',
@@ -65,6 +64,7 @@ const theme = createStylesheet('PixelartGridWindow', {
 		},
 	},
 	rows: {
+		'position': 'relative',
 		'border-width': '1px 0px 0px 1px',
 		'border-style': 'solid',
 		'border-color': 'transparent',
@@ -117,7 +117,7 @@ export default function PixelartGridWindow({
 	editSpriteMatrix,
 	letterUnderlay,
 }) {
-	const refresh = useRefresh();
+	const [refresh, refreshKey] = useRefresh();
 	const databaseDataRef = useRef();
 	const editorDataRef = useRef();
 	const draftDataRef = useRef();
@@ -142,16 +142,20 @@ export default function PixelartGridWindow({
 	const [shouldTransparentUnderlay, setShouldTransparentUnderlay] = useState();
 
 	const handleMouseDown = useCallback((event, rowIndex, columnIndex) => {
-		isMouseDownRef.current = true;
+		if (isEditorView) {
+			isMouseDownRef.current = true;
 
-		onPixelMouseInteraction(rowIndex, columnIndex);
-	}, [onPixelMouseInteraction]);
-
-	const handleMouseOver = useCallback((event, rowIndex, columnIndex) => {
-		if (isMouseDownRef.current) {
 			onPixelMouseInteraction(rowIndex, columnIndex);
 		}
-	}, [onPixelMouseInteraction]);
+	}, [isEditorView, onPixelMouseInteraction]);
+
+	const handleMouseOver = useCallback((event, rowIndex, columnIndex) => {
+		if (isEditorView) {
+			if (isMouseDownRef.current) {
+				onPixelMouseInteraction(rowIndex, columnIndex);
+			}
+		}
+	}, [isEditorView, onPixelMouseInteraction]);
 
 	const handleMouseUp = useCallback(() => {
 		isMouseDownRef.current = false;
@@ -175,6 +179,12 @@ export default function PixelartGridWindow({
 			editorDataRef.current,
 		);
 	}, []);
+
+	const handleClearEditor = useCallback(() => {
+		isTouchedRef.current = false;
+		editorDataRef.current = createMatrixWidthHeight(width, height, undefined, 'transparent');
+		refresh();
+	}, [width, height]);
 
 	const handleCopyPendingIntoEditor = useCallback(() => {
 		isTouchedRef.current = false;
@@ -210,9 +220,8 @@ export default function PixelartGridWindow({
 				if (isEditorView) {
 					isTouchedRef.current = true;
 					editorDataRef.current[rowIndex][columnIndex] = selectedColor;
+					gridRef.current.children[rowIndex].children[columnIndex].style['background-color'] = selectedColor ?? 'transparent';
 				}
-
-				gridRef.current.children[rowIndex].children[columnIndex].style['background-color'] = selectedColor ?? 'transparent';
 			},
 			checkIsGridShowed() {
 				return shouldShowGrid;
@@ -316,7 +325,7 @@ export default function PixelartGridWindow({
 													key here is important because it seems that changing only style['background-color']
 													doesnt trigger corosponding redraw on dom
 												*/
-												key: showDatabaseEditorDraft,
+												key: `${showDatabaseEditorDraft}:${refreshKey}`,
 												className: classNames(
 													theme.pixel,
 													showGrid && theme.bottomRightGrid,
@@ -347,6 +356,10 @@ export default function PixelartGridWindow({
 									onclick: handleSaveEditorMatrixAsDraft,
 									disabled: !isEditorView,
 								}, 'save editor as draft'),
+								h('button', {
+									onclick: handleClearEditor,
+									disabled: !isEditorView,
+								}, 'clear editor'),
 							),
 							h('fieldset', { className: theme.actionColumn },
 								h('legend', null, 'pending element actions'),

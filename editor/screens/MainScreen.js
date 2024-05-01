@@ -100,6 +100,8 @@ export default function MainScreen({ resources }) {
 			onSelectedSprite(spriteData) {
 				const isSaved = pixelartGridRef.current?.checkIsSaved() ?? true;
 				if (!isSaved) {
+					window.alert('masz niezapiszne zmiany, zapisz je albo usuń');
+
 					return false;
 				}
 
