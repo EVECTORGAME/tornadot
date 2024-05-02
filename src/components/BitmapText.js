@@ -1,9 +1,10 @@
 import { h } from 'preact';
+import classNames from 'clsx';
 import usePersistent from '../hooks/usePersistent.js';
 import createStylesheet from '../modules/createStylesheet.js';
 import createBitmapText from '../textures/createBitmapText.js';
 
-const theme = createStylesheet('HeaderText', {
+const theme = createStylesheet('BitmapText', {
 	container: {
 		'display': 'flex',
 		'gap': '3px',
@@ -13,15 +14,16 @@ const theme = createStylesheet('HeaderText', {
 	},
 });
 
-export default function HeaderText({ text }) {
-	const imageDataUrl = usePersistent(() => createBitmapText('ABOPa9' ?? text, { upscale: 2 }));
+export default function BitmapText({ text, upscale = 1, className, onmouseover }) {
+	const [imageDataUrl] = usePersistent(() => createBitmapText(text, { upscale }));
 
-	return (
+	return [
 		h('img',
 			{
 				src: imageDataUrl,
-				className: theme.container,
+				className: classNames(theme.container, className),
+				onmouseover,
 			},
-		)
-	);
+		),
+	];
 }

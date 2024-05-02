@@ -35,7 +35,7 @@ export default function createBitmapText(text, { upscale }) {
 
 		const letterOffsetX = index * unitSize * upscale;
 		letterSpriteMatrix.forEach((row, rowIndex) => {
-			row.split(';').forEach((pixel, columnIndex) => {
+			row.forEach((pixel, columnIndex) => {
 				if (pixel) {
 					context.fillStyle = pixel; // TODO check if different
 					context.fillRect(letterOffsetX + (columnIndex * upscale), (rowIndex * upscale), upscale, upscale);
@@ -45,5 +45,5 @@ export default function createBitmapText(text, { upscale }) {
 	});
 	// context.putImageData(imageData, dx, dy);
 
-	return canvas.toDataURL();
+	return [canvas.toDataURL()];
 }

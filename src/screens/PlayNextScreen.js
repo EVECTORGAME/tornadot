@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useEffect } from 'preact-hooks';
 import createStylesheet from '../modules/createStylesheet.js';
-import HeaderText from '../components/HeaderText.js';
+import BitmapText from '../components/BitmapText.js';
 
 const theme = createStylesheet('PlayNextScreen', {
 	container: {
@@ -24,7 +24,7 @@ export default function PlayNextScreen({ nextLevelNumber, onYes }) {
 	return (
 		h('div',
 			{ className: theme.container },
-			h(HeaderText, { text: `NEXT LEVEL IS ${nextLevelNumber}` }),
+			h(BitmapText, { text: `NEXT LEVEL IS ${nextLevelNumber}`, scale: 2 }),
 		)
 	);
 }

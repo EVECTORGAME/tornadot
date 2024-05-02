@@ -39,7 +39,7 @@ export default function createSprite({ codename, codenameStartsWith }) {
 
 	// context.putImageData(imageData, dx, dy);
 	matrix.forEach((row, rowIndex) => {
-		row.split(';').forEach((pixel, columnIndex) => {
+		row.forEach((pixel, columnIndex) => {
 			if (pixel) {
 				context.fillStyle = pixel;
 				context.fillRect(columnIndex, rowIndex, 1, 1);

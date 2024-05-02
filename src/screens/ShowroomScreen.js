@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { useEffect, useState, useRef, useCallback } from 'preact-hooks';
 import useKeyHook from '../hooks/useKeyHook.js';
 import createStylesheet from '../modules/createStylesheet.js';
-import HeaderText from '../components/HeaderText.js';
+import BitmapText from '../components/BitmapText.js';
 import createScene from '../modules/createScene.js';
 import createChronos from '../modules/createChronos.js';
 import createStaticCamera from '../entities/createStaticCamera.js';
@@ -135,7 +135,7 @@ export default function PlayNextScreen({ onClose }) {
 	return (
 		h('div',
 			{ className: theme.title },
-			h(HeaderText, { text: 'NEXT LEVEL IS' }),
+			h(BitmapText, { text: 'NEXT LEVEL IS', upscale: 2 }),
 		)
 	);
 }

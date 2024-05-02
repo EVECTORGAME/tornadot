@@ -39,7 +39,6 @@ const theme = createStylesheet('PixelartGridWindow', {
 		'left': '50%',
 		'transform': 'translateX(-50%)',
 		'bottom': 0,
-		'font-family': 'Rubik Mono One',
 		'opacity': 0.5,
 		'line-height': 0,
 		'&:global(.capital-letter)': {
@@ -47,21 +46,25 @@ const theme = createStylesheet('PixelartGridWindow', {
 			'bottom': '285px',
 			'transform': 'translateX(-50%) scaleY(1.2)',
 			'font-size': '760px',
+			'font-family': '"Rubik Mono One"',
 		},
 		'&:global(.digit)': {
 			'color': 'red',
-			'bottom': '185px',
-			'font-size': '590px',
+			'bottom': '292px',
+			'font-size': '1000px',
+			'font-family': 'Geo',
 		},
 		'&:global(.small-letter)': {
 			'color': 'blue',
 			'bottom': '124px',
 			'font-size': '400px',
+			'font-family': '"Rubik Mono One"',
 		},
 		'&:global(.character)': {
 			'color': 'orange',
 			'bottom': '140px',
 			'font-size': '400px',
+			'font-family': '"Rubik Mono One"',
 		},
 	},
 	rows: {

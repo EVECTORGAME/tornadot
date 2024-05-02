@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useEffect } from 'preact-hooks';
 import createStylesheet from '../modules/createStylesheet.js';
-import HeaderText from '../components/HeaderText.js';
+import BitmapText from '../components/BitmapText.js';
 
 const theme = createStylesheet('GameEndScreen', {
 	container: {
@@ -24,7 +24,7 @@ export default function GameEndScreen({ onWatched }) {
 
 	return (
 		h('div', { className: theme.container }, [
-			h(HeaderText, { text: 'THANKS FOR _PLAYING' }),
+			h(BitmapText, { text: 'THANKS FOR _PLAYING', upscale: 2 }),
 		])
 	);
 }

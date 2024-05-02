@@ -3,6 +3,7 @@ import { useCallback, useState } from 'preact-hooks';
 import classNames from 'clsx';
 import createStylesheet from 'createStylesheet';
 import useRefresh from '../hooks/useRefresh.js';
+import { utilUnpackPixel } from '../utils/utilMatrix.js';
 import Window, {
 	TitleBarButtonClose,
 	TitleBarButtonMinimize,
@@ -62,7 +63,12 @@ export default function ResourcesWindow({
 			widthUnits,
 			heightUnits,
 		} = sprites[rowIndex];
-		const matrix = draftApi.utilUnflattenMatrix(matrixFlatten);
+		const matrixMinimized = draftApi.utilUnflattenMatrix(matrixFlatten);
+		const matrix = matrixMinimized.map((matrixPixels) => {
+			return matrixPixels.map((pixel) => {
+				return utilUnpackPixel(pixel);
+			});
+		});
 		const didChanged = onSelectedSprite({
 			codename,
 			type,
@@ -106,10 +112,28 @@ export default function ResourcesWindow({
 					}
 
 					return sprite;
+				}).map((sprite) => {
+					const isString = typeof sprite === 'string';
+					if (isString) {
+						return sprite;
+					}
+
+					return {
+						...sprite,
+						matrix: sprite.matrix.map((matrixLine) => {
+							return matrixLine.replace(/transparent/g, '').replace(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\s*\)/g, '$1+$2%$3%');
+						}),
+					};
 				}),
 			};
 
-			console.log(JSON.stringify(dump, null, '\t'));
+			const json = JSON.stringify(dump, null, '\t');
+			const blob = new Blob([json], { type: 'application/json' });
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement('a');
+			link.download = 'data.json';
+			link.href = url;
+			link.click();
 
 			refresh();
 		} else {

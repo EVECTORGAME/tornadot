@@ -31,6 +31,7 @@
 			import useLocalStorageValue from './hooks/useLocalStorageValue.js';
 			import useIncrement from './hooks/useIncrement.js';
 			import utilsMutateObjectOverwrite from './utils/utilsMutateObjectOverwrite.js';
+			import { utilUnpackPixel } from '../editor/utils/utilMatrix.js';
 			import createFavicon from './modules/createFavicon.js';
 			import createBitmapFont from './modules/createBitmapFont.js';
 
@@ -41,6 +42,7 @@
 			import PlayNextScreen from './screens/PlayNextScreen.js';
 			import GameEndScreen from './screens/GameEndScreen.js';
 			import ShowroomScreen from './screens/ShowroomScreen.js';
+			import FontroomScreen from './screens/FontroomScreen.js';
 
 			document.body.addEventListener('keydown', ({ key }) => {
 			    if (key === '`') {
@@ -54,13 +56,23 @@
 				const PLAY_NEXT_SCREEN = 'play-next-screen';
 				const GAME_END_SCREEN = 'game-end-screen';
 				const SHOWROOM_SCREEN = 'showroom-screen';
+				const FONTROOM_SCREEN = 'fontroom-screen';
 
 				const response = await fetch('./resources.json');
 				const resourcesWithHeaders = await response.json();
 
 				utilsMutateObjectOverwrite(RESOURCES, {
 					...resourcesWithHeaders,
-					sprites: resourcesWithHeaders.sprites.filter(x => typeof x !== 'string'),
+					sprites: resourcesWithHeaders.sprites.filter(x => typeof x !== 'string').map((sprite) => {
+						return {
+							...sprite,
+							matrix: sprite.matrix.map((matrixLine) => {
+								return matrixLine.split(';').map((pixel) => {
+									return utilUnpackPixel(pixel);
+								});
+							}),
+						};
+					}),
 				});
 
 				const headerFont = createBitmapFont('bitmapfonts/font_11x16.png', {
@@ -168,6 +180,10 @@
 						setActiveItem(SHOWROOM_SCREEN);
 					}, []);
 
+					const handleFontroomScreen = useCallback(() => {
+						setActiveItem(FONTROOM_SCREEN);
+					}, []);
+
 					const handleEndScreenEnded = useCallback(() => {
 						setActiveItem(MAIN_MENU_SCREEN);
 					}, []);
@@ -181,6 +197,7 @@
 										{ label: `continue game ${maxAccessibleLevel}`, onSelected: handleContinueGame },
 										{ label: 'new game', onSelected: handleNewGame },
 										{ label: 'showroom', onSelected: handleShowroomScreen },
+										{ label: 'fontroom', onSelected: handleFontroomScreen },
 										{ label: 'settings' },
 										{ label: 'quit' },
 									]
@@ -211,11 +228,23 @@
 									},
 								),
 							),
-							activeItem === SHOWROOM_SCREEN && h(ShowroomScreen,
-								{
-									// onWatched: handleEndScreenEnded,
-									onClose: handleShowMainMenu,
-								},
+							condition(
+								activeItem === SHOWROOM_SCREEN,
+								h(ShowroomScreen,
+									{
+										// onWatched: handleEndScreenEnded,
+										onClose: handleShowMainMenu,
+									},
+								),
+							),
+							condition(
+								activeItem === FONTROOM_SCREEN,
+								h(FontroomScreen,
+									{
+										// onWatched: handleEndScreenEnded,
+										onClose: handleShowMainMenu,
+									},
+								),
 							),
 						]),
 					]);

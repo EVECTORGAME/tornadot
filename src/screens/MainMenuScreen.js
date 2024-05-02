@@ -3,7 +3,7 @@ import classNames from 'clsx';
 import { useState, useEffect, useCallback } from 'preact-hooks';
 import utilClamp from '../utils/utilClamp.js';
 import createStylesheet from '../modules/createStylesheet.js';
-import HeaderText from '../components/HeaderText.js';
+import BitmapText from '../components/BitmapText.js';
 
 const theme = createStylesheet('MainMenu', {
 	container: {
@@ -21,6 +21,7 @@ const theme = createStylesheet('MainMenu', {
 	},
 	isSelected: {
 		'text-decoration': 'underline',
+		'border': '1px solid red',
 	},
 });
 
@@ -53,16 +54,17 @@ export default function MainMenu({ title, items }) {
 
 	return (
 		h('div', { className: theme.container }, [
-			h(HeaderText, { text: title }),
+			h(BitmapText, { text: title, upscale: 2 }),
 			items.map(({ label }, index) => {
 				const isSelectedItem = index === activeIndex;
 
 				return (
-					h('div', {
+					h(BitmapText, {
 						key: label,
+						text: label,
 						className: classNames(theme.entry, { [theme.isSelected]: isSelectedItem }),
 						onmouseover: () => setActiveIndex(index),
-					}, label)
+					})
 				);
 			}),
 		])

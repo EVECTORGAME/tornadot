@@ -3,7 +3,7 @@ import { useRef, useLayoutEffect } from 'preact-hooks';
 import classNames from 'clsx';
 import createStylesheet from '../modules/createStylesheet.js';
 
-const theme = createStylesheet('HeaderText', {
+const theme = createStylesheet('CountDisplay', {
 	container: {
 		'display': 'flex',
 		'gap': '3px',
