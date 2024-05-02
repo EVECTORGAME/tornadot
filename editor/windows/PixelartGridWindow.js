@@ -10,6 +10,7 @@ import createStylesheet from 'createStylesheet';
 import { createMatrixWidthHeight } from '../utils/utilMatrix.js';
 import useRefresh from '../hooks/useRefresh.js';
 import useIsInitialRender from '../hooks/useIsInitialRender.js';
+import useKeyPressedTracker from '../hooks/useKeyPressedTracker.js';
 import Window, {
 	TitleBarButtonClose,
 	TitleBarButtonMinimize,
@@ -122,6 +123,7 @@ export default function PixelartGridWindow({
 	const editorDataRef = useRef();
 	const draftDataRef = useRef();
 	const isTouchedRef = useRef(false);
+	const pressedKeysRef = useKeyPressedTracker();
 	const isInitialRender = useIsInitialRender();
 	if (isInitialRender) {
 		databaseDataRef.current = createMatrixWidthHeight(width, height, editSpriteMatrix, 'transparent');
@@ -143,9 +145,13 @@ export default function PixelartGridWindow({
 
 	const handleMouseDown = useCallback((event, rowIndex, columnIndex) => {
 		if (isEditorView) {
-			isMouseDownRef.current = true;
+			if (pressedKeysRef.current.e) {
+				apiRef.current.setPixel(rowIndex, columnIndex, undefined);
+			} else {
+				isMouseDownRef.current = true;
 
-			onPixelMouseInteraction(rowIndex, columnIndex);
+				onPixelMouseInteraction(rowIndex, columnIndex);
+			}
 		}
 	}, [isEditorView, onPixelMouseInteraction]);
 

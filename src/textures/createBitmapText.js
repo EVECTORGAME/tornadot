@@ -36,8 +36,10 @@ export default function createBitmapText(text, { upscale }) {
 		const letterOffsetX = index * unitSize * upscale;
 		letterSpriteMatrix.forEach((row, rowIndex) => {
 			row.split(';').forEach((pixel, columnIndex) => {
-				context.fillStyle = pixel; // TODO check if different
-				context.fillRect(letterOffsetX + (columnIndex * upscale), (rowIndex * upscale), upscale, upscale);
+				if (pixel) {
+					context.fillStyle = pixel; // TODO check if different
+					context.fillRect(letterOffsetX + (columnIndex * upscale), (rowIndex * upscale), upscale, upscale);
+				}
 			});
 		});
 	});
