@@ -1,7 +1,18 @@
+import {
+	NearestFilter,
+	SpriteMaterial,
+	Sprite,
+	MeshBasicMaterial,
+	Mesh,
+	PlaneGeometry,
+	CanvasTexture,
+	DoubleSide,
+} from 'three';
 import utilPickRandomArrayElement from '../utils/utilPickRandomArrayElement.js';
 import { RESOURCES } from '../config.js';
 
 // RULE: 1meter has density of 32 pizels
+const PIXELS_PER_METER = 64;
 
 /* TODO
 	- lot of memoization
@@ -13,7 +24,7 @@ import { RESOURCES } from '../config.js';
 	- niech to zwraca już gotowego spritea - tak, żeby ustawiało też rozmiar spritea
 */
 
-export default function createSprite({ codename, codenameStartsWith }) {
+function createCanvasFromResource({ codename, codenameStartsWith }) {
 	const { sprites } = RESOURCES;
 	const candidates
 		= codename ? [sprites.find(x => x.codename === codename)]
@@ -48,9 +59,50 @@ export default function createSprite({ codename, codenameStartsWith }) {
 		});
 	});
 
-	return {
-		getCanvas() {
-			return canvas;
-		},
-	};
+	return canvas;
+}
+
+function createTextureFromCanvas(canvas) {
+	const plantTexture = new CanvasTexture(canvas);
+	plantTexture.minFilter = NearestFilter;
+	plantTexture.magFilter = NearestFilter;
+
+	const widthMeters = canvas.width / PIXELS_PER_METER;
+	const heightMeters = canvas.height / PIXELS_PER_METER;
+
+	return [plantTexture, {
+		widthMeters,
+		heightMeters,
+	}];
+}
+
+export default function createSprite({ codename, codenameStartsWith }) {
+	const canvas = createCanvasFromResource({ codename, codenameStartsWith });
+	const [texture, {
+		widthMeters,
+		heightMeters,
+	}] = createTextureFromCanvas(canvas);
+
+	const material = new SpriteMaterial({ map: texture });
+	const sprite = new Sprite(material);
+	sprite.scale.set(widthMeters, heightMeters, 0);
+	sprite.position.set(0, 0, 0);
+
+	return sprite;
+}
+
+export function createQuad({ codename, codenameStartsWith }) {
+	const canvas = createCanvasFromResource({ codename, codenameStartsWith });
+	const [texture, {
+		widthMeters,
+		heightMeters,
+	}] = createTextureFromCanvas(canvas);
+
+	const geometry = new PlaneGeometry(widthMeters, heightMeters);
+	const material = new MeshBasicMaterial({ map: texture, transparent: true, side: DoubleSide });
+	const plantSprite = new Mesh(geometry, material);
+
+	plantSprite.position.set(0, 0, 0);
+
+	return plantSprite;
 }

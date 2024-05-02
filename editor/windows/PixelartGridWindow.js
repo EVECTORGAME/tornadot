@@ -9,6 +9,7 @@ import classNames from 'clsx';
 import createStylesheet from 'createStylesheet';
 import { createMatrixWidthHeight } from '../utils/utilMatrix.js';
 import useRefresh from '../hooks/useRefresh.js';
+import useUnderlay from '../hooks/useUnderlay.js';
 import useIsInitialRender from '../hooks/useIsInitialRender.js';
 import useKeyPressedTracker from '../hooks/useKeyPressedTracker.js';
 import Window, {
@@ -37,7 +38,12 @@ const theme = createStylesheet('PixelartGridWindow', {
 		position: 'relative',
 		display: 'flex',
 	},
-	underlayTransparent: {
+	underlayCentered: {
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%, -50%)',
+	},
+	underlayTransparent: { // TODO rename to transparency, add as custom overlay
 		'inset': '0 0 0 0',
 		'background-image': 'url("./images/transparent-background.png")',
 	},
@@ -133,6 +139,7 @@ export default function PixelartGridWindow({
 	const isTouchedRef = useRef(false);
 	const pressedKeysRef = useKeyPressedTracker();
 	const isInitialRender = useIsInitialRender();
+	const [underlayCircleStyles, setUnderlayCircleSet] = useUnderlay();
 	if (isInitialRender) {
 		databaseDataRef.current = createMatrixWidthHeight(columnsCount, rowsCount, editSpriteMatrix, 'transparent');
 
@@ -175,7 +182,7 @@ export default function PixelartGridWindow({
 	const handleSaveEditorMatrixAsDraft = useCallback(() => {
 		// TODO debounce + powiadomienie saved
 		isTouchedRef.current = false;
-		console.log('>> saqve');
+		console.log('>> save');
 		draftApi.setMatrixForCodename(editSpriteCodename,
 			editorDataRef.current,
 		);
@@ -258,6 +265,9 @@ export default function PixelartGridWindow({
 			setGridOpacity(opacity) {
 				gridRef.current.style.opacity = opacity;
 			},
+			setUnderlayCircleSet({ styles }) {
+				setUnderlayCircleSet({ styles });
+			},
 		};
 	}, [shouldShowGrid, isDatabaseView, showEditMode]);
 
@@ -319,6 +329,12 @@ export default function PixelartGridWindow({
 										),
 									},
 									letterUnderlay,
+								),
+								h('div',
+									{
+										className: classNames(theme.underlay, theme.underlayCentered),
+										style: underlayCircleStyles,
+									},
 								),
 								h('div',
 									{

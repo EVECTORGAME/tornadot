@@ -6,9 +6,6 @@ import {
 	TextureLoader,
 	RepeatWrapping,
 	NearestFilter,
-	SpriteMaterial,
-	Sprite,
-	CanvasTexture,
 } from 'three';
 import utilRandomValueMinMax from '../utils/utilRandomValueMinMax.js';
 import utilRandomDegrees0360 from '../utils/utilRandomDegrees0360.js';
@@ -30,13 +27,7 @@ export default function createSmallPlant({ x, z }) {
 		metalTexture.wrapT = RepeatWrapping;
 		metalTexture.repeat.set(0.5, 0.5);
 
-		const sprite = createSprite({ codenameStartsWith: 'small-plant-' });
-		const plantTexture = new CanvasTexture(sprite.getCanvas());
-		plantTexture.minFilter = NearestFilter;
-		plantTexture.magFilter = NearestFilter;
-		const plantMaterial = new SpriteMaterial({ map: plantTexture });
-		const plantSprite = new Sprite(plantMaterial);
-		plantSprite.scale.set(1, 1, 0);
+		const plantSprite = createSprite({ codenameStartsWith: 'small-plant-' });
 		plantSprite.position.set(0, 1.4, 0);
 		subGroup.add(plantSprite);
 

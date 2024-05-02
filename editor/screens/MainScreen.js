@@ -9,6 +9,7 @@ import ToolGridUnderlay from '../tools/ToolGridUnderlay.js';
 import ToolMirrorMode from '../tools/ToolMirrorMode.js';
 import ToolRollCanvas from '../tools/ToolRollCanvas.js';
 import ToolTransparentUnderlay from '../tools/ToolTransparentUnderlay.js';
+import ToolUnderlayCircle from '../tools/ToolUnderlayCircle.js';
 import HslColorPaleteWindow from '../windows/HslColorPaleteWindow.js';
 import PixelartGridWindow from '../windows/PixelartGridWindow.js';
 import CommandWindow from '../windows/CommandWindow.js';
@@ -86,6 +87,7 @@ export default function MainScreen({ resources }) {
 			h(ToolRollCanvas, { pixelartGridRef }),
 			h(ToolTransparentUnderlay, { pixelartGridRef }),
 			h(ToolGridTransparency, { pixelartGridRef }),
+			h(ToolUnderlayCircle, { pixelartGridRef }),
 		),
 		h(Topmenu, null,
 			h('button', { onclick: realignWindows }, 'reset windows positions'),

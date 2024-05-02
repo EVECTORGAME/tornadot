@@ -14,6 +14,7 @@ import {
 } from '../config.js';
 import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
 import createFactorPlusMinus from '../factors/createFactorPlusMinus.js';
+import { createQuad } from '../textures/createSprite.js';
 import createRocket from './createRocket.js';
 import createLevelEnd from './createLevelEnd.js';
 
@@ -42,10 +43,15 @@ export default function createPlayer({ onLevelEnded }) {
 	cone.rotation.x = utilDegreesToRadians(-30);
 	cone.position.set(0, 1, -0.5);
 
+	const propelerSprite = createQuad({ codename: 'propeler-1-off' });
+	propelerSprite.rotation.x = utilDegreesToRadians(180);
+	propelerSprite.position.set(0, 0.5, -0.8);
+
 	const group = new Group();
 	group.add(cube);
 	group.add(engineMesh);
 	group.add(cone);
+	group.add(propelerSprite);
 
 	const factorForwardBackward = createFactorPlusMinus({
 		factorOfIncreasing: 1,
@@ -86,6 +92,12 @@ export default function createPlayer({ onLevelEnded }) {
 			isStepRightHolded,
 			isActionPressed,
 		}) {
+			if (isForwardHolded) {
+				propelerSprite.rotation.z -= deltaTimeSeconds * 30;
+			} else if (isBackwardHolded) {
+				propelerSprite.rotation.z += deltaTimeSeconds * 30;
+			}
+
 			const forwardFactor = factorForwardBackward.update(deltaTimeSeconds, {
 				shouldGoToMinus: isBackwardHolded,
 				shouldGoToPlus: isForwardHolded,
