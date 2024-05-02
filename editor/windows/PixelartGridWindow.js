@@ -29,7 +29,13 @@ const theme = createStylesheet('PixelartGridWindow', {
 		'pointer-events': 'none',
 	},
 	gridHolder: {
+		'position': 'relative',
+		'display': 'flex',
+		'justify-content': 'center',
+	},
+	griCenterer: {
 		position: 'relative',
+		display: 'flex',
 	},
 	underlayTransparent: {
 		'inset': '0 0 0 0',
@@ -229,7 +235,7 @@ export default function PixelartGridWindow({
 				}
 			},
 			getCanvasRowsAndColumnsCount() {
-				return [columnsCount, rowsCount];
+				return [rowsCount, columnsCount];
 			},
 			getPixel(rowIndex, columnIndex) {
 				const pixelColor = showEditMode
@@ -296,56 +302,58 @@ export default function PixelartGridWindow({
 				h('div', { className: 'window', role: 'tabpanel' },
 					h('div', { className: 'window-body' },
 						h('div', { className: theme.gridHolder },
-							h('div', {
-								className: classNames(
-									theme.underlay,
-									shouldTransparentUnderlay && theme.underlayTransparent,
-								),
-							}),
-							h('div',
-								{
-									ref: underlayLetterRef,
+							h('div', { className: theme.griCenterer },
+								h('div', {
 									className: classNames(
 										theme.underlay,
-										theme.underlayLetter,
-										editSpriteType,
+										shouldTransparentUnderlay && theme.underlayTransparent,
 									),
-								},
-								letterUnderlay,
-							),
-							h('div',
-								{
-									ref: gridRef,
-									onmouseleave: handleCanvasMouseLeave,
-									className: classNames(
-										theme.rows,
-										showGrid && theme.topLeftGrid,
-									),
-								},
-								seletedData.map((row, rowIndex) => {
-									return h('div',
-										{ className: theme.row },
-										row.map((pixel, columnIndex) => {
-											return h('div', {
-												/*
-													key here is important because it seems that changing only style['background-color']
-													doesnt trigger corosponding redraw on dom
-												*/
-												key: `${showEditMode}:${refreshKey}`,
-												className: classNames(
-													theme.pixel,
-													showGrid && theme.bottomRightGrid,
-												),
-												style: {
-													'background-color': pixel,
-												},
-												onmousedown: event => handleMouseDown(event, rowIndex, columnIndex),
-												onmouseup: event => handleMouseUp(event, rowIndex, columnIndex),
-												onmouseover: event => handleMouseOver(event, rowIndex, columnIndex),
-											});
-										}),
-									);
 								}),
+								h('div',
+									{
+										ref: underlayLetterRef,
+										className: classNames(
+											theme.underlay,
+											theme.underlayLetter,
+											editSpriteType,
+										),
+									},
+									letterUnderlay,
+								),
+								h('div',
+									{
+										ref: gridRef,
+										onmouseleave: handleCanvasMouseLeave,
+										className: classNames(
+											theme.rows,
+											showGrid && theme.topLeftGrid,
+										),
+									},
+									seletedData.map((row, rowIndex) => {
+										return h('div',
+											{ className: theme.row },
+											row.map((pixel, columnIndex) => {
+												return h('div', {
+													/*
+														key here is important because it seems that changing only style['background-color']
+														doesnt trigger corosponding redraw on dom
+													*/
+													key: `${showEditMode}:${refreshKey}`,
+													className: classNames(
+														theme.pixel,
+														showGrid && theme.bottomRightGrid,
+													),
+													style: {
+														'background-color': pixel,
+													},
+													onmousedown: event => handleMouseDown(event, rowIndex, columnIndex),
+													onmouseup: event => handleMouseUp(event, rowIndex, columnIndex),
+													onmouseover: event => handleMouseOver(event, rowIndex, columnIndex),
+												});
+											}),
+										);
+									}),
+								),
 							),
 						),
 						h('div', { className: theme.actionColumns },
@@ -358,6 +366,10 @@ export default function PixelartGridWindow({
 							),
 							h('fieldset', { className: theme.actionColumn },
 								h('legend', null, 'editor actions'),
+								h('button', {
+									onclick: handleSaveEditorMatrixAsDraft,
+									disabled: !showEditMode || !isTouchedRef,
+								}, '💾 save manualy'),
 								h('button', {
 									onclick: handleClearEditor,
 									disabled: !showEditMode,

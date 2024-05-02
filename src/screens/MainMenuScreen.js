@@ -13,19 +13,29 @@ const theme = createStylesheet('MainMenu', {
 		'justify-content': 'center',
 		'align-items': 'center',
 		'flex-direction': 'column',
+		'gap': '0.5em',
 		// 'background-color': COLOR_DARK_BLUE,
+	},
+	showAsOverlay: {
+		'background-color': 'rgba(0, 0, 0, 0.7)',
 	},
 	entry: {
 		'pointer-events': 'all',
 		'cursor': 'hand',
+		'border-style': 'solid',
+		'border-width': '0 0 5px 0',
+		'border-color': 'transparent',
+		'padding': '0.2em',
+		'opacity': 0.5,
 	},
 	isSelected: {
 		'text-decoration': 'underline',
-		'border': '1px solid red',
+		'border-color': 'rgb(60, 60, 60)',
+		'opacity': 1,
 	},
 });
 
-export default function MainMenu({ title, items }) {
+export default function MainMenu({ title, items, showAsOverlay }) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	const addOffsetToValue = useCallback((offset) => {
@@ -53,7 +63,7 @@ export default function MainMenu({ title, items }) {
 	}, [addOffsetToValue]);
 
 	return (
-		h('div', { className: theme.container }, [
+		h('div', { className: classNames(theme.container, showAsOverlay && theme.showAsOverlay) }, [
 			h(BitmapText, { text: title, upscale: 2 }),
 			items.map(({ label }, index) => {
 				const isSelectedItem = index === activeIndex;
@@ -62,6 +72,7 @@ export default function MainMenu({ title, items }) {
 					h(BitmapText, {
 						key: label,
 						text: label,
+						valign: 'bottom',
 						className: classNames(theme.entry, { [theme.isSelected]: isSelectedItem }),
 						onmouseover: () => setActiveIndex(index),
 					})

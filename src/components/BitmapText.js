@@ -9,13 +9,12 @@ const theme = createStylesheet('BitmapText', {
 		'display': 'flex',
 		'gap': '3px',
 		'flex-wrap': 'nowrap',
-		'margin-bottom': '1em',
 		'align-items': 'center',
 	},
 });
 
-export default function BitmapText({ text, upscale = 1, className, onmouseover }) {
-	const [imageDataUrl] = usePersistent(() => createBitmapText(text, { upscale }));
+export default function BitmapText({ text, upscale = 1, valign, className, onmouseover }) {
+	const [imageDataUrl] = usePersistent(() => createBitmapText(text, { upscale, valign }));
 
 	return [
 		h('img',

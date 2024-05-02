@@ -248,10 +248,11 @@ export default function LevelScreen({ levelNumber, onLevelEnded, onAbort, onRelo
 	if (showPauseMenu) {
 		return h(MainMenuScreen, {
 			title: 'PAUSE MANU',
+			showAsOverlay: true,
 			items: [
 				{ label: 'resume', onSelected: handleResume },
 				{ label: 'restart', onSelected: onReload },
-				{ label: 'quit', onSelected: onAbort },
+				{ label: 'back to main menu', onSelected: onAbort },
 			],
 		});
 	}

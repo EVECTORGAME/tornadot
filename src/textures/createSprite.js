@@ -1,6 +1,8 @@
 import utilPickRandomArrayElement from '../utils/utilPickRandomArrayElement.js';
 import { RESOURCES } from '../config.js';
 
+// RULE: 1meter has density of 32 pizels
+
 /* TODO
 	- lot of memoization
 	- add dithering magFilter
@@ -12,7 +14,7 @@ import { RESOURCES } from '../config.js';
 */
 
 export default function createSprite({ codename, codenameStartsWith }) {
-	const { unitSize, sprites } = RESOURCES;
+	const { sprites } = RESOURCES;
 	const candidates
 		= codename ? [sprites.find(x => x.codename === codename)]
 		: codenameStartsWith ? sprites.filter(x => x.codename.startsWith(codenameStartsWith))
@@ -25,19 +27,18 @@ export default function createSprite({ codename, codenameStartsWith }) {
 	const sprite = utilPickRandomArrayElement(candidates);
 
 	const {
-		widthUnits,
-		heightUnits,
+		widthPixels,
+		heightPixels,
 		matrix,
 	} = sprite;
 
 	const canvas = document.createElement('canvas');
-	canvas.width = widthUnits * unitSize; // const;
-	canvas.height = heightUnits * unitSize; // const;
+	canvas.width = widthPixels;
+	canvas.height = heightPixels;
 
 	const context = canvas.getContext('2d');
 	context.clearRect(0, 0, canvas.width, canvas.height);
 
-	// context.putImageData(imageData, dx, dy);
 	matrix.forEach((row, rowIndex) => {
 		row.forEach((pixel, columnIndex) => {
 			if (pixel) {

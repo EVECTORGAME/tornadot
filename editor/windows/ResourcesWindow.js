@@ -54,6 +54,7 @@ export default function ResourcesWindow({
 
 	const [refresh] = useRefresh();
 	const [selectedRowIndex, setSelectedRowIndex] = useState();
+	const selectedSpriteCodename = selectedRowIndex >= 0 ? resources.sprites[selectedRowIndex].codename : undefined;
 	const handleRowClick = useCallback((rowIndex) => {
 		const {
 			codename,
@@ -83,11 +84,13 @@ export default function ResourcesWindow({
 	}, []);
 
 	const handleRemoveDraft = useCallback(() => {
-		const isConfirmed = window.confirm('czy na pewno usunąć?');
+		const isConfirmed = window.confirm(`czy na pewno usunąć: ${selectedSpriteCodename}?`);
 		if (isConfirmed) {
-			// TODO remove draft
+			draftApi.deleteEntryForCodename(selectedSpriteCodename);
+
+			refresh();
 		}
-	}, [selectedRowIndex]);
+	}, [selectedSpriteCodename]);
 
 	const handleDumpData = useCallback(() => {
 		const isAllSaved = pixelartGridRef.current?.checkIsSaved() ?? true;
@@ -208,8 +211,13 @@ export default function ResourcesWindow({
 					),
 				),
 			),
-			h('button', { onclick: handleDumpData }, 'dump data'),
-			h('button', { onclick: handleRemoveDraft }, 'remove draft'),
+			h('button', { onclick: handleDumpData }, '💾 save / download'),
+			h('button',
+				{ onclick: handleRemoveDraft, disabled: !selectedSpriteCodename },
+				selectedSpriteCodename
+					? `remove ${selectedSpriteCodename} draft`
+					: 'select sprite to delete its draft',
+			),
 		)
 	);
 }

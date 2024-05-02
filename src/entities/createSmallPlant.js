@@ -36,7 +36,7 @@ export default function createSmallPlant({ x, z }) {
 		plantTexture.magFilter = NearestFilter;
 		const plantMaterial = new SpriteMaterial({ map: plantTexture });
 		const plantSprite = new Sprite(plantMaterial);
-		plantSprite.scale.set(2, 2, 0);
+		plantSprite.scale.set(1, 1, 0);
 		plantSprite.position.set(0, 1.4, 0);
 		subGroup.add(plantSprite);
 
