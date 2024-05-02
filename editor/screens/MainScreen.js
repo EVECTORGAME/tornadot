@@ -7,6 +7,7 @@ import { realignWindows } from '../components/Window.js';
 import ToolGridTransparency from '../tools/ToolGridTransparency.js';
 import ToolGridUnderlay from '../tools/ToolGridUnderlay.js';
 import ToolMirrorMode from '../tools/ToolMirrorMode.js';
+import ToolRollCanvas from '../tools/ToolRollCanvas.js';
 import ToolTransparentUnderlay from '../tools/ToolTransparentUnderlay.js';
 import HslColorPaleteWindow from '../windows/HslColorPaleteWindow.js';
 import PixelartGridWindow from '../windows/PixelartGridWindow.js';
@@ -14,7 +15,6 @@ import CommandWindow from '../windows/CommandWindow.js';
 import ResourcesWindow from '../windows/ResourcesWindow.js';
 
 export default function MainScreen({ resources }) {
-	const { unitSize } = resources;
 	const draftApi = useDraftDatabase();
 	const mirrorApiRef = useRef();
 	const pixelartGridRef = useRef();
@@ -24,25 +24,22 @@ export default function MainScreen({ resources }) {
 		type: editSpriteType,
 		matrix: editSpriteMatrix,
 		metadata: editSpriteMetadata,
-		widthUnits: editSpriteWidthUnits,
-		heightUnits: editSpriteHeightUnits,
+		widthPixels: editSpriteWidthPixels,
+		heightPixels: editSpriteHeightPixels,
 	}, setTypeAndData] = useState({});
 
 	const handleSelectedHls = useCallback((hslToSet) => {
 		setSelectedColor(hslToSet);
 	}, []);
 
-	const canvasWidth = unitSize * editSpriteWidthUnits;
-	const canvasHeight = unitSize * editSpriteHeightUnits;
-
 	const handlePixelMouseInteraction = useCallback((rowIndex, columnIndex) => {
 		pixelartGridRef.current.setPixel(rowIndex, columnIndex, selectedColor);
 
-		const mirrorPixel = mirrorApiRef.current.getMirrorPixels(rowIndex, columnIndex, canvasWidth);
+		const mirrorPixel = mirrorApiRef.current.getMirrorPixels(rowIndex, columnIndex, editSpriteWidthPixels);
 		if (mirrorPixel) {
 			pixelartGridRef.current.setPixel(mirrorPixel[0], mirrorPixel[1], selectedColor);
 		}
-	}, [selectedColor, canvasWidth]);
+	}, [selectedColor, editSpriteWidthPixels]);
 
 	const { colorPalette } = resources;
 	const {
@@ -66,8 +63,8 @@ export default function MainScreen({ resources }) {
 			h(PixelartGridWindow, {
 				key: editSpriteCodename,
 				persistentId: PixelartGridWindow.name,
-				width: canvasWidth,
-				height: canvasHeight,
+				columnsCount: editSpriteWidthPixels,
+				rowsCount: editSpriteHeightPixels,
 				apiRef: pixelartGridRef,
 				//
 				editSpriteCodename,
@@ -86,6 +83,7 @@ export default function MainScreen({ resources }) {
 			},
 			h(ToolMirrorMode, { apiRef: mirrorApiRef }),
 			h(ToolGridUnderlay, { pixelartGridRef }),
+			h(ToolRollCanvas, { pixelartGridRef }),
 			h(ToolTransparentUnderlay, { pixelartGridRef }),
 			h(ToolGridTransparency, { pixelartGridRef }),
 		),

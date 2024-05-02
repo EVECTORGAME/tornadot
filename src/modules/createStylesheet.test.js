@@ -15,6 +15,9 @@ describe('./createStylesheet.js', () => {
 				'&:global(.capital-letter)': {
 					'font-size': '20px',
 				},
+				'& > *': {
+					margin: '10px',
+				},
 			},
 		});
 
@@ -27,6 +30,7 @@ describe('./createStylesheet.js', () => {
 			'.ExampleComponent-container { padding: 20px; }',
 			'.ExampleComponent-frame { border: 1px solid silver; }',
 			'.ExampleComponent-frame.capital-letter { font-size: 20px; }',
+			'.ExampleComponent-frame > * { margin: 10px; }',
 		].join('\n'));
 	});
 });

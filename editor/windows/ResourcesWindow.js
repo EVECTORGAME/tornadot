@@ -60,8 +60,8 @@ export default function ResourcesWindow({
 			type,
 			matrix: matrixFlatten,
 			metadata,
-			widthUnits,
-			heightUnits,
+			widthPixels,
+			heightPixels,
 		} = sprites[rowIndex];
 		const matrixMinimized = draftApi.utilUnflattenMatrix(matrixFlatten);
 		const matrix = matrixMinimized.map((matrixPixels) => {
@@ -74,8 +74,8 @@ export default function ResourcesWindow({
 			type,
 			matrix,
 			metadata,
-			widthUnits,
-			heightUnits,
+			widthPixels,
+			heightPixels,
 		});
 		if (didChanged) {
 			setSelectedRowIndex(rowIndex);
@@ -161,7 +161,8 @@ export default function ResourcesWindow({
 							h('th', null, 'id'),
 							h('th', null, 'codename'),
 							h('th', null, 'type'),
-							h('th', null, 'size'),
+							h('th', null, 'width'),
+							h('th', null, 'height'),
 							h('th', null, 'has resource'),
 							h('th', null, 'has pending'),
 						),
@@ -181,7 +182,7 @@ export default function ResourcesWindow({
 								);
 							}
 
-							const { id, type, codename, widthUnits, heightUnits, matrix } = spriteOrText;
+							const { id, type, codename, widthPixels, heightPixels, matrix } = spriteOrText;
 							const hasPending = draftApi.checkHasEntryForCodename(codename);
 							const hasResource = Boolean(matrix?.length);
 
@@ -197,7 +198,8 @@ export default function ResourcesWindow({
 									h('td', null, id),
 									h('td', null, codename),
 									h('td', null, type),
-									h('td', null, `${widthUnits}x${heightUnits}`),
+									h('td', null, widthPixels),
+									h('td', null, heightPixels),
 									h('td', null, hasResource ? 'yes' : ''),
 									h('td', null, hasPending ? 'yes' : ''),
 								)

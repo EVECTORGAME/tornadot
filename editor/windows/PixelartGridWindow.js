@@ -111,8 +111,8 @@ const theme = createStylesheet('PixelartGridWindow', {
 
 export default function PixelartGridWindow({
 	persistentId,
-	width,
-	height,
+	columnsCount,
+	rowsCount,
 	apiRef,
 	draftApi,
 	onPixelMouseInteraction,
@@ -124,30 +124,30 @@ export default function PixelartGridWindow({
 	const [refresh, refreshKey] = useRefresh();
 	const databaseDataRef = useRef();
 	const editorDataRef = useRef();
-	const draftDataRef = useRef();
 	const isTouchedRef = useRef(false);
 	const pressedKeysRef = useKeyPressedTracker();
 	const isInitialRender = useIsInitialRender();
 	if (isInitialRender) {
-		databaseDataRef.current = createMatrixWidthHeight(width, height, editSpriteMatrix, 'transparent');
-		editorDataRef.current = createMatrixWidthHeight(width, height, undefined, 'transparent');
+		databaseDataRef.current = createMatrixWidthHeight(columnsCount, rowsCount, editSpriteMatrix, 'transparent');
 
-		const draftMatrix = draftApi.getMatrixForCodename(editSpriteCodename, {});
-		draftDataRef.current = createMatrixWidthHeight(width, height, draftMatrix, 'transparent');
+		const savedMatrix = draftApi.getMatrixForCodename(editSpriteCodename, {});
+		const isSavedMatrixNotEmpty = savedMatrix?.length >= 1 && savedMatrix[0]?.length >= 1;
+		const matrixToLoadIntoEditor = isSavedMatrixNotEmpty
+			? savedMatrix
+			: editSpriteMatrix;
+		editorDataRef.current = createMatrixWidthHeight(columnsCount, rowsCount, matrixToLoadIntoEditor, 'transparent');
 	}
 
-	const [showDatabaseEditorDraft, setShow] = useState(1);
-	const isDatabaseView = showDatabaseEditorDraft === 1;
-	const isEditorView = showDatabaseEditorDraft === 2;
-	const isDraftView = showDatabaseEditorDraft === 3;
+	const [showEditMode, setShowEditor] = useState(false);
+	const isDatabaseView = !showEditMode;
 	const gridRef = useRef();
 	const isMouseDownRef = useRef(false);
 	const underlayLetterRef = useRef();
-	const [shouldShowGrid, setShowGrid] = useState(isEditorView);
+	const [shouldShowGrid, setShowGrid] = useState(showEditMode);
 	const [shouldTransparentUnderlay, setShouldTransparentUnderlay] = useState();
 
 	const handleMouseDown = useCallback((event, rowIndex, columnIndex) => {
-		if (isEditorView) {
+		if (showEditMode) {
 			if (pressedKeysRef.current.e) {
 				apiRef.current.setPixel(rowIndex, columnIndex, undefined);
 			} else {
@@ -156,18 +156,29 @@ export default function PixelartGridWindow({
 				onPixelMouseInteraction(rowIndex, columnIndex);
 			}
 		}
-	}, [isEditorView, onPixelMouseInteraction]);
+	}, [showEditMode, onPixelMouseInteraction]);
 
 	const handleMouseOver = useCallback((event, rowIndex, columnIndex) => {
-		if (isEditorView) {
+		if (showEditMode) {
 			if (isMouseDownRef.current) {
 				onPixelMouseInteraction(rowIndex, columnIndex);
 			}
 		}
-	}, [isEditorView, onPixelMouseInteraction]);
+	}, [showEditMode, onPixelMouseInteraction]);
+
+	const handleSaveEditorMatrixAsDraft = useCallback(() => {
+		// TODO debounce + powiadomienie saved
+		isTouchedRef.current = false;
+		console.log('>> saqve');
+		draftApi.setMatrixForCodename(editSpriteCodename,
+			editorDataRef.current,
+		);
+	}, []);
 
 	const handleMouseUp = useCallback(() => {
 		isMouseDownRef.current = false;
+
+		handleSaveEditorMatrixAsDraft();
 	}, []);
 
 	const handleCanvasMouseLeave = useCallback(() => {
@@ -182,42 +193,25 @@ export default function PixelartGridWindow({
 		}
 	}, []);
 
-	const handleSaveEditorMatrixAsDraft = useCallback(() => {
-		isTouchedRef.current = false;
-		draftApi.setMatrixForCodename(editSpriteCodename,
-			editorDataRef.current,
-		);
-	}, []);
-
 	const handleClearEditor = useCallback(() => {
 		isTouchedRef.current = false;
-		editorDataRef.current = createMatrixWidthHeight(width, height, undefined, 'transparent');
+		editorDataRef.current = createMatrixWidthHeight(columnsCount, rowsCount, undefined, 'transparent');
 		refresh();
-	}, [width, height]);
-
-	const handleCopyPendingIntoEditor = useCallback(() => {
-		isTouchedRef.current = false;
-		editorDataRef.current = createMatrixWidthHeight(width, height, draftDataRef.current, 'transparent');
-		refresh();
-	}, []);
+	}, [columnsCount, rowsCount]);
 
 	const handleCopyOriginalIntoEditor = useCallback(() => {
 		isTouchedRef.current = false;
-		editorDataRef.current = createMatrixWidthHeight(width, height, databaseDataRef.current, 'transparent');
+		editorDataRef.current = createMatrixWidthHeight(columnsCount, rowsCount, databaseDataRef.current, 'transparent');
 		refresh();
 	}, []);
 
 	const handleLoadOriginal = useCallback(() => {
 		setShowGrid(false);
-		setShow(1);
+		setShowEditor(false);
 	}, []);
 	const handleLoadDraft = useCallback(() => {
 		setShowGrid(true);
-		setShow(2);
-	}, []);
-	const handleLoadCurrent = useCallback(() => {
-		setShowGrid(false);
-		setShow(3);
+		setShowEditor(true);
 	}, []);
 
 	useLayoutEffect(() => {
@@ -226,11 +220,23 @@ export default function PixelartGridWindow({
 				return !isTouchedRef.current;
 			},
 			setPixel(rowIndex, columnIndex, selectedColor) {
-				if (isEditorView) {
+				if (showEditMode) {
 					isTouchedRef.current = true;
 					editorDataRef.current[rowIndex][columnIndex] = selectedColor;
 					gridRef.current.children[rowIndex].children[columnIndex].style['background-color'] = selectedColor ?? 'transparent';
+
+					// TODO trigger save
 				}
+			},
+			getCanvasRowsAndColumnsCount() {
+				return [columnsCount, rowsCount];
+			},
+			getPixel(rowIndex, columnIndex) {
+				const pixelColor = showEditMode
+					? editorDataRef.current[rowIndex][columnIndex]
+					: databaseDataRef.current[rowIndex][columnIndex];
+
+				return pixelColor;
 			},
 			checkIsGridShowed() {
 				return shouldShowGrid;
@@ -247,12 +253,11 @@ export default function PixelartGridWindow({
 				gridRef.current.style.opacity = opacity;
 			},
 		};
-	}, [shouldShowGrid, isDatabaseView, isEditorView, isDraftView]);
+	}, [shouldShowGrid, isDatabaseView, showEditMode]);
 
 	const seletedData
 		= isDatabaseView ? databaseDataRef.current
-		: isEditorView ? editorDataRef.current
-		: isDraftView ? draftDataRef.current
+		: showEditMode ? editorDataRef.current
 		: undefined;
 
 	const showGrid = shouldShowGrid;
@@ -282,18 +287,10 @@ export default function PixelartGridWindow({
 					h('li',
 						{
 							'role': 'tab',
-							'aria-selected': String(isEditorView),
+							'aria-selected': String(showEditMode),
 							'onclick': handleLoadDraft,
 						},
 						h('a', null, '🖊️ editor'),
-					),
-					h('li',
-						{
-							'role': 'tab',
-							'aria-selected': String(isDraftView),
-							'onclick': handleLoadCurrent,
-						},
-						h('a', null, 'pending'),
 					),
 				),
 				h('div', { className: 'window', role: 'tabpanel' },
@@ -334,7 +331,7 @@ export default function PixelartGridWindow({
 													key here is important because it seems that changing only style['background-color']
 													doesnt trigger corosponding redraw on dom
 												*/
-												key: `${showDatabaseEditorDraft}:${refreshKey}`,
+												key: `${showEditMode}:${refreshKey}`,
 												className: classNames(
 													theme.pixel,
 													showGrid && theme.bottomRightGrid,
@@ -357,29 +354,14 @@ export default function PixelartGridWindow({
 								h('button', {
 									onclick: handleCopyOriginalIntoEditor,
 									disabled: !isDatabaseView,
-								}, 'copy original to editor'),
+								}, 'copy this to editor'),
 							),
 							h('fieldset', { className: theme.actionColumn },
 								h('legend', null, 'editor actions'),
 								h('button', {
-									onclick: handleSaveEditorMatrixAsDraft,
-									disabled: !isEditorView,
-								}, 'save editor as draft'),
-								h('button', {
 									onclick: handleClearEditor,
-									disabled: !isEditorView,
+									disabled: !showEditMode,
 								}, 'clear editor'),
-							),
-							h('fieldset', { className: theme.actionColumn },
-								h('legend', null, 'pending element actions'),
-								h('button', {
-									onclick: handleCopyPendingIntoEditor,
-									disabled: !isDraftView,
-								}, 'copy pending to editor'),
-								h('button', {
-									onclick: handleDeleteDraft,
-									disabled: !isDraftView,
-								}, 'delete draft'),
 							),
 						),
 					),

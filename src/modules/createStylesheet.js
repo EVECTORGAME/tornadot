@@ -12,12 +12,19 @@ export default function createStylesheet(prefix, selectors) {
 		const { selectorPropertiesDump, extraContents } = Object.keys(selectorProperties).reduce((subStack, propertyName) => {
 			const isSubProperty = propertyName.startsWith('&');
 			if (isSubProperty) {
-				const match = propertyName.match(/^&:global\(\.([\w-]+)\)$/);
-				if (match) {
+				const subProperties = Object.keys(selectorProperties[propertyName]).map((subSelectorPropertyKey) => {
+					return `${subSelectorPropertyKey}: ${selectorProperties[propertyName][subSelectorPropertyKey]};`;
+				});
+
+				const matchGlobal = propertyName.match(/^&:global\(\.([\w-]+)\)$/);
+				if (matchGlobal) {
 					const subSelector = propertyName.replace('&', namePrefixed).replace(/:global\((.*?)\)/, '$1');
-					const subProperties = Object.keys(selectorProperties[propertyName]).map((subSelectorPropertyKey) => {
-						return `${subSelectorPropertyKey}: ${selectorProperties[propertyName][subSelectorPropertyKey]};`;
-					});
+					subStack.extraContents.push(`.${subSelector} { ${subProperties.join(' ')} }`);
+				}
+
+				const matchChildren = propertyName.match(/^&\s*>\s*\*\s*$/);
+				if (matchChildren) {
+					const subSelector = propertyName.replace('&', namePrefixed);
 					subStack.extraContents.push(`.${subSelector} { ${subProperties.join(' ')} }`);
 				}
 
