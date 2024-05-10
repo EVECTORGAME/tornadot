@@ -1,6 +1,6 @@
 import {
 	SphereGeometry,
-	MeshBasicMaterial,
+	MeshPhongMaterial,
 	Mesh,
 	TextureLoader,
 	RepeatWrapping,
@@ -18,7 +18,7 @@ export default function createHugeRock({ x, z, radius }) {
 	metaLTexture.repeat.set(10, 10);
 
 	const geometry = new SphereGeometry(radius);
-	const material = new MeshBasicMaterial({ map: metaLTexture, color: COLOR_ROCKS });
+	const material = new MeshPhongMaterial({ map: metaLTexture, color: COLOR_ROCKS });
 	const sphere = new Mesh(geometry, material);
 
 	sphere.position.set(x, 0, z);

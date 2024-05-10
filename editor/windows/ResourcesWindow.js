@@ -92,6 +92,87 @@ export default function ResourcesWindow({
 		}
 	}, [selectedSpriteCodename]);
 
+	const handleDumpTilesetData = useCallback(() => {
+		const spritesByTypes = sprites.reduce((stack, sprite) => {
+			const isString = typeof sprite === 'string';
+			if (isString) {
+				return stack;
+			}
+
+			const spriteType = sprite.type;
+			if (!stack.has(spriteType)) {
+				stack.set(spriteType, {
+					canvases: [],
+					maxHeightPixels: 0,
+					totlaWidthPixels: 0,
+				});
+			}
+
+			const widthAndMarginPixels = sprite.widthPixels + 2;
+			const heightAndMarginPixels = sprite.heightPixels + 2;
+
+			const canvas = document.createElement('canvas');
+			canvas.width = widthAndMarginPixels;
+			canvas.height = heightAndMarginPixels;
+
+			const context = canvas.getContext('2d');
+			context.strokeStyle = 'magenta';
+			context.lineWidth = 1;
+			context.strokeRect(0, 0, canvas.width, canvas.height);
+
+			sprite.matrix.forEach((row, rowIndex) => {
+				row.split(';').map(pixel => utilUnpackPixel(pixel)).forEach((pixel, columnIndex) => {
+					if (pixel) {
+						context.fillStyle = pixel;
+						context.fillRect(columnIndex + 1, rowIndex + 1, 1, 1);
+					}
+				});
+			});
+
+			const spritesOfType = stack.get(spriteType);
+
+			// const totalWidthsOfCanvasesSoFar = spritesOfType.canvases.reduce((stack, canvas) => stack + canvas.canvas.width, 0);
+			spritesOfType.canvases.push(canvas);
+			spritesOfType.maxHeightPixels = Math.max(heightAndMarginPixels, spritesOfType.maxHeightPixels);
+			spritesOfType.totlaWidthPixels += widthAndMarginPixels;
+
+			return stack;
+		}, new Map());
+
+		const { requiredCanvacWidthPixels, requiredCanvacHeightPixels } = [...spritesByTypes].reduce((stack, [, typeRecord]) => {
+			stack.requiredCanvacWidthPixels += typeRecord.totlaWidthPixels;
+			stack.requiredCanvacHeightPixels += typeRecord.maxHeightPixels;
+
+			return stack;
+		}, {
+			requiredCanvacWidthPixels: 0,
+			requiredCanvacHeightPixels: 0,
+		});
+
+		const canvas = document.createElement('canvas');
+		canvas.width = requiredCanvacWidthPixels;
+		canvas.height = requiredCanvacHeightPixels;
+
+		const context = canvas.getContext('2d');
+
+		let offsetFromTopPixels = 0;
+		spritesByTypes.forEach((canvasesOfType) => {
+			let offsetFromLeftPixels = 0;
+			canvasesOfType.canvases.forEach((spriteCanvas) => {
+				context.drawImage(spriteCanvas, offsetFromLeftPixels, offsetFromTopPixels);
+				offsetFromLeftPixels += spriteCanvas.width;
+			});
+
+			offsetFromTopPixels += canvasesOfType.maxHeightPixels;
+		});
+
+		const dataURL = canvas.toDataURL('image/png');
+		const link = document.createElement('a');
+		link.href = dataURL;
+		link.download = 'sprites.png';
+		link.click();
+	}, []);
+
 	const handleDumpData = useCallback(() => {
 		const isAllSaved = pixelartGridRef.current?.checkIsSaved() ?? true;
 		if (isAllSaved) {
@@ -212,6 +293,7 @@ export default function ResourcesWindow({
 				),
 			),
 			h('button', { onclick: handleDumpData }, '💾 save / download'),
+			h('button', { onclick: handleDumpTilesetData }, '💾 dump dadabase tileset into image'),
 			h('button',
 				{ onclick: handleRemoveDraft, disabled: !selectedSpriteCodename },
 				selectedSpriteCodename

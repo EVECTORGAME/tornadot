@@ -50,14 +50,188 @@
 			    }
 			});
 
-			document.addEventListener('DOMContentLoaded', async (event) => {
-				const MAIN_MENU_SCREEN = 'main-menu-screen';
-				const LEVEL_SCREEN = 'level-screen';
-				const PLAY_NEXT_SCREEN = 'play-next-screen';
-				const GAME_END_SCREEN = 'game-end-screen';
-				const SHOWROOM_SCREEN = 'showroom-screen';
-				const FONTROOM_SCREEN = 'fontroom-screen';
+			const headerFont = createBitmapFont('bitmapfonts/font_11x16.png', {
+				tileWidth: 10,
+				tileHeight: 13,
+				paddingTop: 2,
+				paddingLeft: 2,
+				spacingX: 1,
+				spacingY: 3,
+				map: {
+					'': [6, 2],
+					A: [0, 0],
+					B: [1, 0],
+					C: [2, 0],
+					D: [3, 0],
+					E: [4, 0],
+					F: [5, 0],
+					G: [6, 0],
+					H: [7, 0],
+					I: [8, 0],
+					J: [9, 0],
 
+					K: [0, 1],
+					L: [1, 1],
+					M: [2, 1],
+					N: [3, 1],
+					O: [4, 1],
+					P: [5, 1],
+					Q: [6, 1],
+					R: [7, 1],
+					S: [8, 1],
+					T: [9, 1],
+
+					U: [0, 2],
+					V: [1, 2],
+					W: [2, 2],
+					X: [3, 2],
+					Y: [4, 2],
+					Z: [5, 2],
+
+					0: [0, 3],
+					1: [1, 3],
+					2: [2, 3],
+					3: [3, 3],
+					4: [4, 3],
+					5: [5, 3],
+					6: [6, 3],
+					7: [7, 3],
+					8: [8, 3],
+					9: [9, 3],
+				},
+			});
+
+			class AppContext extends Component {
+				getChildContext() {
+					return {
+						headerFont,
+					}
+				};
+
+				render() {
+					return this.props.children;
+				}
+			}
+
+			const MAIN_MENU_SCREEN = 'main-menu-screen';
+			const LEVEL_SCREEN = 'level-screen';
+			const PLAY_NEXT_SCREEN = 'play-next-screen';
+			const GAME_END_SCREEN = 'game-end-screen';
+			const SHOWROOM_SCREEN = 'showroom-screen';
+			const FONTROOM_SCREEN = 'fontroom-screen';
+			function App() {
+				const [maxAccessibleLevel, setMaxAccessibleLevel] = useLocalStorageValue('max-accessible-level', 1);
+				const [levelToLoad, setLevelToload] = useState(maxAccessibleLevel);
+				const [activeItem, setActiveItem] = useState(MAIN_MENU_SCREEN);
+				const [key, reloadLevel] = useIncrement();
+
+				const handleNewGame = useCallback(() => {
+					setLevelToload(1);
+					setActiveItem(LEVEL_SCREEN);
+				}, []);
+
+				const handleContinueGame = useCallback(() => {
+					setLevelToload(maxAccessibleLevel);
+					setActiveItem(LEVEL_SCREEN);
+				}, [maxAccessibleLevel]);
+
+				const handleOnLevelEnded = useCallback((endedLevel) => {
+					if (endedLevel == 3) {
+						setActiveItem(GAME_END_SCREEN);
+					} else {
+						setLevelToload(endedLevel + 1);
+						setMaxAccessibleLevel(endedLevel + 1);
+						setActiveItem(PLAY_NEXT_SCREEN);
+					}
+				}, []);
+
+				const handleShowMainMenu = useCallback(() => {
+					setActiveItem(MAIN_MENU_SCREEN);
+				}, []);
+
+				const handleReloadLevel = useCallback(() => {
+					reloadLevel();
+				}, []);
+
+				const handleLoadNextLevel = useCallback(() => {
+					setActiveItem(LEVEL_SCREEN);
+				}, []);
+
+				const handleShowroomScreen = useCallback(() => {
+					setActiveItem(SHOWROOM_SCREEN);
+				}, []);
+
+				const handleFontroomScreen = useCallback(() => {
+					setActiveItem(FONTROOM_SCREEN);
+				}, []);
+
+				const handleEndScreenEnded = useCallback(() => {
+					setActiveItem(MAIN_MENU_SCREEN);
+				}, []);
+
+				return h(SplashScreen, { elementId: 'splashscreen' }, [
+					h(AppContext, null, [
+						activeItem === MAIN_MENU_SCREEN && h(MainMenuScreen,
+							{
+								title: 'MARINE HUNTER',
+								items: [
+									{ label: `continue game ${maxAccessibleLevel}`, onSelected: handleContinueGame },
+									{ label: 'new game', onSelected: handleNewGame },
+									{ label: 'showroom', onSelected: handleShowroomScreen },
+									{ label: 'fontroom', onSelected: handleFontroomScreen },
+									{ label: 'settings' },
+									{ label: 'quit' },
+								]
+							},
+							[
+							],
+						),
+						activeItem === LEVEL_SCREEN && h(LevelScreen,
+							{
+								key,
+								levelNumber: levelToLoad,
+								onLevelEnded: handleOnLevelEnded,
+								onAbort: handleShowMainMenu,
+								onReload: handleReloadLevel,
+							},
+						),
+						activeItem === PLAY_NEXT_SCREEN && h(PlayNextScreen,
+							{
+								nextLevelNumber: maxAccessibleLevel,
+								onYes: handleLoadNextLevel,
+							},
+						),
+						condition(
+							activeItem === GAME_END_SCREEN,
+							h(GameEndScreen,
+								{
+									onWatched: handleEndScreenEnded,
+								},
+							),
+						),
+						condition(
+							activeItem === SHOWROOM_SCREEN,
+							h(ShowroomScreen,
+								{
+									// onWatched: handleEndScreenEnded,
+									onClose: handleShowMainMenu,
+								},
+							),
+						),
+						condition(
+							activeItem === FONTROOM_SCREEN,
+							h(FontroomScreen,
+								{
+									// onWatched: handleEndScreenEnded,
+									onClose: handleShowMainMenu,
+								},
+							),
+						),
+					]),
+				]);
+			}
+
+			async function main() {
 				const response = await fetch('./resources.json');
 				const resourcesWithHeaders = await response.json();
 
@@ -75,185 +249,14 @@
 					}),
 				});
 
-				const headerFont = createBitmapFont('bitmapfonts/font_11x16.png', {
-					tileWidth: 10,
-					tileHeight: 13,
-					paddingTop: 2,
-					paddingLeft: 2,
-					spacingX: 1,
-					spacingY: 3,
-					map: {
-						'': [6, 2],
-						A: [0, 0],
-						B: [1, 0],
-						C: [2, 0],
-						D: [3, 0],
-						E: [4, 0],
-						F: [5, 0],
-						G: [6, 0],
-						H: [7, 0],
-						I: [8, 0],
-						J: [9, 0],
-
-						K: [0, 1],
-						L: [1, 1],
-						M: [2, 1],
-						N: [3, 1],
-						O: [4, 1],
-						P: [5, 1],
-						Q: [6, 1],
-						R: [7, 1],
-						S: [8, 1],
-						T: [9, 1],
-
-						U: [0, 2],
-						V: [1, 2],
-						W: [2, 2],
-						X: [3, 2],
-						Y: [4, 2],
-						Z: [5, 2],
-
-						0: [0, 3],
-						1: [1, 3],
-						2: [2, 3],
-						3: [3, 3],
-						4: [4, 3],
-						5: [5, 3],
-						6: [6, 3],
-						7: [7, 3],
-						8: [8, 3],
-						9: [9, 3],
-					},
-				});
-
-				class AppContext extends Component {
-					getChildContext() {
-						return {
-							headerFont,
-						}
-					};
-
-					render() {
-						return this.props.children;
-					}
-				}
-
-				function App() {
-					const [maxAccessibleLevel, setMaxAccessibleLevel] = useLocalStorageValue('max-accessible-level', 1);
-					const [levelToLoad, setLevelToload] = useState(maxAccessibleLevel);
-					const [activeItem, setActiveItem] = useState(MAIN_MENU_SCREEN);
-					const [key, reloadLevel] = useIncrement();
-
-					const handleNewGame = useCallback(() => {
-						setLevelToload(1);
-						setActiveItem(LEVEL_SCREEN);
-					}, []);
-
-					const handleContinueGame = useCallback(() => {
-						setLevelToload(maxAccessibleLevel);
-						setActiveItem(LEVEL_SCREEN);
-					}, [maxAccessibleLevel]);
-
-					const handleOnLevelEnded = useCallback((endedLevel) => {
-						if (endedLevel == 3) {
-							setActiveItem(GAME_END_SCREEN);
-						} else {
-							setLevelToload(endedLevel + 1);
-							setMaxAccessibleLevel(endedLevel + 1);
-							setActiveItem(PLAY_NEXT_SCREEN);
-						}
-					}, []);
-
-					const handleShowMainMenu = useCallback(() => {
-						setActiveItem(MAIN_MENU_SCREEN);
-					}, []);
-
-					const handleReloadLevel = useCallback(() => {
-						reloadLevel();
-					}, []);
-
-					const handleLoadNextLevel = useCallback(() => {
-						setActiveItem(LEVEL_SCREEN);
-					}, []);
-
-					const handleShowroomScreen = useCallback(() => {
-						setActiveItem(SHOWROOM_SCREEN);
-					}, []);
-
-					const handleFontroomScreen = useCallback(() => {
-						setActiveItem(FONTROOM_SCREEN);
-					}, []);
-
-					const handleEndScreenEnded = useCallback(() => {
-						setActiveItem(MAIN_MENU_SCREEN);
-					}, []);
-
-					return h(SplashScreen, { elementId: 'splashscreen' }, [
-						h(AppContext, null, [
-							activeItem === MAIN_MENU_SCREEN && h(MainMenuScreen,
-								{
-									title: 'MARINE HUNTER',
-									items: [
-										{ label: `continue game ${maxAccessibleLevel}`, onSelected: handleContinueGame },
-										{ label: 'new game', onSelected: handleNewGame },
-										{ label: 'showroom', onSelected: handleShowroomScreen },
-										{ label: 'fontroom', onSelected: handleFontroomScreen },
-										{ label: 'settings' },
-										{ label: 'quit' },
-									]
-								},
-								[
-								],
-							),
-							activeItem === LEVEL_SCREEN && h(LevelScreen,
-								{
-									key,
-									levelNumber: levelToLoad,
-									onLevelEnded: handleOnLevelEnded,
-									onAbort: handleShowMainMenu,
-									onReload: handleReloadLevel,
-								},
-							),
-							activeItem === PLAY_NEXT_SCREEN && h(PlayNextScreen,
-								{
-									nextLevelNumber: maxAccessibleLevel,
-									onYes: handleLoadNextLevel,
-								},
-							),
-							condition(
-								activeItem === GAME_END_SCREEN,
-								h(GameEndScreen,
-									{
-										onWatched: handleEndScreenEnded,
-									},
-								),
-							),
-							condition(
-								activeItem === SHOWROOM_SCREEN,
-								h(ShowroomScreen,
-									{
-										// onWatched: handleEndScreenEnded,
-										onClose: handleShowMainMenu,
-									},
-								),
-							),
-							condition(
-								activeItem === FONTROOM_SCREEN,
-								h(FontroomScreen,
-									{
-										// onWatched: handleEndScreenEnded,
-										onClose: handleShowMainMenu,
-									},
-								),
-							),
-						]),
-					]);
-				}
-
 				const favicon = createFavicon({ width: 16, height: 16 });
 				const mainElement = document.getElementById('main');
 
 				render(h(App), mainElement);
+			}
+
+			document.addEventListener('DOMContentLoaded', (event) => {
+				main();
 			});
 		</script>
 	</head>

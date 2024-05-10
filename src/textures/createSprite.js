@@ -2,7 +2,7 @@ import {
 	NearestFilter,
 	SpriteMaterial,
 	Sprite,
-	MeshBasicMaterial,
+	MeshPhongMaterial,
 	Mesh,
 	PlaneGeometry,
 	CanvasTexture,
@@ -99,7 +99,7 @@ export function createQuad({ codename, codenameStartsWith }) {
 	}] = createTextureFromCanvas(canvas);
 
 	const geometry = new PlaneGeometry(widthMeters, heightMeters);
-	const material = new MeshBasicMaterial({ map: texture, transparent: true, side: DoubleSide });
+	const material = new MeshPhongMaterial({ map: texture, transparent: true, side: DoubleSide });
 	const plantSprite = new Mesh(geometry, material);
 
 	plantSprite.position.set(0, 0, 0);

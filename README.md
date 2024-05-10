@@ -1,1 +1,3 @@
-Po wykonaniu `npm i` należy jeszcze puściś `npm run copyThree`
+Run:
+	npm i
+	open src/index.html in you browser (yes, no build is required)

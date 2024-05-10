@@ -1,16 +1,16 @@
 import {
 	BoxGeometry,
-	MeshBasicMaterial,
+	MeshPhongMaterial,
 	Mesh,
 	Group,
 	ConeGeometry,
 	TextureLoader,
 	RepeatWrapping,
 	NearestFilter,
+	PointLight,
 } from 'three';
 import {
-	COLOR_ACCENT,
-	COLOR_RED,
+	COLOR_BLACK,
 } from '../config.js';
 import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
 import createFactorPlusMinus from '../factors/createFactorPlusMinus.js';
@@ -21,37 +21,47 @@ import createLevelEnd from './createLevelEnd.js';
 export default function createPlayer({ onLevelEnded }) {
 	const textureLoader = new TextureLoader();
 
-	const geometry = new BoxGeometry(1, 1, 1);
-	const metaLTexture = textureLoader.load('./textures/ditrheredBase.png');
-	metaLTexture.minFilter = NearestFilter;
-	metaLTexture.magFilter = NearestFilter;
-	metaLTexture.wrapS = RepeatWrapping;
-	metaLTexture.wrapT = RepeatWrapping;
-	metaLTexture.repeat.set(0.5, 0.5);
-	const material = new MeshBasicMaterial({ map: metaLTexture, color: COLOR_ACCENT });
-	const cube = new Mesh(geometry, material);
-	cube.position.set(0, 0.5, 0);
+	const metalTexture = textureLoader.load('./textures/ditrheredBase.png');
+	metalTexture.minFilter = NearestFilter;
+	metalTexture.magFilter = NearestFilter;
+	metalTexture.wrapS = RepeatWrapping;
+	metalTexture.wrapT = RepeatWrapping;
+	metalTexture.repeat.set(0.5, 0.5);
 
-	const engineGeometry = new BoxGeometry(0.5, 0.5, 0.5);
-	const engineMaterial = new MeshBasicMaterial({ color: COLOR_RED });
+	const engineGeometry = new BoxGeometry(0.7, 0.3, 1.5);
+	const engineMaterial = new MeshPhongMaterial({ color: COLOR_BLACK });
 	const engineMesh = new Mesh(engineGeometry, engineMaterial);
-	engineMesh.position.set(0, 0.5, -0.5);
+	engineMesh.position.set(0, 0.4, 0);
 
 	const antenaGeometry = new ConeGeometry(0.1, 2, 3);
-	const antenaMaterial = new MeshBasicMaterial({ color: 0x000000 });
+	const antenaMaterial = new MeshPhongMaterial({ color: 0x000000 });
 	const cone = new Mesh(antenaGeometry, antenaMaterial);
 	cone.rotation.x = utilDegreesToRadians(-30);
 	cone.position.set(0, 1, -0.5);
 
 	const propelerSprite = createQuad({ codename: 'propeler-1-off' });
 	propelerSprite.rotation.x = utilDegreesToRadians(180);
-	propelerSprite.position.set(0, 0.5, -0.8);
+	propelerSprite.position.set(0, 0.2, -0.8);
+
+	const sidePropelerSprite = createQuad({ codename: 'propeler-1-off' });
+	sidePropelerSprite.rotation.y = utilDegreesToRadians(90);
+	sidePropelerSprite.position.set(0, 1.2, 0);
+
+	const tailPropelerSprite = createQuad({ codename: 'propeler-1-off' });
+	tailPropelerSprite.rotation.y = utilDegreesToRadians(90);
+	tailPropelerSprite.position.set(0, 0.2, -1);
+
+	const light = new PointLight(0xffffff, 10, 100);
+	light.position.set(1, 1, -2);
 
 	const group = new Group();
-	group.add(cube);
+	// group.add(cube);
 	group.add(engineMesh);
 	group.add(cone);
 	group.add(propelerSprite);
+	group.add(sidePropelerSprite);
+	group.add(tailPropelerSprite);
+	group.add(light);
 
 	const factorForwardBackward = createFactorPlusMinus({
 		factorOfIncreasing: 1,
@@ -96,6 +106,18 @@ export default function createPlayer({ onLevelEnded }) {
 				propelerSprite.rotation.z -= deltaTimeSeconds * 30;
 			} else if (isBackwardHolded) {
 				propelerSprite.rotation.z += deltaTimeSeconds * 30;
+			}
+
+			if (isStepRightHolded) {
+				sidePropelerSprite.rotation.z -= deltaTimeSeconds * 30;
+			} else if (isStepLeftHolded) {
+				sidePropelerSprite.rotation.z += deltaTimeSeconds * 30;
+			}
+
+			if (isRightHolded) {
+				tailPropelerSprite.rotation.z -= deltaTimeSeconds * 30;
+			} else if (isLeftHolded) {
+				tailPropelerSprite.rotation.z += deltaTimeSeconds * 30;
 			}
 
 			const forwardFactor = factorForwardBackward.update(deltaTimeSeconds, {

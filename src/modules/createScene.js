@@ -3,16 +3,13 @@ import {
 	WebGLRenderer,
 	Fog,
 } from 'three';
-import {
-	COLOR_WATER,
-} from '../config.js';
 
 export default function createScene({ camera }) {
 	const scene = new Scene();
-	scene.fog = new Fog(COLOR_WATER, 10, 55); // TODO config
+	scene.fog = new Fog(0x000000, 0, 33);
 
 	const renderer = new WebGLRenderer();
-	renderer.setClearColor(COLOR_WATER, 1);
+	renderer.setClearColor(0x000000, 1);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
 

@@ -1,6 +1,6 @@
 import {
 	CircleGeometry,
-	MeshBasicMaterial,
+	MeshPhongMaterial,
 	Mesh,
 	Group,
 	TextureLoader,
@@ -24,7 +24,7 @@ export default function createDemoHolder({ x, z }) {
 		32, // segments
 	);
 
-	const material = new MeshBasicMaterial({ map: texture, color: COLOR_GREEN });
+	const material = new MeshPhongMaterial({ map: texture, color: COLOR_GREEN });
 	const sphere = new Mesh(geometry, material);
 
 	sphere.position.set(x, 0.01, z);

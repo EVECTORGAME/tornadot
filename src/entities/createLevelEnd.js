@@ -1,6 +1,6 @@
 import {
 	SphereGeometry,
-	MeshBasicMaterial,
+	MeshPhongMaterial,
 	Mesh,
 } from 'three';
 import {
@@ -9,7 +9,7 @@ import {
 
 export default function createLevelEnd({ x, z }) {
 	const geometry = new SphereGeometry(1);
-	const material = new MeshBasicMaterial({ color: COLOR_ACCENT });
+	const material = new MeshPhongMaterial({ color: COLOR_ACCENT });
 	const sphere = new Mesh(geometry, material);
 
 	sphere.position.set(x, 0, z);

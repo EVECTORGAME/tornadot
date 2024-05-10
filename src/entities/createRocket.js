@@ -1,6 +1,6 @@
 import {
 	SphereGeometry,
-	MeshBasicMaterial,
+	MeshPhongMaterial,
 	Mesh,
 	Group,
 } from 'three';
@@ -10,7 +10,7 @@ import {
 export default function createRocket({ x, z, rotation, shooterEntity }) {
 	const group = new Group();
 	const geometry = new SphereGeometry(0.2);
-	const material = new MeshBasicMaterial({ color: '#ff0000' });
+	const material = new MeshPhongMaterial({ color: '#ff0000' });
 	const sphere = new Mesh(geometry, material);
 	sphere.position.set(0, 0.5, 0);
 

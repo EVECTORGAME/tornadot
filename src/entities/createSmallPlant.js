@@ -1,6 +1,6 @@
 import {
 	SphereGeometry,
-	MeshBasicMaterial,
+	MeshPhongMaterial,
 	Mesh,
 	Group,
 	TextureLoader,
@@ -32,7 +32,7 @@ export default function createSmallPlant({ x, z }) {
 		subGroup.add(plantSprite);
 
 		const geometry = new SphereGeometry(1);
-		const material = new MeshBasicMaterial({ map: metalTexture, color: COLOR_GREEN });
+		const material = new MeshPhongMaterial({ map: metalTexture, color: COLOR_GREEN });
 		const sphere = new Mesh(geometry, material);
 
 		const randomDegrees = utilRandomDegrees0360();

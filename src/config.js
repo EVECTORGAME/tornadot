@@ -33,6 +33,7 @@ export const COLOR_ROCKS = COLOR_SCHEME.rocks;
 
 export const COLOR_ACCENT = '#FFFF00';
 export const COLOR_RED = '#FF0000';
+export const COLOR_BLACK = '#000000';
 
 export const CAMERA_POSITION_Y = 2;
 export const CAMERA_POSITION_Z = -5;
