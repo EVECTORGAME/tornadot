@@ -14,14 +14,14 @@ import {
 } from '../config.js';
 import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
 import createFactorPlusMinus from '../factors/createFactorPlusMinus.js';
-import { createQuad } from '../textures/createSprite.js';
+import { createQuad } from '../modules/createResource.js';
 import createRocket from './createRocket.js';
 import createLevelEnd from './createLevelEnd.js';
 
 export default function createPlayer({ onLevelEnded }) {
 	const textureLoader = new TextureLoader();
 
-	const metalTexture = textureLoader.load('./textures/ditrheredBase.png');
+	const metalTexture = textureLoader.load('./spritesheets/ditrheredBase.png');
 	metalTexture.minFilter = NearestFilter;
 	metalTexture.magFilter = NearestFilter;
 	metalTexture.wrapS = RepeatWrapping;
@@ -29,12 +29,12 @@ export default function createPlayer({ onLevelEnded }) {
 	metalTexture.repeat.set(0.5, 0.5);
 
 	const engineGeometry = new BoxGeometry(0.7, 0.3, 1.5);
-	const engineMaterial = new MeshPhongMaterial({ color: COLOR_BLACK });
+	const engineMaterial = new MeshPhongMaterial({ color: COLOR_BLACK, shininess: 0 });
 	const engineMesh = new Mesh(engineGeometry, engineMaterial);
 	engineMesh.position.set(0, 0.4, 0);
 
 	const antenaGeometry = new ConeGeometry(0.1, 2, 3);
-	const antenaMaterial = new MeshPhongMaterial({ color: 0x000000 });
+	const antenaMaterial = new MeshPhongMaterial({ color: 0x000000, shininess: 0 });
 	const cone = new Mesh(antenaGeometry, antenaMaterial);
 	cone.rotation.x = utilDegreesToRadians(-30);
 	cone.position.set(0, 1, -0.5);

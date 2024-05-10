@@ -2,7 +2,7 @@ import { h } from 'preact';
 import classNames from 'clsx';
 import usePersistent from '../hooks/usePersistent.js';
 import createStylesheet from '../modules/createStylesheet.js';
-import createBitmapText from '../textures/createBitmapText.js';
+import createBitmapText from '../spritesheets/createBitmapText.js';
 
 const theme = createStylesheet('BitmapText', {
 	container: {

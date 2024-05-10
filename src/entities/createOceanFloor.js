@@ -16,7 +16,7 @@ const OCEAN_FLOOR_SEGMENTS_COUNT = 32;
 
 export default function createPlayer({ playerEntity }) {
 	const textureLoader = new TextureLoader();
-	const floorTexture = textureLoader.load('./textures/ditrheredBase.png');
+	const floorTexture = textureLoader.load('./spritesheets/ditrheredBase.png');
 	floorTexture.minFilter = NearestFilter;
 	floorTexture.magFilter = NearestFilter;
 	floorTexture.wrapS = RepeatWrapping;
@@ -28,7 +28,7 @@ export default function createPlayer({ playerEntity }) {
 		OCEAN_FLOOR_SEGMENTS_COUNT,
 	);
 
-	const floorMaterial = new MeshPhongMaterial({ map: floorTexture, color: COLOR_FLOOR });
+	const floorMaterial = new MeshPhongMaterial({ map: floorTexture, color: COLOR_FLOOR, shininess: 0 });
 	const floor = new Mesh(floorGeometry, floorMaterial);
 	floor.rotation.x = utilDegreesToRadians(-90);
 	floor.position.set(0, 0, 0);

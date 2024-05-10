@@ -12,7 +12,7 @@ import { COLOR_GREEN } from '../config.js';
 
 export default function createDemoHolder({ x, z }) {
 	const textureLoader = new TextureLoader();
-	const texture = textureLoader.load('./textures/ditrheredBase.png');
+	const texture = textureLoader.load('./spritesheets/ditrheredBase.png');
 	texture.minFilter = NearestFilter;
 	texture.magFilter = NearestFilter;
 	texture.wrapS = RepeatWrapping;
@@ -24,7 +24,7 @@ export default function createDemoHolder({ x, z }) {
 		32, // segments
 	);
 
-	const material = new MeshPhongMaterial({ map: texture, color: COLOR_GREEN });
+	const material = new MeshPhongMaterial({ map: texture, color: COLOR_GREEN, shininess: 0 });
 	const sphere = new Mesh(geometry, material);
 
 	sphere.position.set(x, 0.01, z);

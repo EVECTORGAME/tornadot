@@ -2,7 +2,7 @@ import { h } from 'preact';
 import usePersistent from '../hooks/usePersistent.js';
 import useKeyHook from '../hooks/useKeyHook.js';
 import createStylesheet from '../modules/createStylesheet.js';
-import createBitmapText from '../textures/createBitmapText.js';
+import createBitmapText from '../spritesheets/createBitmapText.js';
 
 const theme = createStylesheet('FontroomScreen', {
 	container: {

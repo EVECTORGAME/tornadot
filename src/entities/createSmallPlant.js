@@ -9,7 +9,7 @@ import {
 } from 'three';
 import utilRandomValueMinMax from '../utils/utilRandomValueMinMax.js';
 import utilRandomDegrees0360 from '../utils/utilRandomDegrees0360.js';
-import createSprite from '../textures/createSprite.js';
+import createResource from '../modules/createResource.js';
 import { COLOR_GREEN } from '../config.js';
 
 export default function createSmallPlant({ x, z }) {
@@ -20,19 +20,19 @@ export default function createSmallPlant({ x, z }) {
 	for (let i = 1; i <= count; i++) {
 		const subGroup = new Group();
 
-		const metalTexture = textureLoader.load('./textures/ditrheredBase.png');
+		const metalTexture = textureLoader.load('./spritesheets/ditrheredBase.png');
 		metalTexture.minFilter = NearestFilter;
 		metalTexture.magFilter = NearestFilter;
 		metalTexture.wrapS = RepeatWrapping;
 		metalTexture.wrapT = RepeatWrapping;
 		metalTexture.repeat.set(0.5, 0.5);
 
-		const plantSprite = createSprite({ codenameStartsWith: 'small-plant-' });
+		const plantSprite = createResource({ codenameStartsWith: 'small-plant-' });
 		plantSprite.position.set(0, 1.4, 0);
 		subGroup.add(plantSprite);
 
 		const geometry = new SphereGeometry(1);
-		const material = new MeshPhongMaterial({ map: metalTexture, color: COLOR_GREEN });
+		const material = new MeshPhongMaterial({ map: metalTexture, color: COLOR_GREEN, shininess: 0 });
 		const sphere = new Mesh(geometry, material);
 
 		const randomDegrees = utilRandomDegrees0360();

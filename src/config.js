@@ -27,7 +27,7 @@ const COLOR_SHEMES = [
 const COLOR_SCHEME = COLOR_SHEMES[Math.floor(Math.random() * COLOR_SHEMES.length)];
 
 export const COLOR_WATER = COLOR_SCHEME.water; // '#aeba89'; // bazowy kolor z https://colorkit.co/color/0a91ab/
-export const COLOR_FLOOR = COLOR_SCHEME.floor; // = '#5e6745'; // '#01719c';
+export const COLOR_FLOOR = 0x30251d; // COLOR_SCHEME.floor; // = '#5e6745'; // '#01719c';
 export const COLOR_GREEN = COLOR_SCHEME.green;
 export const COLOR_ROCKS = COLOR_SCHEME.rocks;
 
