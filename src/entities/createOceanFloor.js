@@ -48,11 +48,7 @@ export default function createPlayer({ playerEntity }) {
 
 			group.position.set(positionX, 0, positionZ);
 
-			return {
-				// moveForwardStep: forwardFactor,
-				// moveSidesStep: sidestepFactor,
-				// rotationStep: rotatingFactor,
-			};
+			return {};
 		},
 	};
 }

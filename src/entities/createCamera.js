@@ -1,16 +1,21 @@
 import {
 	PerspectiveCamera,
 	Group,
-	MathUtils,
 } from 'three';
+// import { PointerLockControls } from 'threePointerLockControls';
+import utilClamp from '../utils/utilClamp.js';
 import {
 	CAMERA_POSITION_Y,
 	CAMERA_POSITION_Z,
+	MOUSE_Y_SPEED_FACTOR,
 } from '../config.js';
 
 const FOV = 75; // TODO config.js
 const CAMERA_FRUSTRUM_NEAR_PLANE = 0.1;
 const CAMERA_FRUSTRUM_FAR_PLANE = 1000;
+const PI_HALF = Math.PI * 0.5;
+const minPolarAngle = Math.PI * 0.25; // radians
+const maxPolarAngle = Math.PI * 0.75; // radians
 
 export default function createCamera({ playerEntity }) { // TODO rename following camera
 	const { innerWidth, innerHeight } = window;
@@ -24,6 +29,17 @@ export default function createCamera({ playerEntity }) { // TODO rename followin
 	);
 	camera.position.y = CAMERA_POSITION_Y;
 	camera.position.z = CAMERA_POSITION_Z;
+
+	document.addEventListener('click', () => {
+		document.body.requestPointerLock();
+	});
+
+	document.body.addEventListener('mousemove', ({ movementY }) => { // TODO add destroy
+		const newRotationX = camera.rotation.x - movementY * MOUSE_Y_SPEED_FACTOR * -1;
+		const newRotationClampedX = utilClamp(newRotationX, PI_HALF - maxPolarAngle, PI_HALF - minPolarAngle);
+
+		camera.rotation.x = newRotationClampedX;
+	});
 
 	camera.rotation.set(0, Math.PI, 0);
 
@@ -41,28 +57,18 @@ export default function createCamera({ playerEntity }) { // TODO rename followin
 				playerEntity.model.position.y,
 				playerEntity.model.position.z,
 			);
-			// Oblicz wektor kierunku między obiektami
 
-			// const direction = new Vector3().subVectors(playerEntity.model.position, group.position).normalize();
-			//
-			// const constantVelocity = 7;
-			//
-			// let distanceToMove = deltaTimeSeconds * constantVelocity;
-			//
-			// const distanceToTarget = group.position.distanceTo(playerEntity.model.position);
-			// if (distanceToMove > distanceToTarget) {
-			// 	distanceToMove = distanceToTarget;
-			// }
-			//
-			// group.position.lerp(group.position.clone().add(direction.multiplyScalar(distanceToMove)), 1);
+			/* Smooth position
+				const currentRotation = group.rotation.y;
+				const rotationDiff = Math.abs(group.rotation.y - playerEntity.model.rotation.y);
+				if (rotationDiff > 0.001) {
+					group.rotation.y = MathUtils.lerp(currentRotation, playerEntity.model.rotation.y, 0.05);
+				} else {
+					group.rotation.y = playerEntity.model.rotation.y;
+				}
+			*/
 
-			const currentRotation = group.rotation.y;
-			const rotationDiff = Math.abs(group.rotation.y - playerEntity.model.rotation.y);
-			if (rotationDiff > 0.001) {
-				group.rotation.y = MathUtils.lerp(currentRotation, playerEntity.model.rotation.y, 0.05);
-			} else {
-				group.rotation.y = playerEntity.model.rotation.y;
-			}
+			group.rotation.y = playerEntity.model.rotation.y;
 
 			return {};
 		},

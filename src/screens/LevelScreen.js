@@ -1,23 +1,18 @@
 import { h } from 'preact';
-// import classNames from 'clsx';
 import { useEffect, useRef, useState, useCallback } from 'preact-hooks';
-// import utilClamp from '../utils/utilClamp.js';
-// import usePersistent from '../hooks/usePersistent.js';
 import useKeyHook from '../hooks/useKeyHook.js';
 import createChronos from '../modules/createChronos.js';
 import createStylesheet from '../modules/createStylesheet.js';
 import createScene from '../modules/createScene.js';
 import createKeyboardIntegrator from '../modules/createKeyboardIntegrator.js';
 import randomLevelGenerator from '../modules/randomLevelGenerator.js';
-//
 import createPlayer from '../entities/createPlayer.js';
 import createCamera from '../entities/createCamera.js';
 import createOceanFloor from '../entities/createOceanFloor.js';
-//
+import createAndromalius from '../entities/createAndromalius.js';
 import CountDisplay from '../components/CountDisplay.js';
-import MainMenuScreen from './MainMenuScreen.js';
-//
 import { NINETY_DEGREES_IN_RADIANS } from '../constants.js';
+import MainMenuScreen from './MainMenuScreen.js';
 
 function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 	const playerEntity = createPlayer({
@@ -37,6 +32,7 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 	scene.add(cameraEntity);
 	scene.add(playerEntity);
 	scene.add(oceanFloor);
+	scene.add(createAndromalius({ x: 5, z: 5 }));
 
 	const { levelEnd } = randomLevelGenerator(scene, levelRadius);
 
@@ -54,10 +50,8 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 
 			const isItPlayer = entity === playerEntity;
 			const {
-				ArrowLeft: isLeftHolded,
-				ArrowRight: isRightHolded,
-				ArrowUp: isForwardHolded,
-				ArrowDown: isBackwardHolded,
+				KeyW: isForwardHolded,
+				KeyS: isBackwardHolded,
 				KeyA: isStepLeftHolded,
 				KeyD: isStepRightHolded,
 			} = isItPlayer ? keyboardIntegrator.current : {};
@@ -98,15 +92,6 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 				entitesToAdd.push(rocket);
 			} */
 
-			/* const isRotationPressed = isLeftHolded || isRightHolded;
-			if (isLeftHolded && isRightHolded) {
-				//
-			} else if (isLeftHolded) {
-				entity.model.rotation.y += (deltaTimeSeconds * +5);
-			} else if (isRightHolded) {
-				entity.model.rotation.y += (deltaTimeSeconds * -5);
-			} */
-
 			const {
 				shouldDestroy,
 				moveForwardStep,
@@ -114,8 +99,6 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 				rotationStep,
 				entitiesToAddToScene,
 			} = entity.handleTimeUpdate?.(deltaTimeSeconds, {
-				isLeftHolded,
-				isRightHolded,
 				isForwardHolded,
 				isBackwardHolded,
 				isStepLeftHolded,

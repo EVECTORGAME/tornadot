@@ -36,6 +36,9 @@ export const COLOR_RED = '#FF0000';
 export const COLOR_BLACK = '#000000';
 
 export const CAMERA_POSITION_Y = 2;
-export const CAMERA_POSITION_Z = -5;
+export const CAMERA_POSITION_Z = 0;
+
+export const MOUSE_X_SPEED_FACTOR = 0.002;
+export const MOUSE_Y_SPEED_FACTOR = 0.001;
 
 export const RESOURCES = {};
