@@ -7,6 +7,7 @@ import { realignWindows } from '../components/Window.js';
 import ToolGridTransparency from '../tools/ToolGridTransparency.js';
 import ToolGridUnderlay from '../tools/ToolGridUnderlay.js';
 import ToolMirrorMode from '../tools/ToolMirrorMode.js';
+import ToolPasteImage from '../tools/ToolPasteImage.js';
 import ToolRollCanvas from '../tools/ToolRollCanvas.js';
 import ToolTransparentUnderlay from '../tools/ToolTransparentUnderlay.js';
 import ToolUnderlayCircle from '../tools/ToolUnderlayCircle.js';
@@ -83,6 +84,7 @@ export default function MainScreen({ resources }) {
 				pixelartGridRef,
 			},
 			h(ToolMirrorMode, { apiRef: mirrorApiRef }),
+			h(ToolPasteImage, { pixelartGridRef }),
 			h(ToolGridUnderlay, { pixelartGridRef }),
 			h(ToolRollCanvas, { pixelartGridRef }),
 			h(ToolTransparentUnderlay, { pixelartGridRef }),

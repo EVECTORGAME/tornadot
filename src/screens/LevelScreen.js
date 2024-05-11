@@ -29,8 +29,8 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 
 	const levelRadius = 150 + (levelNumber * 50);
 
-	scene.add(cameraEntity);
 	scene.add(playerEntity);
+	scene.add(cameraEntity);
 	scene.add(oceanFloor);
 	scene.add(createAndromalius({ x: 5, z: 5 }));
 

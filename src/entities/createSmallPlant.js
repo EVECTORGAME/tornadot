@@ -9,7 +9,7 @@ import {
 } from 'three';
 import utilRandomValueMinMax from '../utils/utilRandomValueMinMax.js';
 import utilRandomDegrees0360 from '../utils/utilRandomDegrees0360.js';
-import createResource from '../modules/createResource.js';
+import { createQuad } from '../modules/createResource.js';
 import { COLOR_GREEN } from '../config.js';
 
 export default function createSmallPlant({ x, z }) {
@@ -27,7 +27,7 @@ export default function createSmallPlant({ x, z }) {
 		metalTexture.wrapT = RepeatWrapping;
 		metalTexture.repeat.set(0.5, 0.5);
 
-		const plantSprite = createResource({ codenameStartsWith: 'small-plant-' });
+		const plantSprite = createQuad({ codenameStartsWith: 'small-plant-', shouldMakeLessAffectedByLight: 2, upscale: 2 });
 		plantSprite.position.set(0, 1.4, 0);
 		subGroup.add(plantSprite);
 

@@ -11,8 +11,13 @@ export function utilUnpackPixel(pixel) {
 		return;
 	}
 
-	const match = pixel.match(/^(\d+)\+(\d+)%(\d+)%$/);
+	const match = pixel.match(/^(\d+)\+(\d+)%(\d+)%(\d+)?$/);
 	if (match) {
-		return `hsl(${match[1]}, ${match[2]}%, ${match[3]}%)`;
+		const [, hue, saturation, lightness, alpha] = match;
+		if (alpha) {
+			return `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+		}
+
+		return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 	}
 }

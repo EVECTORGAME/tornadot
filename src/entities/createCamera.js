@@ -1,21 +1,13 @@
 import {
 	PerspectiveCamera,
 	Group,
+	Vector3,
+	Quaternion,
 } from 'three';
-// import { PointerLockControls } from 'threePointerLockControls';
-import utilClamp from '../utils/utilClamp.js';
-import {
-	CAMERA_POSITION_Y,
-	CAMERA_POSITION_Z,
-	MOUSE_Y_SPEED_FACTOR,
-} from '../config.js';
 
 const FOV = 75; // TODO config.js
 const CAMERA_FRUSTRUM_NEAR_PLANE = 0.1;
 const CAMERA_FRUSTRUM_FAR_PLANE = 1000;
-const PI_HALF = Math.PI * 0.5;
-const minPolarAngle = Math.PI * 0.25; // radians
-const maxPolarAngle = Math.PI * 0.75; // radians
 
 export default function createCamera({ playerEntity }) { // TODO rename following camera
 	const { innerWidth, innerHeight } = window;
@@ -27,36 +19,31 @@ export default function createCamera({ playerEntity }) { // TODO rename followin
 		CAMERA_FRUSTRUM_NEAR_PLANE,
 		CAMERA_FRUSTRUM_FAR_PLANE,
 	);
-	camera.position.y = CAMERA_POSITION_Y;
-	camera.position.z = CAMERA_POSITION_Z;
 
-	document.addEventListener('click', () => {
+	document.addEventListener('click', () => { // TO raczej do gry
 		document.body.requestPointerLock();
 	});
 
-	document.body.addEventListener('mousemove', ({ movementY }) => { // TODO add destroy
-		const newRotationX = camera.rotation.x - movementY * MOUSE_Y_SPEED_FACTOR * -1;
-		const newRotationClampedX = utilClamp(newRotationX, PI_HALF - maxPolarAngle, PI_HALF - minPolarAngle);
-
-		camera.rotation.x = newRotationClampedX;
-	});
-
-	camera.rotation.set(0, Math.PI, 0);
+	const cameraHolder = new Group();
+	cameraHolder.add(camera);
 
 	const group = new Group();
-	group.add(camera);
+	group.add(cameraHolder);
+
+	const tempTargetPosition = new Vector3();
+	const tempTargetRotation = new Quaternion();
 
 	return {
 		type: createCamera,
-		model: group,
+		model: cameraHolder,
 		camera,
 		radius: 0,
 		handleTimeUpdate(deltaTimeSeconds) { // eslint-disable-line no-unused-vars
-			group.position.set(
-				playerEntity.model.position.x,
-				playerEntity.model.position.y,
-				playerEntity.model.position.z,
-			);
+			playerEntity.refEyes.getWorldPosition(tempTargetPosition);
+			playerEntity.refEyes.getWorldQuaternion(tempTargetRotation);
+
+			cameraHolder.position.copy(tempTargetPosition);
+			cameraHolder.quaternion.copy(tempTargetRotation);
 
 			/* Smooth position
 				const currentRotation = group.rotation.y;
@@ -68,7 +55,9 @@ export default function createCamera({ playerEntity }) { // TODO rename followin
 				}
 			*/
 
-			group.rotation.y = playerEntity.model.rotation.y;
+			group.rotation.y = playerEntity.model.rotation.y + Math.PI;
+			// camera.position.z = CAMERA_POSITION_Z;
+			// cameraHolder.position.y = CAMERA_POSITION_Y;
 
 			return {};
 		},

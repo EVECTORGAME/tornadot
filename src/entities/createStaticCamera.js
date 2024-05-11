@@ -2,10 +2,6 @@ import {
 	PerspectiveCamera,
 	Group,
 } from 'three';
-import {
-	CAMERA_POSITION_Y,
-	CAMERA_POSITION_Z,
-} from '../config.js';
 
 const FOV = 75;
 const CAMERA_FRUSTRUM_NEAR_PLANE = 0.1;
@@ -21,8 +17,8 @@ export default function createStaticCamera() {
 		CAMERA_FRUSTRUM_NEAR_PLANE,
 		CAMERA_FRUSTRUM_FAR_PLANE,
 	);
-	camera.position.y = CAMERA_POSITION_Y;
-	camera.position.z = CAMERA_POSITION_Z;
+	camera.position.y = 2;
+	camera.position.z = -2;
 
 	camera.rotation.set(0, Math.PI, 0);
 

@@ -3,6 +3,7 @@ import {
 	SpriteMaterial,
 	Sprite,
 	MeshPhongMaterial,
+	MeshStandardMaterial,
 	Mesh,
 	PlaneGeometry,
 	CanvasTexture,
@@ -91,15 +92,33 @@ export default function createSprite({ codename, codenameStartsWith }) {
 	return sprite;
 }
 
-export function createQuad({ codename, codenameStartsWith }) {
+export function createQuad({ codename, codenameStartsWith, shouldMakeLessAffectedByLight, upscale }) {
 	const canvas = createCanvasFromResource({ codename, codenameStartsWith });
 	const [texture, {
 		widthMeters,
 		heightMeters,
 	}] = createTextureFromCanvas(canvas);
 
-	const geometry = new PlaneGeometry(widthMeters, heightMeters);
-	const material = new MeshPhongMaterial({ map: texture, transparent: true, side: DoubleSide, shininess: 0 });
+	const geometry = new PlaneGeometry(widthMeters * upscale, heightMeters * upscale);
+
+	const MaterialToUse = shouldMakeLessAffectedByLight ? MeshStandardMaterial : MeshPhongMaterial;
+	const isPhongMaterial = MaterialToUse === MeshPhongMaterial;
+	const isStandardgMaterial = MaterialToUse === MeshStandardMaterial;
+
+	const extraArgs
+		= isPhongMaterial ? { shininess: 0 }
+		: isStandardgMaterial ? {}
+		: {};
+
+	const material = new MaterialToUse({
+		map: texture,
+		transparent: true,
+		side: DoubleSide,
+		...extraArgs,
+		color: shouldMakeLessAffectedByLight
+			? 0x808080
+			: undefined,
+	});
 	const plantSprite = new Mesh(geometry, material);
 
 	plantSprite.position.set(0, 0, 0);

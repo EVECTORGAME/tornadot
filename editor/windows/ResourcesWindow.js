@@ -205,7 +205,11 @@ export default function ResourcesWindow({
 					return {
 						...sprite,
 						matrix: sprite.matrix.map((matrixLine) => {
-							return matrixLine.replace(/transparent/g, '').replace(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\s*\)/g, '$1+$2%$3%');
+							return matrixLine
+								.replace(/transparent/g, '')
+								.replace(/hsla?\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\s*(,\s*(\d+)\s*)?\)/g, (_, hue, s, l, __, a) => {
+									return `${hue}+${s}%${l}%${a ?? ''}`;
+								});
 						}),
 					};
 				}),

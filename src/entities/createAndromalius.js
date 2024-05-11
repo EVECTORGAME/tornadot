@@ -1,52 +1,32 @@
 import {
-	SphereGeometry,
-	MeshPhongMaterial ,
-	Mesh,
 	Group,
 	TextureLoader,
-	RepeatWrapping,
-	NearestFilter,
 	SpriteMaterial,
 	Sprite,
 } from 'three';
-import utilRandomValueMinMax from '../utils/utilRandomValueMinMax.js';
-import utilRandomDegrees0360 from '../utils/utilRandomDegrees0360.js';
-import createSprite from '../textures/createSprite.js';
-import createSpritesheet from '../modules/createSprite.js';
-import { COLOR_GREEN } from '../config.js';
+import createResource from '../modules/createResource.js';
+import createSpritesheet from '../spritesheets/createSprite2.js';
 
 export default function createAndromalius({ x, z }) {
-	// const textureLoader = new TextureLoader();
-	// const count = utilRandomValueMinMax(1, 3);
-
-	const [src, {
-		canvasWidth,
-		canvasHeight,
-		tileWidth,
-		tileHeight,
-	}] = createSpritesheet();
+	const [src] = createSpritesheet();
 
 	const group = new Group();
 
-	const map = new TextureLoader().load( src);
+	const map = new TextureLoader().load(src);
 	map.repeat.x = 1 / 8;
 	map.repeat.y = 1 / 3;
-	const material = new SpriteMaterial( { map: map } );
+	const material = new SpriteMaterial({ map });
 
 	const sprite = new Sprite(material);
-	// scene.add( sprite );
 
-	const plantSprite = createSprite({ codenameStartsWith: 'small-plant-' });
+	const plantSprite = createResource({ codenameStartsWith: 'small-plant-' });
 	plantSprite.position.set(0, 1.4, 0);
 	group.add(plantSprite);
 	group.position.set(x, 2, z);
 	group.scale.set(3, 3, 0);
 
-	// const geometry = new SphereGeometry(1);
-	// const material = new MeshPhongMaterial({ color: COLOR_GREEN });
-	// const sphere = new Mesh(geometry, material);
-	// group.add(sphere);
 	group.add(sprite);
+
 	return {
 		type: createAndromalius,
 		model: group,

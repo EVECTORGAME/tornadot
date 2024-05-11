@@ -35,6 +35,9 @@ export default function createFactorPlusMinus({
 
 			return factor;
 		},
+		clear() {
+			factor = 0;
+		},
 		reverseAndMultiply(multiplyFactor) {
 			factor = factor * -1 * multiplyFactor;
 		},
