@@ -77,6 +77,16 @@ function createTextureFromCanvas(canvas) {
 	}];
 }
 
+export function createTextureFromResource({ codename, codenameStartsWith }) {
+	const canvas = createCanvasFromResource({ codename, codenameStartsWith });
+	const [texture, {
+		widthMeters,
+		heightMeters,
+	}] = createTextureFromCanvas(canvas);
+
+	return texture;
+}
+
 export default function createSprite({ codename, codenameStartsWith }) {
 	const canvas = createCanvasFromResource({ codename, codenameStartsWith });
 	const [texture, {

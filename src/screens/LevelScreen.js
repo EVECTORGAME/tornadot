@@ -104,7 +104,7 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 				isStepLeftHolded,
 				isStepRightHolded,
 				isActionPressed,
-			}) ?? {};
+			}, cameraEntity.model.position) ?? {};
 			if (moveForwardStep) {
 				scene.addPosionToObjectAtIndex(entity, moveForwardStep, 0);
 			}

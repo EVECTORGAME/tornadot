@@ -6,6 +6,7 @@ import {
 	TextureLoader,
 	RepeatWrapping,
 	NearestFilter,
+	Vector3,
 } from 'three';
 import utilRandomValueMinMax from '../utils/utilRandomValueMinMax.js';
 import utilRandomDegrees0360 from '../utils/utilRandomDegrees0360.js';
@@ -15,6 +16,7 @@ import { COLOR_GREEN } from '../config.js';
 export default function createSmallPlant({ x, z }) {
 	const textureLoader = new TextureLoader();
 	const count = utilRandomValueMinMax(1, 3);
+	const billboards = [];
 
 	const group = new Group();
 	for (let i = 1; i <= count; i++) {
@@ -29,6 +31,7 @@ export default function createSmallPlant({ x, z }) {
 
 		const plantSprite = createQuad({ codenameStartsWith: 'small-plant-', shouldMakeLessAffectedByLight: 2, upscale: 2 });
 		plantSprite.position.set(0, 1.4, 0);
+		billboards.push(plantSprite);
 		subGroup.add(plantSprite);
 
 		const geometry = new SphereGeometry(1);
@@ -55,8 +58,13 @@ export default function createSmallPlant({ x, z }) {
 		type: createSmallPlant,
 		model: group,
 		radius: 1,
-		handleTimeUpdate(deltaTimeSeconds) { // eslint-disable-line no-unused-vars
-			//
+		handleTimeUpdate(deltaTimeSeconds, _, cameraPosition) { // eslint-disable-line no-unused-vars
+			const direction = new Vector3();
+			direction.subVectors(group.position, cameraPosition).normalize();
+			const angle = Math.atan2(direction.x, direction.z);
+			for (let i = 0; i < billboards.length; i += 1) {
+				billboards[i].rotation.y = angle;
+			}
 
 			return {};
 		},

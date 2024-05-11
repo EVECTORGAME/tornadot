@@ -1,5 +1,8 @@
 import { h } from 'preact';
-import { PointLight } from 'three';
+import {
+	PointLight,
+	Vector3,
+} from 'three';
 import { useEffect, useState, useRef, useCallback } from 'preact-hooks';
 import useKeyHook from '../hooks/useKeyHook.js';
 import createStylesheet from '../modules/createStylesheet.js';
@@ -7,6 +10,7 @@ import BitmapText from '../components/BitmapText.js';
 import createScene from '../modules/createScene.js';
 import createChronos from '../modules/createChronos.js';
 import createStaticCamera from '../entities/createStaticCamera.js';
+import createBaseOfMilki from '../entities/createBaseOfMilki.js';
 import createDemoHolder from '../entities/createDemoHolder.js';
 import createOceanFloor from '../entities/createOceanFloor.js';
 import createPlayer from '../entities/createPlayer.js';
@@ -29,6 +33,7 @@ const theme = createStylesheet('PlayNextScreen', {
 
 const NOOP = () => {};
 const ITEMS = [
+	[createBaseOfMilki, { x: 0, z: 0 }],
 	[createPlayer, { onLevelEnded: NOOP }],
 	[createSmallPlant, { x: 0, z: 0 }],
 	// [createHugeRock,   { x: 0, z: 0, radius: 3 }],
@@ -50,8 +55,8 @@ export default function PlayNextScreen({ onClose }) {
 
 	useEffect(() => {
 		const holder = createDemoHolder({ x: 0, z: 0 });
-		const camera = createStaticCamera();
-		const scene = createScene({ camera: camera.camera });
+		const cameraEntity = createStaticCamera();
+		const scene = createScene({ camera: cameraEntity.camera });
 		const oceanFloor = createOceanFloor({ playerEntity: holder });
 
 		const light = new PointLight(0xffffff, 5, 30, 0);
@@ -59,13 +64,14 @@ export default function PlayNextScreen({ onClose }) {
 		scene.addThreeObject(light);
 
 		scene.addEntity(holder);
-		scene.addEntity(camera);
+		scene.addEntity(cameraEntity);
 		scene.addEntity(oceanFloor);
 		scene.render();
 
 		holderRef.current = holder;
 		sceneRef.current = scene;
 
+		const cameraPosition = new Vector3();
 		const chronos = createChronos((deltaTimeSeconds) => {
 			scene.entities.forEach((entity) => {
 				const isEmptyEntitySlot = !entity;
@@ -73,7 +79,8 @@ export default function PlayNextScreen({ onClose }) {
 					return;
 				}
 
-				entity.handleTimeUpdate?.(deltaTimeSeconds, {});
+				cameraEntity.camera.getWorldPosition(cameraPosition);
+				entity.handleTimeUpdate?.(deltaTimeSeconds, {}, cameraPosition);
 			});
 
 			scene.render();

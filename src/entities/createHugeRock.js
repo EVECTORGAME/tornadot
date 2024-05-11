@@ -10,15 +10,15 @@ import { COLOR_ROCKS } from '../config.js';
 
 export default function createHugeRock({ x, z, radius }) {
 	const textureLoader = new TextureLoader();
-	const metaLTexture = textureLoader.load('./spritesheets/ditrheredBase.png');
-	metaLTexture.minFilter = NearestFilter;
-	metaLTexture.magFilter = NearestFilter;
-	metaLTexture.wrapS = RepeatWrapping;
-	metaLTexture.wrapT = RepeatWrapping;
-	metaLTexture.repeat.set(10, 10);
+	const texture = textureLoader.load('./spritesheets/ditrheredBase.png');
+	texture.minFilter = NearestFilter;
+	texture.magFilter = NearestFilter;
+	texture.wrapS = RepeatWrapping;
+	texture.wrapT = RepeatWrapping;
+	texture.repeat.set(10, 10);
 
 	const geometry = new SphereGeometry(radius);
-	const material = new MeshPhongMaterial({ map: metaLTexture, color: COLOR_ROCKS, shininess: 0 });
+	const material = new MeshPhongMaterial({ map: texture, color: COLOR_ROCKS, shininess: 0 });
 	const sphere = new Mesh(geometry, material);
 
 	sphere.position.set(x, 0, z);
