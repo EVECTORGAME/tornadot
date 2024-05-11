@@ -68,10 +68,13 @@ export default function createScene({ camera }) {
 				return stack;
 			}, undefined);
 		},
-		add(entity) {
-			// TODO search for forst empty slot
+		addEntity(entity) {
+			// TODO search for first empty slot
 			entities.push(entity);
 			scene.add(entity.model);
+		},
+		addThreeObject(object) {
+			scene.add(object);
 		},
 		removeEntityAdnItsReferencesentity(entityToRemove) {
 			for (let i = 0; i < entities.length; i += 1) {

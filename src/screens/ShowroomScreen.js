@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { PointLight } from 'three';
 import { useEffect, useState, useRef, useCallback } from 'preact-hooks';
 import useKeyHook from '../hooks/useKeyHook.js';
 import createStylesheet from '../modules/createStylesheet.js';
@@ -29,8 +30,8 @@ const theme = createStylesheet('PlayNextScreen', {
 const NOOP = () => {};
 const ITEMS = [
 	[createPlayer, { onLevelEnded: NOOP }],
-	// [createHugeRock,   { x: 0, z: 0, radius: 3 }],
 	[createSmallPlant, { x: 0, z: 0 }],
+	// [createHugeRock,   { x: 0, z: 0, radius: 3 }],
 	[createLevelEnd, { x: 0, z: 0 }],
 ];
 
@@ -52,9 +53,14 @@ export default function PlayNextScreen({ onClose }) {
 		const camera = createStaticCamera();
 		const scene = createScene({ camera: camera.camera });
 		const oceanFloor = createOceanFloor({ playerEntity: holder });
-		scene.add(holder);
-		scene.add(camera);
-		scene.add(oceanFloor);
+
+		const light = new PointLight(0xffffff, 5, 30, 0);
+		light.position.set(0, 2, 1);
+		scene.addThreeObject(light);
+
+		scene.addEntity(holder);
+		scene.addEntity(camera);
+		scene.addEntity(oceanFloor);
 		scene.render();
 
 		holderRef.current = holder;
@@ -90,7 +96,7 @@ export default function PlayNextScreen({ onClose }) {
 			sceneRef.current.removeEntityAdnItsReferencesentity(currentEntityRef.current);
 		}
 
-		sceneRef.current.add(entity);
+		sceneRef.current.addEntity(entity);
 		currentEntityRef.current = entity;
 	}, [selectedIndex]);
 

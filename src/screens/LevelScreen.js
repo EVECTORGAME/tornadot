@@ -29,10 +29,10 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 
 	const levelRadius = 150 + (levelNumber * 50);
 
-	scene.add(playerEntity);
-	scene.add(cameraEntity);
-	scene.add(oceanFloor);
-	scene.add(createAndromalius({ x: 5, z: 5 }));
+	scene.addEntity(playerEntity);
+	scene.addEntity(cameraEntity);
+	scene.addEntity(oceanFloor);
+	scene.addEntity(createAndromalius({ x: 5, z: 5 }));
 
 	const { levelEnd } = randomLevelGenerator(scene, levelRadius);
 
@@ -140,7 +140,7 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 			scene.removeEntityAdnItsReferencesentity(entity);
 		});
 		entitesToAdd.forEach((entity) => {
-			scene.add(entity);
+			scene.addEntity(entity);
 		});
 	}, {
 		doInitialSyncCall: true,

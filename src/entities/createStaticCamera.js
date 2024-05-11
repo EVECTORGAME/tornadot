@@ -17,8 +17,8 @@ export default function createStaticCamera() {
 		CAMERA_FRUSTRUM_NEAR_PLANE,
 		CAMERA_FRUSTRUM_FAR_PLANE,
 	);
-	camera.position.y = 2;
-	camera.position.z = -2;
+	camera.position.y = 3;
+	camera.position.z = -3;
 
 	camera.rotation.set(0, Math.PI, 0);
 

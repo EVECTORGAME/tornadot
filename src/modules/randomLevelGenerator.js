@@ -42,7 +42,7 @@ export default function randomLevelGenerator(scene, radius) {
 
 			areaTakenUpSoFar += hudeRockArea;
 
-			scene.add(hugeRock);
+			scene.addEntity(hugeRock);
 		}
 	} while ((areaTakenUpSoFar / totalArea) < 0.3);
 
@@ -65,7 +65,7 @@ export default function randomLevelGenerator(scene, radius) {
 		} else {
 			const entity = createLevelEnd({ x: randomPositionForward, z: randomPositionRight });
 
-			scene.add(entity);
+			scene.addEntity(entity);
 
 			return entity;
 		}
@@ -94,7 +94,7 @@ export default function randomLevelGenerator(scene, radius) {
 				z: randomPositionRight,
 			});
 
-			scene.add(plant);
+			scene.addEntity(plant);
 
 			plantsToPlace -= 1;
 		}
