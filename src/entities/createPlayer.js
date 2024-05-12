@@ -1,6 +1,7 @@
 import {
 	Group,
 	PointLight,
+	Vector3,
 } from 'three';
 import {
 	MOUSE_X_SPEED_FACTOR,
@@ -8,6 +9,7 @@ import {
 } from '../config.js';
 import createFactorPlusMinus from '../factors/createFactorPlusMinus.js';
 import createWeaponSwayFactor from '../factors/createWeaponSwayFactor.js';
+import createBobingFactor from '../factors/createBobingFactor.js';
 import { createQuad } from '../modules/createResource.js';
 import utilClamp from '../utils/utilClamp.js';
 import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
@@ -38,9 +40,12 @@ export default function createPlayer({ onLevelEnded }) {
 
 	const refEyes = new Group();
 
+	const head = new Group();
+	head.add(refEyes);
+
 	const neck = new Group();
 	neck.position.set(0, 1.8, 0);
-	neck.add(refEyes);
+	neck.add(head);
 	neck.add(weaponBobing);
 
 	const body = new Group();
@@ -63,6 +68,11 @@ export default function createPlayer({ onLevelEnded }) {
 		factorOfContring: 16,
 	});
 
+	const bobingFactor = createBobingFactor({
+		amplitude: 0.1,
+		frequency: 30,
+		resetingPositionSpeed: 10,
+	});
 	const weaponSwayFactor = createWeaponSwayFactor({
 		multiplier: 6,
 		smooth: 0.1,
@@ -108,7 +118,8 @@ export default function createPlayer({ onLevelEnded }) {
 				shouldGoToPlus: isForwardHolded,
 			}) * (isForwardHolded ? 0.3 : 0.1);
 
-			if (forwardFactor);
+			const shouldBob = isForwardHolded || isStepRightHolded || isStepLeftHolded;
+			bobingFactor.update(head, shouldBob, deltaTimeSeconds);
 
 			const sidestepFactor = factorSidestepLeftRight.update(deltaTimeSeconds, {
 				shouldGoToMinus: isStepRightHolded,
