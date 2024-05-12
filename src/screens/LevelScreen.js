@@ -209,7 +209,7 @@ export default function LevelScreen({ levelNumber, onLevelEnded, onAbort, onRelo
 
 				const deltaTimeMilliseconds = deltaTimeSeconds * 1000;
 				const fps = Math.round(1000 / deltaTimeMilliseconds);
-				fpsApiRef.current.alternateToNumber(`FPS ${fps}`);
+				// fpsApiRef.current.alternateToNumber(`FPS ${fps}`);
 			},
 			onLevelEnded({ endedLevel }) {
 				onLevelEnded(endedLevel);
@@ -251,7 +251,7 @@ export default function LevelScreen({ levelNumber, onLevelEnded, onAbort, onRelo
 					className: theme.distanceHolder,
 					apiRef: distanceApiRef,
 				}),
-				h('div',
+				/* h('div',
 					{ className: theme.topLeftCorner },
 					h(CountDisplay, {
 						charactersCount: 7,
@@ -259,7 +259,7 @@ export default function LevelScreen({ levelNumber, onLevelEnded, onAbort, onRelo
 						shouldAlignToRight: false,
 						apiRef: fpsApiRef,
 					}),
-				),
+				), */
 			],
 		)
 	);

@@ -7,6 +7,7 @@ import {
 	MOUSE_Y_SPEED_FACTOR,
 } from '../config.js';
 import createFactorPlusMinus from '../factors/createFactorPlusMinus.js';
+import createWeaponSwayFactor from '../factors/createWeaponSwayFactor.js';
 import { createQuad } from '../modules/createResource.js';
 import utilClamp from '../utils/utilClamp.js';
 import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
@@ -25,16 +26,22 @@ export default function createPlayer({ onLevelEnded }) {
 	spear.rotation.x = utilDegreesToRadians(-70); // make point forward
 	spear.rotation.y = utilDegreesToRadians(-45); // pochyl w kierunku gracza
 	spear.rotation.z = utilDegreesToRadians(10); // make point a little bit to the center of the screen in horizontal axis
-	spear.position.set(0.6, -0.5, -2); // move right, move down, move forward
+	spear.position.set(0.6, -0.5, -1); // move right, move down, move forward
 	spear.material.depthTest = false;
 	spear.material.depthWrite = false;
+
+	const weaponSwayer = new Group();
+	weaponSwayer.add(spear);
+
+	const weaponBobing = new Group();
+	weaponBobing.add(weaponSwayer);
 
 	const refEyes = new Group();
 
 	const neck = new Group();
 	neck.position.set(0, 1.8, 0);
 	neck.add(refEyes);
-	neck.add(spear);
+	neck.add(weaponBobing);
 
 	const body = new Group();
 	body.rotation.y = utilDegreesToRadians(180);
@@ -56,14 +63,23 @@ export default function createPlayer({ onLevelEnded }) {
 		factorOfContring: 16,
 	});
 
+	const weaponSwayFactor = createWeaponSwayFactor({
+		multiplier: 6,
+		smooth: 0.1,
+	});
 	document.body.addEventListener('mousemove', ({ movementX, movementY }) => { // TODO add destroy
+		const factorOfMovementX = movementX / window.innerWidth;
+		const factorOfMovementY = movementY / window.innerHeight;
+
+		weaponSwayFactor.accumulateFactorXY(factorOfMovementX, factorOfMovementY);
+
 		shoes.rotation.y -= movementX * MOUSE_X_SPEED_FACTOR;
 
 		const newRotationX = neck.rotation.x - movementY * MOUSE_Y_SPEED_FACTOR * -1;
 		const newRotationClampedX = utilClamp(newRotationX, PI_HALF - maxPolarAngle, PI_HALF - minPolarAngle);
 
 		neck.rotation.x = newRotationClampedX;
-	});
+	}, false);
 
 	return {
 		type: createPlayer,
@@ -85,10 +101,14 @@ export default function createPlayer({ onLevelEnded }) {
 			isStepRightHolded,
 			isActionPressed,
 		}) {
+			weaponSwayFactor.update(weaponSwayer);
+
 			const forwardFactor = factorForwardBackward.update(deltaTimeSeconds, {
 				shouldGoToMinus: isBackwardHolded,
 				shouldGoToPlus: isForwardHolded,
 			}) * (isForwardHolded ? 0.3 : 0.1);
+
+			if (forwardFactor);
 
 			const sidestepFactor = factorSidestepLeftRight.update(deltaTimeSeconds, {
 				shouldGoToMinus: isStepRightHolded,
