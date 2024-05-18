@@ -2,11 +2,19 @@ import {
 	Scene,
 	WebGLRenderer,
 	Fog,
+	// AmbientLight,
 } from 'three';
+import { RENDERING_DISTANCE } from '../config.js';
 
-export default function createScene({ camera }) {
+export default function createScene({ camera, minimapElement }) {
 	const scene = new Scene();
-	scene.fog = new Fog(0x000000, 0, 33);
+	scene.fog = new Fog(0x000000,
+		RENDERING_DISTANCE * 0.8,
+		RENDERING_DISTANCE * 0.9,
+	);
+
+	// const light = new AmbientLight(0xffffff);
+	// scene.add(light);
 
 	const renderer = new WebGLRenderer();
 	renderer.setClearColor(0x000000, 1);
@@ -72,9 +80,21 @@ export default function createScene({ camera }) {
 			// TODO search for first empty slot
 			entities.push(entity);
 			scene.add(entity.model);
+
+			if (entity.minimapSprite) {
+				minimapElement.appendChild(entity.minimapSprite);
+			}
 		},
 		addThreeObject(object) {
 			scene.add(object);
+		},
+		refreshEntityPositionOnMinimap(entity) {
+			const MAP_SIZE = 250;
+			const MAP_CENTER = MAP_SIZE * 0.5;
+			if (entity.minimapSprite) {
+				entity.minimapSprite.style.left = `${(1 - ((entity.model.position.x + MAP_CENTER) / MAP_SIZE)) * 100}%`;
+				entity.minimapSprite.style.top = `${(1 - ((entity.model.position.z + MAP_CENTER) / MAP_SIZE)) * 100}%`;
+			}
 		},
 		removeEntityAdnItsReferencesentity(entityToRemove) {
 			for (let i = 0; i < entities.length; i += 1) {
@@ -87,6 +107,10 @@ export default function createScene({ camera }) {
 
 				if (entity === entityToRemove) {
 					scene.remove(entityToRemove.model);
+
+					if (entityToRemove.minimapSprite) {
+						minimapElement.removeChild(entityToRemove.minimapSprite);
+					}
 
 					entities[i] = undefined;
 				}

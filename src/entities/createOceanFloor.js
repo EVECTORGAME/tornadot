@@ -8,10 +8,14 @@ import {
 	NearestFilter,
 } from 'three';
 import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
-import { COLOR_FLOOR } from '../config.js';
+import {
+	COLOR_FLOOR,
+	RENDERING_DISTANCE,
+} from '../config.js';
 
+// const SCALE_UP = 10;
 const MODULO = 6.2; // 6.2 dobrane empirycznie
-const OCEAN_FLOOR_RADIUS = 50; // fog range
+// const OCEAN_FLOOR_RADIUS = 500; // fog range
 const OCEAN_FLOOR_SEGMENTS_COUNT = 32;
 
 export default function createPlayer({ playerEntity }) {
@@ -21,10 +25,13 @@ export default function createPlayer({ playerEntity }) {
 	floorTexture.magFilter = NearestFilter;
 	floorTexture.wrapS = RepeatWrapping;
 	floorTexture.wrapT = RepeatWrapping;
-	floorTexture.repeat.set(16, 16);
+	floorTexture.repeat.set(
+		RENDERING_DISTANCE * 0.5,
+		RENDERING_DISTANCE * 0.5,
+	);
 
 	const floorGeometry = new CircleGeometry(
-		OCEAN_FLOOR_RADIUS,
+		RENDERING_DISTANCE,
 		OCEAN_FLOOR_SEGMENTS_COUNT,
 	);
 

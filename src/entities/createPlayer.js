@@ -14,13 +14,18 @@ import { createQuad } from '../modules/createResource.js';
 import utilClamp from '../utils/utilClamp.js';
 import utilDegreesToRadians from '../utils/utilDegreesToRadians.js';
 import createRocket from './createRocket.js';
+import createFlare from './createFlare.js';
 import createLevelEnd from './createLevelEnd.js';
+import { createMinimapSprite } from './utils.js';
 
 const PI_HALF = Math.PI * 0.5;
 const minPolarAngle = Math.PI * 0.25; // radians // uproscic
 const maxPolarAngle = Math.PI * 0.75; // radians
 
-export default function createPlayer({ onLevelEnded }) {
+export default function createPlayer({
+	onLevelEnded,
+	aimerEntity,
+}) {
 	const light = new PointLight(0xffffff, 5, 30, 0);
 	light.position.set(0, 2, 1);
 
@@ -95,6 +100,7 @@ export default function createPlayer({ onLevelEnded }) {
 		type: createPlayer,
 		model: shoes,
 		radius: 0.5,
+		minimapSprite: createMinimapSprite('p'),
 		refEyes,
 		collidesWith(other) {
 			if (other.type === createLevelEnd) {
@@ -110,32 +116,48 @@ export default function createPlayer({ onLevelEnded }) {
 			isStepLeftHolded,
 			isStepRightHolded,
 			isActionPressed,
+			isThrowFlarePressed,
 		}) {
 			weaponSwayFactor.update(weaponSwayer);
+
+			const speedFactor = isBackwardHolded ? 0.1 : 0.3;
 
 			const forwardFactor = factorForwardBackward.update(deltaTimeSeconds, {
 				shouldGoToMinus: isBackwardHolded,
 				shouldGoToPlus: isForwardHolded,
-			}) * (isForwardHolded ? 0.3 : 0.1);
+			}) * speedFactor;
 
-			const shouldBob = isForwardHolded || isStepRightHolded || isStepLeftHolded;
+			const shouldBob = !isBackwardHolded && (isForwardHolded || isStepRightHolded || isStepLeftHolded);
 			bobingFactor.update(head, shouldBob, deltaTimeSeconds);
 
 			const sidestepFactor = factorSidestepLeftRight.update(deltaTimeSeconds, {
 				shouldGoToMinus: isStepRightHolded,
 				shouldGoToPlus: isStepLeftHolded,
-			}) * 0.3;
+			}) * speedFactor;
 
-			let entitiesToAddToScene;
+			const entitiesToAddToScene = [];
 			if (isActionPressed) {
-				entitiesToAddToScene = [
+				entitiesToAddToScene.push(
 					createRocket({
 						x: body.position.x,
 						z: body.position.z,
 						rotation: body.rotation.y, // TODO reds to degreesm degrees to radds
 						shooterEntity: this,
 					}),
-				];
+				);
+			}
+
+			if (isThrowFlarePressed) {
+				const startPosition = new Vector3();
+				refEyes.getWorldPosition(startPosition);
+
+				entitiesToAddToScene.push(
+					createFlare({
+						initialPosition: startPosition.clone(),
+						destinationPosition: aimerEntity.model.position.clone(),
+						shooterEntity: this,
+					}),
+				);
 			}
 
 			return {

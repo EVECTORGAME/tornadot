@@ -6,6 +6,7 @@ import {
 } from 'three';
 import createResource from '../modules/createResource.js';
 import createSpritesheet from '../spritesheets/createSprite2.js';
+import { createMinimapSprite } from './utils.js';
 
 export default function createAndromalius({ x, z }) {
 	const [src] = createSpritesheet();
@@ -27,14 +28,44 @@ export default function createAndromalius({ x, z }) {
 
 	group.add(sprite);
 
+	// TODO new Brain()
+
 	return {
 		type: createAndromalius,
 		model: group,
 		radius: 1,
-		handleTimeUpdate(deltaTimeSeconds) { // eslint-disable-line no-unused-vars
+		minimapSprite: createMinimapSprite('A'),
+		handleTimeUpdate(deltaTimeSeconds, {
+			isInPlayerRange,
+			doSeePlayer,
+			didJustSowPlayer,
+			didBecomeOutOfRange100, // > 100
+			didBecomeInRange50, // < 50
+			didEnterIntoUnlockZone,
+		}) { // eslint-disable-line no-unused-vars
+			if (didBecomeOutOfRange100) {
+				this.minimapSprite.style.opacity = 0.5;
+
+				return;
+			}
+
+			if (didBecomeInRange50) {
+				this.minimapSprite.style.opacity = 1;
+
+				// return { messageToDisplay }
+			}
+
+			if (isInPlayerRange) {
+				// TODO rotate sprite towards player
+			}
 			//
 
-			return {};
+			return {
+				// moveTowards
+				// targetLookAtXZorEntity
+			};
+		},
+		destroy() {
 		},
 	};
 }

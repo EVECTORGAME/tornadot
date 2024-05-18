@@ -15,6 +15,8 @@ const COLOR_SCHEME = {
 	floor: '#aeba89',
 };
 
+export const RENDERING_DISTANCE = 100;
+
 export const COLOR_WATER = COLOR_SCHEME.water; // '#aeba89'; // bazowy kolor z https://colorkit.co/color/0a91ab/
 export const COLOR_FLOOR = 0x30251d; // COLOR_SCHEME.floor; // = '#5e6745'; // '#01719c';
 export const COLOR_GREEN = COLOR_SCHEME.green;

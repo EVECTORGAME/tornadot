@@ -122,7 +122,7 @@
 			function App() {
 				const [maxAccessibleLevel, setMaxAccessibleLevel] = useLocalStorageValue('max-accessible-level', 1);
 				const [levelToLoad, setLevelToload] = useState(maxAccessibleLevel);
-				const [activeItem, setActiveItem] = useState(SHOWROOM_SCREEN);
+				const [activeItem, setActiveItem] = useState(LEVEL_SCREEN);
 				const [key, reloadLevel] = useIncrement();
 
 				const handleNewGame = useCallback(() => {

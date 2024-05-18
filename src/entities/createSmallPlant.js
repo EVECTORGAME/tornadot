@@ -12,6 +12,7 @@ import utilRandomValueMinMax from '../utils/utilRandomValueMinMax.js';
 import utilRandomDegrees0360 from '../utils/utilRandomDegrees0360.js';
 import { createQuad } from '../modules/createResource.js';
 import { COLOR_GREEN } from '../config.js';
+import { createMinimapSprite } from './utils.js';
 
 export default function createSmallPlant({ x, z }) {
 	const textureLoader = new TextureLoader();
@@ -58,6 +59,7 @@ export default function createSmallPlant({ x, z }) {
 		type: createSmallPlant,
 		model: group,
 		radius: 1,
+		minimapSprite: createMinimapSprite('.'),
 		handleTimeUpdate(deltaTimeSeconds, _, cameraPosition) { // eslint-disable-line no-unused-vars
 			const direction = new Vector3();
 			direction.subVectors(group.position, cameraPosition).normalize();

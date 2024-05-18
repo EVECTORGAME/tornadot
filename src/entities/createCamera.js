@@ -4,12 +4,13 @@ import {
 	Vector3,
 	Quaternion,
 } from 'three';
+import { RENDERING_DISTANCE } from '../config.js';
 
 const FOV = 75; // TODO config.js
 const CAMERA_FRUSTRUM_NEAR_PLANE = 0.1;
-const CAMERA_FRUSTRUM_FAR_PLANE = 1000;
+const CAMERA_FRUSTRUM_FAR_PLANE = RENDERING_DISTANCE;
 
-export default function createCamera({ playerEntity }) { // TODO rename following camera
+export default function createCamera({ aimerEntity, playerEntity }) { // TODO rename following camera
 	const { innerWidth, innerHeight } = window;
 	const aspectRatio = innerWidth / innerHeight;
 
@@ -20,15 +21,12 @@ export default function createCamera({ playerEntity }) { // TODO rename followin
 		CAMERA_FRUSTRUM_FAR_PLANE,
 	);
 
-	document.addEventListener('click', () => { // TO raczej do gry
+	document.addEventListener('click', () => { // TO raczej do gry?
 		document.body.requestPointerLock();
 	});
 
 	const cameraHolder = new Group();
 	cameraHolder.add(camera);
-
-	const group = new Group();
-	group.add(cameraHolder);
 
 	const tempTargetPosition = new Vector3();
 	const tempTargetRotation = new Quaternion();
@@ -55,19 +53,17 @@ export default function createCamera({ playerEntity }) { // TODO rename followin
 				}
 			*/
 
-			group.rotation.y = playerEntity.model.rotation.y + Math.PI;
-			// camera.position.z = CAMERA_POSITION_Z;
-			// cameraHolder.position.y = CAMERA_POSITION_Y;
+			{ // set aimer position
+				const forwardVector = new Vector3(0, 0, -1); // new Vector3(0, 0, -1); // Assuming initial forward direction is along negative z-axis
+				forwardVector.applyQuaternion(cameraHolder.quaternion); // Rotate the vector according to the object's rotation
+				const distanceToY0Plane = cameraHolder.position.y / forwardVector.y; // Step 2: Calculate the distance from the object's current position to the Y=0 plane along the forward direction
+				const intersectionPoint = cameraHolder.position.clone().add(forwardVector.clone().multiplyScalar(-distanceToY0Plane)); // Step 3: Calculate the intersection point
+				aimerEntity.model.position.x = intersectionPoint.x;
+				aimerEntity.model.position.y = intersectionPoint.y;
+				aimerEntity.model.position.z = intersectionPoint.z;
+			}
 
 			return {};
 		},
-		/* collidesWith(other) {
-			if (other.type === createLevelEnd) {
-				onLevelEnded();
-				console.log('>> levelend', other);
-			} else {
-				console.log('>> collidesWith', other);
-			}
-		}, */
 	};
 }

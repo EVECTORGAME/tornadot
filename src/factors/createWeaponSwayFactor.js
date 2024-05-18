@@ -19,8 +19,8 @@ export default function createWeaponSwayFactor({
 			accumulatedFactorY += factorOfMovementY;
 		},
 		update(weaponSwayer) {
-			const rotationX = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -(accumulatedFactorY * multiplier));
-			const rotationY = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), (accumulatedFactorX * multiplier));
+			const rotationX = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), (accumulatedFactorY * multiplier));
+			const rotationY = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), -(accumulatedFactorX * multiplier));
 
 			targetRotation.multiplyQuaternions(rotationX, rotationY);
 

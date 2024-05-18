@@ -1,6 +1,8 @@
 import { h } from 'preact';
 import { useEffect, useRef, useState, useCallback } from 'preact-hooks';
+import { Vector3, Matrix4, Euler } from 'three';
 import useKeyHook from '../hooks/useKeyHook.js';
+import useKeyboard from '../hooks/useKeyboard.js';
 import createChronos from '../modules/createChronos.js';
 import createStylesheet from '../modules/createStylesheet.js';
 import createScene from '../modules/createScene.js';
@@ -10,28 +12,39 @@ import createPlayer from '../entities/createPlayer.js';
 import createCamera from '../entities/createCamera.js';
 import createOceanFloor from '../entities/createOceanFloor.js';
 import createAndromalius from '../entities/createAndromalius.js';
+import createAimer from '../entities/createAimer.js';
 import CountDisplay from '../components/CountDisplay.js';
 import { NINETY_DEGREES_IN_RADIANS } from '../constants.js';
 import MainMenuScreen from './MainMenuScreen.js';
 
-function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
+function createLevel(levelNumber, { minimapElement, onLevelEnded, onRefreshUi }) {
+	const aimerEntity = createAimer({ });
 	const playerEntity = createPlayer({
+		aimerEntity,
 		onLevelEnded() {
 			chronos.destroy();
 			onLevelEnded({ endedLevel: levelNumber });
 		},
 	});
 
-	const cameraEntity = createCamera({ playerEntity });
+	const cameraEntity = createCamera({
+		aimerEntity,
+		playerEntity,
+	});
+
 	const oceanFloor = createOceanFloor({ playerEntity });
 
-	const scene = createScene({ camera: cameraEntity.camera });
+	const scene = createScene({
+		camera: cameraEntity.camera,
+		minimapElement,
+	});
 
 	const levelRadius = 150 + (levelNumber * 50);
 
 	scene.addEntity(playerEntity);
 	scene.addEntity(cameraEntity);
 	scene.addEntity(oceanFloor);
+	scene.addEntity(aimerEntity);
 	scene.addEntity(createAndromalius({ x: 5, z: 5 }));
 
 	const { levelEnd } = randomLevelGenerator(scene, levelRadius);
@@ -57,6 +70,7 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 			} = isItPlayer ? keyboardIntegrator.current : {};
 
 			const isActionPressed = isItPlayer ? keyboardIntegrator.consumeIsPressed('Space') : false;
+			const isThrowFlarePressed = isItPlayer ? keyboardIntegrator.consumeIsPressed('KeyF') : false;
 
 			if (isItPlayer) {
 				const playerDistanceToLevelEnd = playerEntity.model.position.distanceTo(levelEnd.model.position);
@@ -104,6 +118,7 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 				isStepLeftHolded,
 				isStepRightHolded,
 				isActionPressed,
+				isThrowFlarePressed,
 			}, cameraEntity.model.position) ?? {};
 			if (moveForwardStep) {
 				scene.addPosionToObjectAtIndex(entity, moveForwardStep, 0);
@@ -113,6 +128,8 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 				scene.addPosionToObjectAtIndex(entity, moveSidesStep, NINETY_DEGREES_IN_RADIANS);
 			}
 
+			scene.refreshEntityPositionOnMinimap(entity);
+
 			if (rotationStep) {
 				entity.model.rotation.y += rotationStep;
 			}
@@ -121,7 +138,7 @@ function createLevel(levelNumber, { onLevelEnded, onRefreshUi }) {
 				entitesToDestroy.push(entity);
 			}
 
-			if (entitiesToAddToScene) {
+			if (entitiesToAddToScene?.length) {
 				entitiesToAddToScene.forEach((entityToadd) => {
 					entitesToAdd.push(entityToadd);
 				});
@@ -181,11 +198,18 @@ const theme = createStylesheet('LevelScreen', {
 		'flex-direction': 'column',
 		// transform: 'translateX(-50%)',
 	},
+	minimap: {
+		position: 'relative',
+		width: '800px',
+		height: '800px',
+		border: '1px solid orange',
+	},
 });
 
 export default function LevelScreen({ levelNumber, onLevelEnded, onAbort, onReload }) {
 	const [showPauseMenu, setShowPauseMenu] = useState();
 	const levelRef = useRef();
+	const minimapElementRef = useRef();
 
 	// setIsRunning(shouldBeRunning) {
 	const distanceApiRef = useRef();
@@ -198,8 +222,35 @@ export default function LevelScreen({ levelNumber, onLevelEnded, onAbort, onRelo
 		setShowPauseMenu(shouldBePaused);
 	}, []);
 
+	// const [menus, setMenus] = useState();
+	/* const {
+		showInventory,
+		showMap,
+		showRadarView,
+		doRealod,
+		isInvertMouse,
+	} = */
+	const keys = useKeyboard({
+		toggles: { // press cuases toggle
+			KeyE: 'showInventory',
+			KeyM: 'showMap',
+		},
+		holdes: { // active untill holded
+			KeyV: 'showRadarView',
+		},
+		presseds: {
+			KeyR: 'doRealod',
+		},
+		persistents: { // causes refresh
+			KeyI: 'isInvertMouse',
+		},
+	});
+
+	console.log('>> keys', keys);
+
 	useEffect(() => {
 		const level = createLevel(levelNumber, {
+			minimapElement: minimapElementRef.current,
 			onRefreshUi({
 				playerDistanceToLevelEnd,
 				deltaTimeSeconds,
@@ -250,6 +301,10 @@ export default function LevelScreen({ levelNumber, onLevelEnded, onAbort, onRelo
 					shouldAlignToRight: true,
 					className: theme.distanceHolder,
 					apiRef: distanceApiRef,
+				}),
+				h('div', {
+					ref: minimapElementRef,
+					className: theme.minimap,
 				}),
 				/* h('div',
 					{ className: theme.topLeftCorner },

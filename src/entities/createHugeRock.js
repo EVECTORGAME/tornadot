@@ -7,6 +7,7 @@ import {
 	NearestFilter,
 } from 'three';
 import { COLOR_ROCKS } from '../config.js';
+import { createMinimapSprite } from './utils.js';
 
 export default function createHugeRock({ x, z, radius }) {
 	const textureLoader = new TextureLoader();
@@ -27,6 +28,7 @@ export default function createHugeRock({ x, z, radius }) {
 		type: createHugeRock,
 		model: sphere,
 		radius,
+		minimapSprite: createMinimapSprite('A'),
 		handleTimeUpdate(deltaTimeSeconds) { // eslint-disable-line no-unused-vars
 			//
 
