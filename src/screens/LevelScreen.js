@@ -1,6 +1,5 @@
 import { h } from 'preact';
 import { useEffect, useRef, useState, useCallback } from 'preact-hooks';
-import { Vector3, Matrix4, Euler } from 'three';
 import useKeyHook from '../hooks/useKeyHook.js';
 import useKeyboard from '../hooks/useKeyboard.js';
 import createChronos from '../modules/createChronos.js';
@@ -12,6 +11,7 @@ import createPlayer from '../entities/createPlayer.js';
 import createCamera from '../entities/createCamera.js';
 import createOceanFloor from '../entities/createOceanFloor.js';
 import createAndromalius from '../entities/createAndromalius.js';
+import createBaseOfWitch from '../entities/createBaseOfWitch.js';
 import createAimer from '../entities/createAimer.js';
 import CountDisplay from '../components/CountDisplay.js';
 import { NINETY_DEGREES_IN_RADIANS } from '../constants.js';
@@ -39,13 +39,16 @@ function createLevel(levelNumber, { minimapElement, onLevelEnded, onRefreshUi })
 		minimapElement,
 	});
 
+	const baseOfWitch = createBaseOfWitch({ x: 30, z: 30 });
+
 	const levelRadius = 150 + (levelNumber * 50);
 
 	scene.addEntity(playerEntity);
 	scene.addEntity(cameraEntity);
 	scene.addEntity(oceanFloor);
 	scene.addEntity(aimerEntity);
-	scene.addEntity(createAndromalius({ x: 5, z: 5 }));
+	scene.addEntity(baseOfWitch);
+	scene.addEntity(createAndromalius({ x: 10, z: 10 }));
 
 	const { levelEnd } = randomLevelGenerator(scene, levelRadius);
 

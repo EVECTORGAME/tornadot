@@ -89,7 +89,7 @@ export default function createScene({ camera, minimapElement }) {
 			scene.add(object);
 		},
 		refreshEntityPositionOnMinimap(entity) {
-			const MAP_SIZE = 250;
+			const MAP_SIZE = 1000;
 			const MAP_CENTER = MAP_SIZE * 0.5;
 			if (entity.minimapSprite) {
 				entity.minimapSprite.style.left = `${(1 - ((entity.model.position.x + MAP_CENTER) / MAP_SIZE)) * 100}%`;

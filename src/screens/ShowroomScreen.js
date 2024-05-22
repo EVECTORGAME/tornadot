@@ -11,6 +11,7 @@ import createScene from '../modules/createScene.js';
 import createChronos from '../modules/createChronos.js';
 import createStaticCamera from '../entities/createStaticCamera.js';
 import createBaseOfMilki from '../entities/createBaseOfMilki.js';
+import createBaseOfWitch from '../entities/createBaseOfWitch.js';
 import createDemoHolder from '../entities/createDemoHolder.js';
 import createOceanFloor from '../entities/createOceanFloor.js';
 import createPlayer from '../entities/createPlayer.js';
@@ -34,6 +35,7 @@ const theme = createStylesheet('PlayNextScreen', {
 const NOOP = () => {};
 const ITEMS = [
 	[createBaseOfMilki, { x: 0, z: 0 }],
+	[createBaseOfWitch, { x: 0, z: 0 }],
 	[createPlayer, { onLevelEnded: NOOP }],
 	[createSmallPlant, { x: 0, z: 0 }],
 	// [createHugeRock,   { x: 0, z: 0, radius: 3 }],
@@ -56,7 +58,15 @@ export default function PlayNextScreen({ onClose }) {
 	useEffect(() => {
 		const holder = createDemoHolder({ x: 0, z: 0 });
 		const cameraEntity = createStaticCamera();
-		const scene = createScene({ camera: cameraEntity.camera });
+		const scene = createScene({
+			camera: cameraEntity.camera,
+			minimapElement: {
+				appendChild() {
+					// TODO show minimap sprite
+				},
+				removeChild() {},
+			},
+		});
 		const oceanFloor = createOceanFloor({ playerEntity: holder });
 
 		const light = new PointLight(0xffffff, 5, 30, 0);

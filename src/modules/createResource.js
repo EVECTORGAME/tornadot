@@ -8,12 +8,15 @@ import {
 	PlaneGeometry,
 	CanvasTexture,
 	DoubleSide,
+	TextureLoader,
 } from 'three';
 import utilPickRandomArrayElement from '../utils/utilPickRandomArrayElement.js';
 import { RESOURCES } from '../config.js';
 
 // RULE: 1meter has density of 32 pizels
 const PIXELS_PER_METER = 64;
+
+const textureLoader = new TextureLoader();
 
 /* TODO
 	- lot of memoization
@@ -77,22 +80,34 @@ function createTextureFromCanvas(canvas) {
 	}];
 }
 
-export function createTextureFromResource({ codename, codenameStartsWith }) {
+export function createTextureFromResource({ src, codename, codenameStartsWith }) {
+	if (src) {
+		const [, widthMeters, heightMeters] = src.match(/-(\d+)x(\d+)\.\w+$/);
+		const texture = new TextureLoader().load(src);
+
+		return [texture, {
+			widthMeters,
+			heightMeters,
+		}];
+	}
+
 	const canvas = createCanvasFromResource({ codename, codenameStartsWith });
 	const [texture, {
 		widthMeters,
 		heightMeters,
 	}] = createTextureFromCanvas(canvas);
 
-	return texture;
+	return [texture, {
+		widthMeters,
+		heightMeters,
+	}];
 }
 
-export default function createSprite({ codename, codenameStartsWith }) {
-	const canvas = createCanvasFromResource({ codename, codenameStartsWith });
+export default function createSprite({ src, codename, codenameStartsWith }) {
 	const [texture, {
 		widthMeters,
 		heightMeters,
-	}] = createTextureFromCanvas(canvas);
+	}] = createTextureFromResource({ src, codename, codenameStartsWith });
 
 	const material = new SpriteMaterial({ map: texture });
 	const sprite = new Sprite(material);
@@ -102,12 +117,11 @@ export default function createSprite({ codename, codenameStartsWith }) {
 	return sprite;
 }
 
-export function createQuad({ codename, codenameStartsWith, shouldMakeLessAffectedByLight, upscale }) {
-	const canvas = createCanvasFromResource({ codename, codenameStartsWith });
+export function createQuad({ src, codename, codenameStartsWith, shouldMakeLessAffectedByLight, upscale }) {
 	const [texture, {
 		widthMeters,
 		heightMeters,
-	}] = createTextureFromCanvas(canvas);
+	}] = createTextureFromResource({ src, codename, codenameStartsWith });
 
 	const geometry = new PlaneGeometry(widthMeters * upscale, heightMeters * upscale);
 

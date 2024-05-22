@@ -7,7 +7,6 @@ import {
 	DoubleSide,
 } from 'three';
 import { createTextureFromResource } from '../modules/createResource.js';
-import { COLOR_GREEN } from '../config.js';
 
 export default function createBaseOfMilki({ x, z }) {
 	// const textureLoader = new TextureLoader();
@@ -15,7 +14,7 @@ export default function createBaseOfMilki({ x, z }) {
 
 	const group = new Group();
 
-	const metalTexture = createTextureFromResource({ codename: 'bars' });
+	const [metalTexture] = createTextureFromResource({ codename: 'bars' });
 	metalTexture.wrapS = RepeatWrapping;
 	metalTexture.wrapT = RepeatWrapping;
 	metalTexture.repeat.set(10, 10);
@@ -23,7 +22,6 @@ export default function createBaseOfMilki({ x, z }) {
 	const geometry = new CapsuleGeometry(2);
 	const material = new MeshPhongMaterial({
 		map: metalTexture,
-		color: COLOR_GREEN,
 		transparent: true,
 		side: DoubleSide,
 		shininess: 0,
